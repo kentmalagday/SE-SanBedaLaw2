@@ -2,6 +2,13 @@ body{
     color: black;
 }
 
+.row{
+    padding-top: 20px;
+    padding-right: 80px;
+    padding-bottom: 20px;
+    padding-left: 80px;
+}
+
 .side-nav{
     border-right: 4px solid #9F9F9F;
 }

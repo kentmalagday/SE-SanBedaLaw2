@@ -12,13 +12,17 @@ body{
 }
 
 a:link, a:visited {
-    color: #7B7B7B;
+    color: #863084;
 }
 
 form{
-    font-family: 'Open Sans';
+    font-family: 'Inter';
+    font-weight: bold;
 }
 
+button{
+   background-color: #863084;"
+}
 footer{
     background-color: #2E052D; 
     color: white;

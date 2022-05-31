@@ -1,3 +1,16 @@
 body{
     color: white;
 }
+
+.sidebar {
+    position: fixed;
+}
+
+nav{
+    color: white;
+}
+
+footer{
+    background-color: #2E052D; 
+    color: white;
+}

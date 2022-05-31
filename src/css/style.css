@@ -15,6 +15,10 @@ a:link, a:visited {
     color: #7B7B7B;
 }
 
+form{
+    font-family: 'Open Sans';
+}
+
 footer{
     background-color: #2E052D; 
     color: white;

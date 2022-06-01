@@ -2,6 +2,13 @@ body{
     color: black;
 }
 
+.row{
+    padding-top: 20px;
+    padding-right: 80px;
+    padding-bottom: 20px;
+    padding-left: 80px;
+}
+
 .side-nav{
     border-right: 4px solid #9F9F9F;
 }
@@ -12,9 +19,30 @@ body{
 }
 
 a:link, a:visited {
-    color: #7B7B7B;
+    color: #863084;
 }
 
+<<<<<<< HEAD
+.btn-bg {
+    background-color: #2E052D !important;
+    border-color: #2E052D !important;
+}
+
+.btn-mar {
+    margin-right: 16px;
+    
+}
+
+=======
+form{
+    font-family: 'Inter';
+    font-weight: bold;
+}
+
+button{
+   background-color: #863084;"
+}
+>>>>>>> 04c7b86a3df45b663b5d8bab34038bfa37224959
 footer{
     background-color: #2E052D; 
     color: white;

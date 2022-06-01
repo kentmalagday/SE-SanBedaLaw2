@@ -1,0 +1,21 @@
+body{
+    color: black;
+    font-family: 'Inter'!;
+}   
+.side-nav{
+    border-right: 4px solid #9F9F9F;
+}
+
+.side-text{
+    color: #2E052D;
+}
+
+a:link, a:visited {
+    color: #7B7B7B;
+}
+
+footer{
+    background-color: #2E052D; 
+    color: white;
+}
+

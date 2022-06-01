@@ -2,123 +2,104 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Sign In</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="/src/css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Sign In</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="/src/css/style.css">
 
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #863084;">
-        <div class="container">
-            <a class="navbar-brand " href="#">
-                <img src="/src/images/nall_logo.png" width="50" height="54" />
-            </a>
-            <div class="collapse navbar-collapse" id="navbarsExample02">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page"
-                            href="https://getbootstrap.com/docs/5.2/examples/navbars/#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/5.2/examples/navbars/#">Link</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    
-    <!-- Background image -->
-    <div
-    class="bg-image"
-    style=" background-image: url('/src/images/bg_signin.png'); background-size: cover;
+
+
+  <!-- Background image -->
+  <div class="bg-image" style=" background-image: url('/src/images/bg_signin.png'); background-size: cover; background-repeat:no-repeat;
     min-height: 100vh;">
-    
+
 
     <!-- Sign In -->
     <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center  h-100" >
-          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-            <div class="card text-justified" style="border-radius: 1rem; background-color: #FBFBFB;">
-              <div class="card-body p-5 text-left">
-    
-                <div class="mb-md-5 mt-md-4 pb-5">
-                  
-                  <div class="row mb-4">
-                    <div class="col d-flex justify-content-left">
-                    <img src="src\images\nall_logo.png" width="50" height="54" />
-                    <p>Network of Academic 
+      <div class="row d-flex justify-content-center  h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card text-justified" style="border-radius: 1rem; background-color: #FBFBFB;">
+            <div class="card-body p-5 text-left">
+
+              <div class="mb-md-5 mt-md-4 pb-5">
+
+                <div class="row mb-4">
+                  <div class="col d-flex justify-content-left">
+                    <img src="/src/images/nall_logo.png" width="50" height="54" />
+                    <p>Network of Academic
                       <br>Law Librarians, Inc.</p>
                   </div>
+                </div>
+
+                <!-- Form -->
+                <form style="color: #863084;">
+
+                  <h2 class="fw-bold mb-2">Sign In</h2>
+
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" />
                   </div>
-    
-                  <!-- Form -->
-                  <form style="color: #863084;">
 
-                    <h2 class="fw-bold mb-2">Sign In</h2>
+                  <!-- Password input -->
+                  <div class="form-outline mb-4">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control" />
+                  </div>
 
-                    <!-- Email input -->
-                    <div class="form-outline mb-4">
-                    <label class="form-label" >Email address</label>
-                      <input type="email" class="form-control" />
-                    </div>
-        
-                    <!-- Password input -->
-                    <div class="form-outline mb-4">
-                      <label class="form-label" >Password</label>
-                      <input type="password" class="form-control" />
-                    </div>
-        
-                    <!-- 2 column grid layout for inline styling -->
-                    <div class="row mb-4 justify-content-between">
-                      <div class="col d-flex ">
-                        <!-- Checkbox -->
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" value="" checked />
-                          <label class="form-check-label" > Remember me </label>
-                        </div>
-
-                      </div>
-        
-                      <div class="col">
-                        <!-- Forgot Password -->
-                        <a href="#!">Forgot password?</a>
+                  <!-- 2 column grid layout for inline styling -->
+                  <div class="row mb-4 justify-content-between">
+                    <div class="col d-flex ">
+                      <!-- Checkbox -->
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" checked />
+                        <label class="form-check-label"> Remember me </label>
                       </div>
 
-                       <!-- Submit button -->
+                    </div>
+
+                    <div class="col">
+                      <!-- Forgot Password -->
+                      <a href="#!">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit button -->
                     <button type="button" class="btn btn-primary btn-block mb-4 ">Sign in</button>
-                    </div>
-        
-                   
-        
-                  </form>
-                        
-                </div>
-    
-                <div>
-                  <p class="mb-0 text-center">Having Troubles? <a href="#!" class="text-center fw-bold">Contact Us</a>
-                  </p>
-                </div>
-    
+                  </div>
+
+
+
+                </form>
+
               </div>
+
+              <div>
+                <p class="mb-0 text-center">Having Troubles? <a href="#!" class="text-center fw-bold">Contact Us</a>
+                </p>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
-      <!-- End of Sign In -->
-
     </div>
+    <!-- End of Sign In -->
 
   </div>
-     <!-- End of Background image -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
-    </script>
+  </div>
+  <!-- End of Background image -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+  </script>
 </body>
 
 </html>

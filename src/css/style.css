@@ -15,6 +15,16 @@ a:link, a:visited {
     color: #7B7B7B;
 }
 
+.btn-bg {
+    background-color: #2E052D !important;
+    border-color: #2E052D !important;
+}
+
+.btn-mar {
+    margin-right: 16px;
+    
+}
+
 footer{
     background-color: #2E052D; 
     color: white;

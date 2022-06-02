@@ -38,6 +38,7 @@ a:link, a:visited {
     }
     .navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
       border-right: 2px solid #000000;
+      
     }
   }
 
@@ -89,7 +90,12 @@ a:link, a:visited {
     z-index: 1;
   }
   
+/* SEARCH */
 
- 
+.input-group.md-form.form-sm.form-1 input{
+  border: 1px solid #bdbdbd;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
   
 

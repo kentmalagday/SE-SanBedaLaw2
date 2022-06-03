@@ -27,77 +27,66 @@
 
 
     <!-- Sign In -->
-    <div class="container py h-100">
+    <div class="container asignin py h-100">
         <div class="row d-flex justify-content-center  h-100" >
           <div class="col-12 col-md-8 col-lg-6 col-xl-5 mt-xl-5">
             <div class="card text-justified" style="border-radius: 1rem; background-color: #FBFBFB;">
               <div class="card-body p-5 text-left">
-    
+                
+                <!-- bgimg -->
                 <div class="mb-md-4 md-4 mt-0 pb-3">
                   
-                  <div class="row mb-2">
-                    <div class="col d-flex justify-content-left">
-                    <img src="/src/images/nall_logo.png" class="img-thumbnail"  width="45" height="45" />
-                    <p>Network of Academic 
-                      <br>Law Librarians, Inc.</p>
+                  <!-- logo -->
+                  <div class="container g-0" >
+                      <div class="row px-0 mx-0">
+                        <div class="col-3 p-0">
+                          <img src="/src/images/nall_logo.png" class="img-thumbnail"  width="45" height="45" />
+                        </div>
+                        <div class="col-9 p-0">
+                          <p><b>Network of Academic 
+                            <br>Law Librarians, Inc.</p></b>
+                        </div>
+                      </div>
                   </div>
-                </div>
+
+
 
                 <!-- Form -->
                 <form style="color: #863084;">
 
-                  <h2 class="fw-bold mb-2">Sign In</h2>
-
+                  <h2 class="fw-bold mb-2 mt-2">Sign In</h2>
                   <!-- Email input -->
                   <div class="form-outline mb-4">
-                    <label class="form-label">Email address</label>
-                    <input type="email" class="form-control" />
+                      <label class="form-label">Email address</label>
+                      <input type="email" class="form-control" />
                   </div>
 
                   <!-- Password input -->
                   <div class="form-outline mb-4">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control" />
-                  </div>
-    
-                  <!-- Form -->
-                  <form style="color: #863084;" >
-
-                    <h2 class="fw-bold mb-2 mt-4">Sign In</h2>
-
-                    <!-- Email input -->
-                    <div class="form-outline mb-2">
-                    <label class="form-label" >Email address</label>
-                      <input type="email" class="form-control" />
-                    </div>
-        
-                    <!-- Password input -->
-                    <div class="form-outline mb-4">
-                      <label class="form-label" >Password</label>
+                      <label class="form-label">Password</label>
                       <input type="password" class="form-control" />
-                    </div>
-        
-                        <!-- 2 column grid layout for inline styling -->
-                        <div class="row mb-4 justify-content-between">
-                          <div class="col d-flex ">
-                            <!-- Checkbox -->
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" checked />
-                              <label class="form-check-label" > Remember me </label>
-                            </div>
-    
-                          </div>
-            
-                          <div class="col">
-                            <!-- Forgot Password -->
-                            <a href="#!">Forgot password?</a>
-                          </div>
-    
-                           <!-- Submit button -->
-                        <button type="button" class="btn btn-primary btn-block mb-4 mt-4 ">Sign in</button>
-                        </div>
-        
-                  </form>
+                  </div>
+
+                  <!-- 2 column grid layout for inline styling -->
+                  <div class="row m-0 p-0 justify-content-between">
+                      <div class="col d-flex">
+                      <!-- Remember Me -->
+                      <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" checked />
+                          <label class="form-check-label" for=""> Remember me </label>
+                      </div>
+                      </div>
+                      
+                      <!-- Forgot Password -->
+                      <div class="col">
+                          <a href="#!" class="">Forgot password?</a>
+                      </div>
+      
+                  <!-- Submit button -->
+                  <button type="button" class="btn btn-primary btn-block mb-4 mt-5">Sign in</button>
+
+                  </div>
+              </form>
                         
                 </div>
     

@@ -1,102 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome</title>
-        <link rel="icon" href="/src/images/nall_logo.png">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="icon" href="/src/images/nall_logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
-    
-      <link rel="stylesheet" href="/src/css/style.css">
-    </head>
-    
-    <body class="d-flex flex-column min-vh-100">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/src/css/style.css">
+</head>
+
+<body class="d-flex flex-column h-100">
     <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #863084;">
-            <div class="container">
-                <i class="fas fa-bars"></i>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <a class="navbar-brand " href="#">
-                    <img src="/src/images/nall_logo.png" width="50" height="54" />
-                </a>
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <nav class="navbar navbar-expand-xl navbar-dark" style="background-color: #863084"
+    aria-label="Sixth navbar example">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/src/user-page/user_index.html" style="margin-left: 3%;">
+            <img src="/src/images/nall_logo.png" width="50" height="54" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
+            aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+<<<<<<< HEAD
+        <div class="collapse navbar-collapse" id="navbarsExample06">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">About Us</a>
+                    <a href="/src/user-page/aboutus.html" class="nav-link active">About Us</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Contact Us</a>
+                    <a href="/src/user-page/contactus.html" class="nav-link active">Contact Us</a>
                 </li>
+            </ul>
+=======
+            <div class="collapse navbar-collapse" id="navbarsExample06">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/src/user-page/aboutus.html" class="nav-link active">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/src/user-page/contactus.html" class="nav-link active">Contact Us</a>
+                    </li>
+                </ul>
+>>>>>>> 0845b32f5e1d460de2fc45ffe47d75ea973b8159
 
-              </ul>
-         
-                <div class="collapse navbar-collapse" id="navbarsExample02">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                href="https://getbootstrap.com/docs/5.2/examples/navbars/#">My Account</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    <!-- NAVBAR -->
-     
-        <!--VIOLET PART-->
-        <header class="p-4 text-white" style="background-color: #2E052D;">
-            <div class="container d-flex flex-wrap align-items-center justify-content-center">
-                <div>
-                    <img src="/src/images/nall_logo.png" width="50" height="54" />
-                </div>
-                <div class="px-3 text-center text-white">Legal Education Board <br>
-                    Network of Academic Law Librarians, Inc.
-                </div>
-                <span>
-                    <hr></span>
-                <div>
-                    <img src="/src/images/nall_logo2.png" width="50" height="54" />
-                </div>
-            </div>
-        </header>
-        <!--VIOLET PART-->
-
-        <!--LOGO AND TITLE-->
-        <div class="container py h-100">
-            <div class="row d-flex g-0 h-100" >
-            
-            <div class="col justify-content-end">
-              
-                <img class="d-block mx-auto mb-2" src="/src/images/nall_logo.png" alt="" width="111px"
-                            height="116px">
-
-            </div>
-
-            <div class="col">
-                <p style="font-size: 36px;" class="justify-content-center">A Gateway to Open Access <br>Legal Resources in the Philippines </p>
-            </div>
-
-          </div>
-
-        <!--SEARCH BAR-->
-          <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-            <i class="fas fa-search" aria-hidden="true"></i>
-            <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-            aria-label="Search">
-        </form>
-        
+            <ul class="navbar-nav ms-auto mb-2 mb-xl-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">My Account</a>
+                </li>
+            </ul>
         </div>
+    </div>
+    </nav>
+    <!-- NAVBAR -->
 
-     
+    <!--VIOLET PART-->
+    <header class="p-4 text-white" style="background-color: #2E052D;">
+        <div class="container d-flex flex-wrap align-items-center justify-content-center">
+            <div>
+                <img src="/src/images/nall_logo.png" width="50" height="54" />
+            </div>
+            <div class="px-3 text-center text-white">Legal Education Board <br>
+                Network of Academic Law Librarians, Inc.
+            </div>
+            <span>
+                <hr></span>
+            <div>
+                <img src="/src/images/nall_logo2.png" width="50" height="54" />
+            </div>
+        </div>
+    </header>
+    <!--VIOLET PART-->
 
-     
+    <!--LOGO AND TITLE-->
+    <div class="container py-5 h-100">
+        <div class="container d-flex flex-wrap align-items-center justify-content-center">
+            <div>
+                <img class="float-left mx-auto mb-2" src="/src/images/nall_logo.png" alt="" width="" height="116px">
+            </div>
+            <div>
+                <p style="font-size: 36px; padding-left: 3rem;" class="text-center">A Gateway to Open Access
+                    <br>Legal Resources in the
+                    Philippines </p>
+            </div>
+        </div>
+    </div>
 
-        
+    <!--SEARCH BAR-->
+    <div class="container">
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                    </path>
+                </svg>
+            </span>
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <div class="d-flex flex-wrap mt-2">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
+            </div>
+            <div class="text-end">
+                <h5>Advance Search</h5>
+            </div>     
+        </div>
+    </div>
 
+
+
+    <!--Javascipt-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
 
 </body>
+
 </html>

@@ -91,7 +91,7 @@ a:link, a:visited {
     z-index: 1;
   }
   
-/* SEARCH */
+/* Search */
 
 .input-group.md-form.form-sm.form-1 input{
   border: 1px solid #bdbdbd;
@@ -100,3 +100,50 @@ a:link, a:visited {
 }
   
 
+/* About Us */
+.about p{
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: justify;
+  
+}
+
+.about h3{
+  font-family: 'Open Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 27px;
+color: #2E052D;
+}
+
+/* Contact Us */
+.maintxt {
+  position: relative;
+}
+.maintxt > img, .overlay-text {
+  position: absolute;
+}
+.overlay-text {
+  padding: 150px 50px;
+  font-family: 'Open Sans';
+  text-align: center;
+  color: #2E052D;
+  font-weight: bolder;
+  font-size: 65px;
+  line-height: 79px;
+}
+
+.maintxt img{
+  background: linear-gradient(0deg, rgba(222, 222, 222, 0.3), rgba(222, 222, 222, 0.3));
+}
+
+.contact dt{
+text-align: right;
+}
+.contact dd{
+  text-align: left;
+  }

@@ -77,8 +77,8 @@ a:link, a:visited {
     min-height: 100vh;
     display: block;
     background-color: #f7f7f7;
-    padding: 173px 55px 55px 55px;
-    color: #2E052D;
+    padding: 55px 55px 55px 55px;
+    color: #2E052D;"
   }
 
 
@@ -91,7 +91,7 @@ a:link, a:visited {
     z-index: 1;
   }
   
-/* SEARCH */
+/* Search */
 
 .input-group.md-form.form-sm.form-1 input{
   border: 1px solid #bdbdbd;
@@ -99,4 +99,52 @@ a:link, a:visited {
   border-bottom-right-radius: 0.25rem;
 }
   
+
+/* About Us */
+.about p{
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: justify;
+  
+}
+
+.about h3{
+  font-family: 'Open Sans';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 27px;
+color: #2E052D;
+}
+
+/* Contact Us */
+
+.bgimage {
+  width:100%;
+  height: 324px;
+  background: linear-gradient(0deg, rgba(222, 222, 222, 0.3), rgba(222, 222, 222, 0.3)), url('/src/images/contact_us.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
+  background-attachment: fixed;
+}
+.bgimage h5 {
+  padding: 150px 50px;
+  font-family: 'Open Sans';
+  text-align: center;
+  color: #2E052D;
+  font-weight: bolder;
+  font-size: 65px;
+  line-height: 79px;
+}
+
+.contact dt{
+text-align: right;
+}
+.contact dd{
+text-align: left;
+  }
 

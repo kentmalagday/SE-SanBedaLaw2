@@ -19,6 +19,29 @@ footer{
     color: white;
 }
 
+.tbox{
+    border: 1.5px solid #E2E6EB;
+    width:550px;
+    border-radius: 13px;
+    border-color:#7B7B7B;
+}
+
+  ul{
+    display: inline-block;
+    list-style: none;
+    font-size: 20px;
+  }
+  
+  body ul:nth-child(2){
+    font-size: 20px;
+  }
+ 
+  
+  
+  li{
+    /*indirectly sets a uniform baseline, the value is arbitrary*/
+    height: 70px;  
+  }
 
  
 

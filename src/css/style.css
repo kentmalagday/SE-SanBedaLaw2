@@ -2,16 +2,10 @@ body {
   color: black;
 }
 
-/* .row{ */
-    /* padding-top: 20px; */
-    /* padding-right: 80px; */
-    /* padding-bottom: 20px; */
-    /* padding-left: 80px; */
-/* } */
-
 /* iframes separator */
 .frame-side{
   margin-right:10px;
+  position:relative;
 }
 .clear{
   clear:both;
@@ -23,20 +17,14 @@ body {
   border-radius: 2px;
   height: 500px;
 }
+
 .side-text{
-  font-family: 'Open Sans';
+  color: #2E052D;
+  font-size: 20px;
 }
 
-.side-text a:link{
-color: #7B7B7B;
-}
-
-.side-text a:hover{
-color:#2E052D;
-}
-
-.side-text a:active{
-color:#2E052D;
+a:link, a:visited {
+  color: #7B7B7B;
 }
 
 .btn {

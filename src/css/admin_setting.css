@@ -4,11 +4,14 @@ body{
 }  
  /*nav bar */
 .side-nav{
-    border-right: 4px solid #9F9F9F;
+    border-right: 1px solid #9F9F9F;
+    border-radius: 2px;
+    height: 500px;
 }
 
 .side-text{
     color: #2E052D;
+    font-size: 20px;
 }
 
 a:link, a:visited {

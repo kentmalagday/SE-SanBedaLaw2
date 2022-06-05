@@ -11,8 +11,7 @@ body {
 
 /* iframes separator */
 .frame-side{
-  float:left;
-  margin-right:20px;
+  margin-right:10px;
 }
 .clear{
   clear:both;
@@ -20,32 +19,29 @@ body {
 
 /* side navigation */
 .side-nav{
-    border-right: 2px solid #9F9F9F;
-    height: 100%;
-    border-radius: 2px;
+  border-right: 1px solid #9F9F9F;
+  border-radius: 2px;
+  height: 500px;
 }
-
 .side-text{
-    font-family: 'Open Sans';
-    color: #7B7B7B;
+  font-family: 'Open Sans';
 }
 
 .side-text a:link{
-  color: #7B7B7B;
-
+color: #7B7B7B;
 }
 
 .side-text a:hover{
-  color:#2E052D;
+color:#2E052D;
 }
 
 .side-text a:active{
-  color:#2E052D;
+color:#2E052D;
 }
 
 .btn {
-    background: #2E052D;
-  }
+  background: #2E052D;
+}
   
 
 /* footer */
@@ -91,7 +87,7 @@ input[type=text]:focus{
   position: absolute;
   left: 0px;
   top: 105px;
-  padding: 9px 75px;
+  padding: 20px 300px;
 }
 
 .search-bar button{
@@ -112,7 +108,7 @@ table,th,td{
     border-right: 2px solid #000000;
 
   }
-}
+
 
 /* user login */
 
@@ -151,8 +147,6 @@ table,th,td{
   background-color: #f7f7f7;
   padding: 55px 55px 55px 55px;
   color: #2E052D;
-  "
-
 }
 
 

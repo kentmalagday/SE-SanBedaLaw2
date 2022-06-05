@@ -1,7 +1,8 @@
 body{
     color: black;
     font-family: 'Inter'!;
-}   
+}  
+ /*nav bar */
 .side-nav{
     border-right: 4px solid #9F9F9F;
 }
@@ -13,35 +14,37 @@ body{
 a:link, a:visited {
     color: #7B7B7B;
 }
-
+/* footer */
 footer{
     background-color: #2E052D; 
     color: white;
 }
 
-.tbox{
-    border: 1.5px solid #E2E6EB;
-    width:550px;
-    border-radius: 13px;
-    border-color:#7B7B7B;
+.long{
+  padding-right:40px;
 }
 
-  ul{
-    display: inline-block;
-    list-style: none;
-    font-size: 20px;
-  }
-  
-  body ul:nth-child(2){
-    font-size: 20px;
-  }
- 
-  
-  
-  li{
-    /*indirectly sets a uniform baseline, the value is arbitrary*/
-    height: 70px;  
-  }
+p{
+  padding-right:70px;
+  font-size:18;
+  margin-top:10px;
+  margin-left: 5%;
+  margin-bottom: -10px;
+}
+.inputs{
+  border: 0;
+  font-size: 25;
+  height:40px;
+  margin-bottom: -10px;
+}
 
+.btn{
+  color:#863084;
+  font-size:16;
+  border-radius: 0%;
+  margin-right: 5%;
+  margin-bottom: -10px;
+  
+}
  
 

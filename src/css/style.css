@@ -37,6 +37,11 @@ a:link, a:visited {
  footer{
      background-color: #2E052D; 
      color: white;
+     position: fixed;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+
  }
 
   /*view repository*/

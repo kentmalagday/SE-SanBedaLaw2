@@ -1,5 +1,6 @@
 from flask import Flask, redirect, render_template, request, url_for, session
-from main import *
+from firebase_config import *
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -14,16 +15,21 @@ def signUpPage():
         email = request.form["email"]
         password = request.form["password"]
         cpassword = request.form["cpassword"]
-        if password != cpassword:
+        if password != cpassword:       #password must match
             print("password mismatch")
             return render_template('/user-page/user_signup.html')
-        elif len(password) < 8:
+        elif len(password) < 8:         #password must be greater than 8
             print("password not beyond 8")
             return render_template('/user-page/user_signup.html')
         try:
-            new_user = auth.create_user_with_email_and_password(email, password)
+            new_user = auth.create_user_with_email_and_password(email, password)       #create user through Authentication in Firebase
+            data = {"userId" : new_user['localId'],                                      #create json format for user info
+                    "fullName" : fullName,
+                    "institution" : institution,
+                    "email" : email}
+            db.child('users').set(data)                                     #add formatted data to Realtime DB
         except:
-            existing_account = "Email in use"
+            existing_account = "Email in use"                                           #catch error if email is used already
             print(existing_account)
             return render_template('/user-page/user_signup.html')
         return redirect(url_for("indexPage"))

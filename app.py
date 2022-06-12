@@ -1,0 +1,50 @@
+from flask import Flask, redirect, render_template, request, url_for, session
+from main import *
+app = Flask(__name__)
+
+@app.route('/')
+def indexPage():
+    return render_template('/user-page/user_index.html')
+
+@app.route('/signup', methods=["POST", "GET"])
+def signUpPage():
+    if request.method == "POST":
+        fullName = request.form["fullName"]
+        institution = request.form["institution"]
+        email = request.form["email"]
+        password = request.form["password"]
+        cpassword = request.form["cpassword"]
+        if password != cpassword:
+            print("password mismatch")
+            return render_template('/user-page/user_signup.html')
+        elif len(password) < 8:
+            print("password not beyond 8")
+            return render_template('/user-page/user_signup.html')
+        try:
+            new_user = auth.create_user_with_email_and_password(email, password)
+        except:
+            existing_account = "Email in use"
+            print(existing_account)
+            return render_template('/user-page/user_signup.html')
+        return redirect(url_for("indexPage"))
+    else:
+        return render_template('/user-page/user_signup.html')
+
+@app.route('/signin', methods=["POST", "GET"])
+def signInPage():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        try:
+            login = auth.sign_in_with_email_and_password(email, password)
+            print(login['localId'])
+            return redirect(url_for('indexPage'))
+        except:
+            invalid_cred = "Invalid credentials"
+            print(invalid_cred)
+            return render_template('/user-page/user_signin.html')
+    else:
+        return render_template('/user-page/user_signin.html')
+
+if __name__ == "__main__":
+    app.run(debug=True)

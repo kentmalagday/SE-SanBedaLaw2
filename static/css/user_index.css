@@ -1,0 +1,40 @@
+/* advanced search-dropwdown */
+.fa-customize{
+    color:rgba(115, 115, 115, 1);
+    font-size:25px;
+    -webkit-text-stroke: 0.5px white;
+  }
+  
+  .drop:focus{
+      border-radius: 0;
+      border:0;
+  }
+  .drop:hover{
+      border-radius: 0;
+      border:0;
+  }
+  .drop:active{
+      border-radius: 0;
+      border:0;
+  }
+  .drop:inactive{
+    border-radius: 0;
+    border:0;
+    }
+  .drop{
+      border:0;
+  }
+  .dropdown-menu{
+      padding-left:10px;
+      border:0;
+      width:500px;
+  }
+  label{
+      padding-right: 20px;
+  }
+
+  input[type="checkbox"]:checked{
+      background-color: rgba(134, 48, 132, 1);
+  }
+/* advanced search-dropwdown -END*/
+

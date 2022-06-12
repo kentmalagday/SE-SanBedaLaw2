@@ -1,0 +1,37 @@
+body{
+    color: black;
+    font-family: 'Inter'!;
+}  
+ /*nav bar */
+.side-nav{
+    border-right: 1px solid #9F9F9F;
+    border-radius: 2px;
+    height: 500px;
+}
+
+.side-text{
+    color: #2E052D;
+    font-size: 20px;
+}
+
+a:link, a:visited {
+    color: #7B7B7B;
+}
+/* footer */
+footer{
+    background-color: #2E052D; 
+    color: white;
+}
+
+  .contactus{
+      color:rgba(46, 5, 45, 1);
+  }
+
+  .contact dt {
+    text-align: right;
+  }
+  
+  .contact dd {
+    text-align: left;
+  }
+

@@ -1,0 +1,257 @@
+body {
+  color: black;
+}
+
+/* iframes separator */
+.frame-side{
+  margin-right:10px;
+  position:relative;
+}
+.clear{
+  clear:both;
+}
+
+/* side navigation */
+.side-nav{
+  border-right: 1px solid #9F9F9F;
+  border-radius: 2px;
+  height: 500px;
+}
+
+.side-text{
+  color: #2E052D;
+  font-size: 20px;
+}
+
+a:link, a:visited {
+  color: #7B7B7B;
+}
+
+.btn {
+  background: #2E052D;
+}
+  
+
+/* footer */
+  
+ footer{
+     background-color: #2E052D; 
+     color: white;
+
+ }
+
+  /*view repository*/
+    /* search bar*/
+.h1{
+    text-align: center;
+    color: #2E052D;
+    font-family: 'Open Sans';
+    font-size: 30px;
+}
+
+.search-bar{
+  text-align: center;
+}
+
+input[type=text]{
+  width: 50%;
+  border: 2px solid #9F9F9F;
+  border-radius: 20px;
+  margin: 8px 0;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: .3s;
+}
+
+input[type=text]:focus{
+  border-color:#2E052D;
+}
+
+.search-bar input[type=text]{
+  padding-left: 40px;
+  position:relative;
+}
+
+.search-bar i{
+  position: absolute;
+  left: 0px;
+  top: 105px;
+  padding: 20px 300px;
+}
+
+.search-bar button{
+  color: white;
+  font-family: 'Open Sans';
+}
+
+/* Table */
+table,th,td{
+  padding: 30px 60px;
+  border: 2px solid #9F9F9F;
+  font-family: 'Open Sans';
+  text-align: center;
+}
+
+
+  .navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+    border-right: 2px solid #000000;
+
+  }
+
+
+/* user login */
+
+.limiter-login {
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.container-login {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: #f2f2f2;
+}
+
+
+.wrap-login {
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  flex-direction: row-reverse;
+
+}
+
+.login-form {
+  width: 560px;
+  min-height: 100vh;
+  display: block;
+  background-color: #f7f7f7;
+  padding: 55px 55px 55px 55px;
+  color: #2E052D;
+}
+
+
+.login-img {
+  width: calc(100% - 560px);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
+
+/* admin sign in */
+
+.asignin form {
+  font-family: 'Inter';
+}
+
+.asignin form h2 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 22px;
+}
+.asignin form label, a,p {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+
+/* Search */
+
+.input-group.md-form.form-sm.form-1 input {
+  border: 1px solid #bdbdbd;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+
+/* About Us */
+.about p {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 20px;
+  text-align: justify;
+
+}
+
+.about h3 {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 27px;
+  color: #2E052D;
+}
+
+/* Contact Us */
+
+.bgimage {
+  width: 100%;
+  height: 324px;
+  background: linear-gradient(0deg, rgba(222, 222, 222, 0.3), rgba(222, 222, 222, 0.3)), url('/src/images/contact_us.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.bgimage h5 {
+  padding: 150px 50px;
+  font-family: 'Open Sans';
+  text-align: center;
+  color: #2E052D;
+  font-weight: bolder;
+  font-size: 65px;
+  line-height: 79px;
+}
+
+.contact dt {
+  text-align: right;
+}
+
+.contact dd {
+  text-align: left;
+}
+
+/* full-view */
+
+.arttitle{
+  text-align: left;
+  font-family: 'Open Sans';
+  font-size: 20px;
+  padding:15px;
+  line-height: 25px; 
+}
+.artvalue{
+  text-align: left;
+  font-family: 'Open Sans';
+  font-size: 20px;
+  padding:15px;
+  column-width:80%;
+  line-height: 25px; 
+}
+
+.btnFV{
+  width: 177px;
+  height: 40px;
+  margin:25px;
+  margin-bottom: 100px;
+  column-span: all;
+  align:right;
+}

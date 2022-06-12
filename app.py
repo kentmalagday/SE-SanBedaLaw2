@@ -3,6 +3,8 @@ from firebase_config import *
 
 app = Flask(__name__)
 
+
+#routes to user/client side
 @app.route('/')
 def indexPage():
     return render_template('/user-page/user_index.html')
@@ -51,6 +53,33 @@ def signInPage():
             return render_template('/user-page/user_signin.html')
     else:
         return render_template('/user-page/user_signin.html')
+    
+@app.route('/account/settings')
+def settingsPage():
+    return render_template('/user-page/user_settings.html')
+
+@app.route('/account/help')
+def helpPage():
+    return render_template('/user-page/user_help.html')
+
+@app.route('/article')
+def articlePage():
+    return render_template('/user-page/user_fullview.html')
+
+@app.route('/search')
+def searchArticlePage():
+    return render_template('/user-page/search_result.html')
+
+@app.route('/contact-us')
+def contactPage():
+    return render_template('/user-page/contactus.html')
+
+@app.route('/about-us')
+def aboutUsPage():
+    return render_template('/user-page/aboutus.html')
+
+
+#routes to admin-side
 
 if __name__ == "__main__":
     app.run(debug=True)

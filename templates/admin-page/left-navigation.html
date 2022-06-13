@@ -8,16 +8,16 @@
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
-    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
         <div class="side-nav p-4" style="background-color:white;">
             <div class="side-text p-5" style="font-size:20px;">
-                <a href="1view repository.html" class="nav-link" target="right">View Repository</a> <br>
+                <a href="/admin/view-repository" class="nav-link" target="right">View Repository</a> <br>
                 <!-- <a href="2article proposals.html" class="nav-link" target="right">Article Proposals</a> <br> -->
                 <!-- <a href="3approved proposals.html" class="nav-link" target="right">Approved Proposals</a> <br> -->
-                <a href="4access requests.html" class="nav-link" target="right">Access Requests</a> <br>
+                <a href="/admin/access-requests" class="nav-link" target="right">Access Requests</a> <br>
                 <!-- <a href="5access List.html" class="nav-link" target="right">Access List</a> <br> -->
                 <!-- <a href="6userandadminlist.html" class="nav-link" target="right">User and Admin List</a> -->
             </div>

@@ -13,7 +13,7 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
     
-      <link rel="stylesheet" href="/src/css/style.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 
 </head>
@@ -22,7 +22,7 @@
     <!-- Background image -->
     <div
     class="bg-image"
-    style=" background-image: url('/src/images/bg_signin.png'); background-size: cover;
+    style=" background-image: url('{{ url_for('static', filename='images/bg_signin.png') }}); background-size: cover;
     min-height: 100vh;">
 
 
@@ -40,7 +40,7 @@
                   <div class="container g-0" >
                       <div class="row px-0 mx-0">
                         <div class="col-3 p-0">
-                          <img src="/src/images/nall_logo.png" class="img-thumbnail"  width="45" height="45" />
+                          <img src="{{ url_for('static', filename='images/nall_logo.png') }}" class="img-thumbnail"  width="45" height="45" />
                         </div>
                         <div class="col-9 p-0">
                           <p><b>Network of Academic 
@@ -52,7 +52,7 @@
 
 
                 <!-- Form -->
-                <form style="color: #863084;">
+                <form style="color: #863084;" method="post">
 
                   <h2 class="fw-bold mb-2 mt-2">Sign In</h2>
                   <!-- Email input -->
@@ -83,7 +83,7 @@
                       </div>
       
                   <!-- Submit button -->
-                  <button type="button" class="btn btn-primary btn-block mb-4 mt-5">Sign in</button>
+                  <button type="submit" class="btn btn-primary btn-block mb-4 mt-5">Sign in</button>
 
                   </div>
               </form>

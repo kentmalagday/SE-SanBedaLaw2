@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 #routes to user/client side
 @app.route('/')
+@app.route('/index')
 def indexPage():
     return render_template('/user-page/user_index.html')
 

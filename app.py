@@ -48,14 +48,15 @@ def signUpPage():
             return render_template('/user-page/user_signup.html')
         try:
             #create user through Authentication in Firebase
-            new_user = auth.create_user_with_email_and_password(email, password)       
+            new_user = auth.create_user_with_email_and_password(email, password)
+            auth.send_email_verification(new_user['idToken'])
             data = {"fullName" : fullName,
                     "institution" : institution,
                     "email" : email,
                     "admin" : False}
             db.child('users').child(new_user['localId']).set(data)                                     #add formatted data to Realtime DB
         except:
-            existing_account = "Email in use"                                           #catch error if email is used already
+            existing_account = "Error in sign-up"                                           #catch error if email is used already
             print(existing_account)
             return render_template('/user-page/user_signup.html')
         return redirect(url_for("signInPage"))
@@ -69,6 +70,7 @@ def signInPage():
         password = request.form["password"]
         try:
             login = auth.sign_in_with_email_and_password(email, password)
+            print(login['idToken'])
             user = db.child('users').child(login['localId']).child('admin').get()
         except:
             invalid_cred = "Invalid credentials"

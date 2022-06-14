@@ -54,17 +54,20 @@ def addArticlePage():
             date = request.form['date']
             url = request.form['url']
             doi = request.form['doi']
+            authorEmail = request.form['authorEmail']
             pubType = request.form['pubType']
             data = {
                 "articleTitle" : articleTitle,
                 "author" : author,
+                "authorEmail" : authorEmail,
                 "journalTitle" : journalTitle,
                 "abstract" : abstract,
                 "page" : page,
                 "date" : date,
                 "url" : url,
                 "doi" : doi,
-                "pubType" : pubType
+                "pubType" : pubType,
+                "institution" : ""
             }
             db.child("articles").push(data)
             return redirect(url_for("admin.indexPage"))

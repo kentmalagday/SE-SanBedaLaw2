@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -44,15 +44,14 @@
             </div>
             <span>
                 <hr></span>
-            <div>
-                <img src="{{ url_for('static', filename='images/nall_logo2.png') }}" width="50" height="54" />
-            </div>
+           
         </div>
     </header>
     <!--VIOLET PART-->
 
     <!--MAIN CONTENT-->
-    <div class="container mt-5 ">
+    <div class="container mt-2">
+        <h2 class="text-center mt-3">Add Article</h2>
         <form class="pt-5" id="form" method="post"> <!--FORM ADD ARTICLE-->
             <div class="form-group row text-end">
                 <label class="col-sm-2 col-form-label">Article Title:</label>
@@ -81,11 +80,11 @@
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Abstract</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="abstract">
+                    <textarea class="form-control" name="abstract" rows="3"></textarea>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
-                <label class="col-sm-2 col-form-label">Page</label>
+                <label class="col-sm-2 col-form-label">Page:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="page">
                 </div>
@@ -121,9 +120,14 @@
                     <input type="text" class="form-control" name="pubType">
                 </div>
             </div>
+            <div class="form-group row mt-3 text-end">
+                <div class="col-10">
 
-            <input type="submit" class="btn btn-primary float-end mt-3 btn-bg" value="Save">
-            <input type="reset" onclick="clear()" class="btn btn-primary float-end mt-3 btn-mar btn-bg" value="Clear">
+                </div>
+                <input type="submit" class="btn btn-primary float-end mt-3 mr-3 col" value="Save"  style="background-color: #863084;"> 
+                <input type="reset" onclick="clear()" class="btn btn-primary float-end mt-3 btn-mar col" value="Clear"  style="background-color: #863084;">
+            </div>
+           
     </div>
 
     </form>

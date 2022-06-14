@@ -25,6 +25,11 @@ footer{
 
 .long{
   padding-right:40px;
+  margin-top: 5px;
+}
+
+.short {
+  margin-top: 5px;;
 }
 
 p{

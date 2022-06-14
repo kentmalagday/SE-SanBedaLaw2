@@ -6,31 +6,28 @@ app = Flask(__name__)
 app.register_blueprint(admin, url_prefix='/admin')
 
 #routes to user/client side
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=["POST", "GET"])
+@app.route('/index', methods=["POST", "GET"])
 def indexPage():
-    return render_template('/user-page/user_index.html')
-
-@app.route('/search/searchValue=<searchValue>', methods=["POST", "GET"])
-def searchArticle(searchValue=None):
     if request.method == "POST":
         title_checked = False
         author_checked = False
         institution_checked = False
         searchValue = request.form['searchValue']
-        type = request.form.getlist['type']
-        if ('title' not in type) and ('author' not in type) and ('institution' not in type):
-            title_checked = True
-            author_checked = True
-            institution_checked = True
-        if 'title' in type:
-            title_checked = True
-        if 'author' in type:
-            author_checked = True
-        if 'institution' in type:
-            institution_checked = True
-        #[title, author, insti]
-        return render_template('/user-page/search_result.html', searchValue)
+        
+        return redirect(url_for("searchArticle", searchVal=searchValue))
+    else:
+        return render_template('/user-page/user_index.html')
+
+@app.route("/search/<searchVal>")
+def searchArticle(searchVal):
+        try:
+            article = db.child("articles").equal_to(searchVal).get()
+            print(article.val())
+            return render_template('/user-page/user_index.html')
+        except:
+            print("FAILED")
+            return render_template('/user-page/user_index.html')
 
 @app.route('/signup', methods=["POST", "GET"])
 def signUpPage():

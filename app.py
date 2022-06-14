@@ -47,17 +47,18 @@ def signUpPage():
             print("password not beyond 8")
             return render_template('/user-page/user_signup.html')
         try:
-            new_user = auth.create_user_with_email_and_password(email, password)       #create user through Authentication in Firebase
-            data = {"userId" : new_user['localId'],                                      #create json format for user info
-                    "fullName" : fullName,
+            #create user through Authentication in Firebase
+            new_user = auth.create_user_with_email_and_password(email, password)       
+            data = {"fullName" : fullName,
                     "institution" : institution,
-                    "email" : email}
-            db.child('users').set(data)                                     #add formatted data to Realtime DB
+                    "email" : email,
+                    "admin" : False}
+            db.child('users').child(new_user['localId']).set(data)                                     #add formatted data to Realtime DB
         except:
             existing_account = "Email in use"                                           #catch error if email is used already
             print(existing_account)
             return render_template('/user-page/user_signup.html')
-        return redirect(url_for("indexPage"))
+        return redirect(url_for("signInPage"))
     else:
         return render_template('/user-page/user_signup.html')
 
@@ -68,12 +69,16 @@ def signInPage():
         password = request.form["password"]
         try:
             login = auth.sign_in_with_email_and_password(email, password)
-            print(login['localId'])
-            return redirect(url_for('indexPage'))
+            user = db.child('users').child(login['localId']).child('admin').get()
         except:
             invalid_cred = "Invalid credentials"
             print(invalid_cred)
             return render_template('/user-page/user_signin.html')
+        else:
+            if user.val() is True:
+                invalid_cred = "Invalid credentials"
+                return render_template('/user-page/user_signin.html')
+            return redirect(url_for('indexPage'))
     else:
         return render_template('/user-page/user_signin.html')
     

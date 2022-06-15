@@ -6,7 +6,7 @@ body{
 .side-nav{
     border-right: 1px solid #9F9F9F;
     border-radius: 2px;
-    height: 500px;
+    height: 900px;
 }
 
 .side-text{
@@ -23,15 +23,10 @@ footer{
     color: white;
 }
 
-  .contactus{
-      color:rgba(46, 5, 45, 1);
-  }
 
-  .contact dt {
-    text-align: right;
-  }
+/* Contact Form */
+
   
-  .contact dd {
-    text-align: left;
+  .cform button{
+    background: #2E052D;
   }
-

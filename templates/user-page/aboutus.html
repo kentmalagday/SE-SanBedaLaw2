@@ -20,33 +20,33 @@
 <body class="d-flex flex-column min-vh-100">
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-xl navbar-dark" style="background-color: #863084"
-    aria-label="Sixth navbar example">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/" style="margin-left: 3%;">
-            <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
-            aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        aria-label="Sixth navbar example">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/" style="margin-left: 3%;">
+                <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
+                aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExample06">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/about-us" class="nav-link active">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/contact-us" class="nav-link active">Contact Us</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarsExample06">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/about-us" class="nav-link active">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact-us" class="nav-link active">Contact Us</a>
+                    </li>
+                </ul>
 
-            <ul class="navbar-nav ms-auto mb-2 mb-xl-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/account/settings">My Account</a>
-                </li>
-            </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-xl-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/account/settings">My Account</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     </nav>
     <!-- NAVBAR -->
 
@@ -56,7 +56,7 @@
             <div>
                 <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
             </div>
-            <div class="px-3 text-center text-white">Legal Education Board <br>
+            <div class="px-3 text-center text-white">
                 Network of Academic Law Librarians, Inc.
             </div>
             <span>
@@ -69,7 +69,7 @@
     <!--VIOLET PART-->
 
     <!--Content-->
-    <div class="container about">
+    <div class="container about mb-5">
         <h1 class="p-3 mb-3 mt-3"> About Us </h1>
 
         <div class="container p-3">
@@ -107,7 +107,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container ">
             <h3> Objectives </h3>
             <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet,
                 consectetur adipiscing elit. Duis semper in ex at dignissim. Aenean interdum, ex sed accumsan cursus, mi
@@ -124,9 +124,9 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="footer mt-auto py-3 fixed-bottom footer-style">
+    <footer class="footer fixed-bottom footer-style">
         <div class="container text-center">
-            <p> &#169; 2022 A Gateway to Open Access Legal Resources in the Philippines All rights reserved</p>
+            <p><br> &#169; 2022 A Gateway to Open Access Legal Resources in the Philippines All rights reserved</p>
         </div>
     </footer>
 

@@ -154,112 +154,114 @@
                     </form>
 
                     <!--CARD section-->
-                    <div class="card" style="width: 100%;">
-                        <div class="card-body">
-                           <!--Title-->
-                            <div class="d-flex">
-                                <div>
-                                    <p class="card-text mb-2"><strong>Title:</strong></p>
+                    {% for result in searchResults%}
+                        <div class="card" style="width: 100%;">
+                            <div class="card-body">
+                            <!--Title-->
+                                <div class="d-flex">
+                                    <div>
+                                        <p class="card-text mb-2"><strong>Title:</strong></p>
+                                    </div>
+                                    <div>
+                                    <p class="card-text mb-2 mal">{{result['articleTitle']}}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                  <p class="card-text mb-2 mal">Text Title</p>
+                                <!--Abstract-->
+                                <div class="d-flex">
+                                    <div>
+                                        <p class="card-text mb-2"><strong>Abstract:</strong></p>
+                                    </div>
+                                    <div>
+                                    <p class="card-text mb-2 mal">{{result['abstract']}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <!--Abstract-->
-                            <div class="d-flex">
-                                <div>
-                                    <p class="card-text mb-2"><strong>Abstract:</strong></p>
-                                </div>
-                                <div>
-                                  <p class="card-text mb-2 mal">Abstract Title</p>
-                                </div>
-                            </div>
 
-                             <!--Author-->
-                             <div class="d-flex">
-                                <div>
-                                    <p class="card-text mb-2"><strong>Author:</strong></p>
+                                <!--Author-->
+                                <div class="d-flex">
+                                    <div>
+                                        <p class="card-text mb-2"><strong>Author:</strong></p>
+                                    </div>
+                                    <div>
+                                    <p class="card-text mb-2 mal">{{result['author']}}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                  <p class="card-text mb-2 mal">Author Title</p>
-                                </div>
-                            </div>
 
-                             <!--Journal Title-->
-                             <div class="d-flex">
-                                <div>
-                                    <p class="card-text mb-2"><strong>Journal Title:</strong></p>
+                                <!--Journal Title-->
+                                <div class="d-flex">
+                                    <div>
+                                        <p class="card-text mb-2"><strong>Journal Title:</strong></p>
+                                    </div>
+                                    <div>
+                                    <p class="card-text mb-2 mal">{{result['journalTitle']}}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                  <p class="card-text mb-2 mal">Journal Title text</p>
-                                </div>
-                            </div>
 
-                             <!--URL-->
-                             <div class="d-flex">
-                                <div>
-                                    <p class="card-text mb-2"><strong>URL:</strong></p>
+                                <!--URL-->
+                                <div class="d-flex">
+                                    <div>
+                                        <p class="card-text mb-2"><strong>URL:</strong></p>
+                                    </div>
+                                    <div>
+                                    <p class="card-text mb-2 mal">{{result['url']}}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                  <p class="card-text mb-2 mal">URL text</p>
-                                </div>
-                            </div>
 
-                             <!--DOI & Page-->
+                                <!--DOI & Page-->
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col p-0">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <p class="card-text mb-2"><strong>DOI:</strong></p>
+                                                    </div>
+                                                    <div>
+                                                    <p class="card-text mb-2 mal">{{result['doi']}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col p-0">
+                                                <div class="d-flex">
+                                                    <div>
+                                                        <p class="card-text mb-2"><strong>Page:</strong></p>
+                                                    </div>
+                                                    <div>
+                                                    <p class="card-text mb-2 mal">{{result['page']}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <!--Pub type & Date Pub-->
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col p-0">
                                             <div class="d-flex">
                                                 <div>
-                                                    <p class="card-text mb-2"><strong>DOI:</strong></p>
+                                                    <p class="card-text mb-2"><strong>Publication Type:</strong></p>
                                                 </div>
                                                 <div>
-                                                  <p class="card-text mb-2 mal">DOI text</p>
+                                                <p class="card-text mb-2 mal">Publication Type text</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col p-0">
                                             <div class="d-flex">
                                                 <div>
-                                                    <p class="card-text mb-2"><strong>Page:</strong></p>
+                                                    <p class="card-text mb-2"><strong>Date Published:</strong></p>
                                                 </div>
                                                 <div>
-                                                  <p class="card-text mb-2 mal">Page text</p>
+                                                <p class="card-text mb-2 mal">Date Published text</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                             <!--Pub type & Date Pub-->
-                             <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col p-0">
-                                        <div class="d-flex">
-                                            <div>
-                                                <p class="card-text mb-2"><strong>Publication Type:</strong></p>
-                                            </div>
-                                            <div>
-                                              <p class="card-text mb-2 mal">Publication Type text</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col p-0">
-                                        <div class="d-flex">
-                                            <div>
-                                                <p class="card-text mb-2"><strong>Date Published:</strong></p>
-                                            </div>
-                                            <div>
-                                              <p class="card-text mb-2 mal">Date Published text</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>
-                             <!--Pub type & Date Pub End-->
-                             <a href="#" class="stretched-link"></a> <!--PARA MAGING CLICKABLE YUNG CARD MAY STRECHED LINK-->
+                                <!--Pub type & Date Pub End-->
+                                <a href="#" class="stretched-link"></a> <!--PARA MAGING CLICKABLE YUNG CARD MAY STRECHED LINK-->
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                     <!--End card section-->
                 </div>
             </div>

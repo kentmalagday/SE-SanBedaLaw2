@@ -20,9 +20,8 @@
         <tr>
             <div class="table header">
                 <th>Date</th><!--date of when it was requested-->
-                <th>ID</th> <!-- article ID number -->
                 <th>Title</th> <!-- Article Title-->
-                <th>User ID</th> <!--Requester's ID number-->
+                <th>User Name</th> <!--Requester's ID number-->
                 <th>User Email</th> <!-- Requester's Email -->
                 <th>Reason</th> <!-- Reason for Access -->
                 <th>Access</th> <!-- if approved or rejected -->
@@ -31,14 +30,17 @@
             </div>
         </tr>
         <tr>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
+            {% for col in listOfAccessRequests %}
+                <tr>
+                    <th>{{ col['date'] }}</th>
+                    <th>{{ col['title'] }}</th>
+                    <th>{{ col['userName'] }}</th>
+                    <th>{{ col['email'] }}</th>
+                    <th>{{ col['reason'] }}</th>
+                    <th>{{ col['access'] }}</th>
+                    <th>{{ col['dateOfApproval'] }}</th>
+                </tr>
+            {% endfor %}
         </tr>
     </table>
 

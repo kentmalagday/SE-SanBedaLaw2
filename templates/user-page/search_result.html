@@ -14,39 +14,39 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
 </head>
 
 <body class="d-flex flex-column min-vh-100">
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-xl navbar-dark" style="background-color: #863084"
-    aria-label="Sixth navbar example">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/src/user-page/user_index.html" style="margin-left: 3%;">
-            <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
-            aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        aria-label="Sixth navbar example">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/src/user-page/user_index.html" style="margin-left: 3%;">
+                <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
+                aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExample06">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="/about-us" class="nav-link active">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/contact-us" class="nav-link active">Contact Us</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarsExample06">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="/about-us" class="nav-link active">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact-us" class="nav-link active">Contact Us</a>
+                    </li>
+                </ul>
 
-            <ul class="navbar-nav ms-auto mb-2 mb-xl-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/account/settings">My Account</a>
-                </li>
-            </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-xl-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/account/settings">My Account</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     </nav>
     <!-- NAVBAR -->
 
@@ -69,11 +69,204 @@
     <!--VIOLET PART-->
 
     <!-- REQUEST TITLE -->
-    <div class="container ">
-        
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 p-4">
+                <h4>Category</h4>
+                <form action="">
+                    <div class="mb-2 form-check ml-5">
+                        <input type="checkbox" class="form-check-input" id="title">
+                        <label for="title" class="form-check-label">Title</label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="author">
+                        <label for="author" class="form-check-label">Author</label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="institution">
+                        <label for="institution" class="form-check-label">Institution</label>
+                    </div>
+                    <h4>Filter</h4>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="dissertation">
+                        <label for="dissertation" class="form-check-label">Dissertation</label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="journal">
+                        <label for="journal" class="form-check-label">Journal</label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="book">
+                        <label for="boobk" class="form-check-label">Book</label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="proceedings">
+                        <label for="proceedings" class="form-check-label">Proceedings</label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="readings">
+                        <label for="readings" class="form-check-label">Readings</label>
+                    </div>
+                    <div class="mb-2 form-check">
+                        <input type="checkbox" class="form-check-input" id="researchproject">
+                        <label for="researchproject" class="form-check-label">Research Project</label>
+                    </div>
+                    <h4>Year</h4>
+                    <div class="mb-3">
+                        <div class="d-flex pad">
+                            <input type="text" name="" id="" size="6rem" class="mar">
+                            <span><strong>-</strong></span>
+                            <input type="text" name="" id="" size="6rem" class="mal">
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Apply Filters</button>
+                        <button class="btn btn-primary" type="button">Reset Filters</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-9">
+                <div class="container mt-4">
+                    <form action="#">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <input type="text" class="form-control" name="searchValue" placeholder="Search">
+                        </div>
+                        <div class="d-flex mt-3 mb-4">
+                            <h6 class="mt-1">Sort by:</h6>
+                            <div>
+                                <button class="btn btn-primary btn-sm mal">Title</button>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-sm mal">Pages</button>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-sm mal">Date</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!--CARD section-->
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body">
+                           <!--Title-->
+                            <div class="d-flex">
+                                <div>
+                                    <p class="card-text mb-2"><strong>Title:</strong></p>
+                                </div>
+                                <div>
+                                  <p class="card-text mb-2 mal">Text Title</p>
+                                </div>
+                            </div>
+                            <!--Abstract-->
+                            <div class="d-flex">
+                                <div>
+                                    <p class="card-text mb-2"><strong>Abstract:</strong></p>
+                                </div>
+                                <div>
+                                  <p class="card-text mb-2 mal">Abstract Title</p>
+                                </div>
+                            </div>
+
+                             <!--Author-->
+                             <div class="d-flex">
+                                <div>
+                                    <p class="card-text mb-2"><strong>Author:</strong></p>
+                                </div>
+                                <div>
+                                  <p class="card-text mb-2 mal">Author Title</p>
+                                </div>
+                            </div>
+
+                             <!--Journal Title-->
+                             <div class="d-flex">
+                                <div>
+                                    <p class="card-text mb-2"><strong>Journal Title:</strong></p>
+                                </div>
+                                <div>
+                                  <p class="card-text mb-2 mal">Journal Title text</p>
+                                </div>
+                            </div>
+
+                             <!--URL-->
+                             <div class="d-flex">
+                                <div>
+                                    <p class="card-text mb-2"><strong>URL:</strong></p>
+                                </div>
+                                <div>
+                                  <p class="card-text mb-2 mal">URL text</p>
+                                </div>
+                            </div>
+
+                             <!--DOI & Page-->
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col p-0">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <p class="card-text mb-2"><strong>DOI:</strong></p>
+                                                </div>
+                                                <div>
+                                                  <p class="card-text mb-2 mal">DOI text</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col p-0">
+                                            <div class="d-flex">
+                                                <div>
+                                                    <p class="card-text mb-2"><strong>Page:</strong></p>
+                                                </div>
+                                                <div>
+                                                  <p class="card-text mb-2 mal">Page text</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                             <!--Pub type & Date Pub-->
+                             <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col p-0">
+                                        <div class="d-flex">
+                                            <div>
+                                                <p class="card-text mb-2"><strong>Publication Type:</strong></p>
+                                            </div>
+                                            <div>
+                                              <p class="card-text mb-2 mal">Publication Type text</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col p-0">
+                                        <div class="d-flex">
+                                            <div>
+                                                <p class="card-text mb-2"><strong>Date Published:</strong></p>
+                                            </div>
+                                            <div>
+                                              <p class="card-text mb-2 mal">Date Published text</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             </div>
+                             <!--Pub type & Date Pub End-->
+                             <a href="#" class="stretched-link"></a> <!--PARA MAGING CLICKABLE YUNG CARD MAY STRECHED LINK-->
+                        </div>
+                    </div>
+                    <!--End card section-->
+                </div>
+            </div>
+        </div>
 
     </div>
-    
+
 
 
     <footer class="footer mt-auto py-3 fixed-bottom footer-style">
@@ -88,4 +281,5 @@
     </script>
 
 </body>
+
 </html>

@@ -1,0 +1,25 @@
+.pad{
+    padding-left: 1.875rem !important;
+}
+
+.mar{
+    margin-right: 0.625rem;
+}
+
+.mal {
+    margin-left: 0.625rem;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #2E052D !important;
+}
+
+footer{
+    background-color: #2E052D; 
+    color: white;
+
+}
+
+.card {
+    background-color: #F7F7F7;
+}

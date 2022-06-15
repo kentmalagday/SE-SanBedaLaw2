@@ -36,18 +36,19 @@ def searchArticle(searchVal):
         print(searchVal)
         searchResults = []
         print(session['searchVal'])
+        searchVal = searchVal.lower()
         try:
             articles = db.child("articles").get()
             for article in articles:
                 vals = article.val()
                 if(session['searchVal'][0]):
-                    if(vals["articleTitle"] == searchVal):
+                    if(searchVal in vals["articleTitle"].lower()):
                         searchResults.append(vals)
                 if(session['searchVal'][1]):
-                    if(vals["author"] == searchVal):
+                    if(searchVal in vals["author"].lower()):
                         searchResults.append(vals)
                 if(session['searchVal'][2]):
-                    if(vals["institution"] == searchVal):
+                    if(searchVal in vals["institution"].lower()):
                         searchResults.append(vals)
             print(searchResults)
             return render_template('/user-page/search_result.html', searchResults = searchResults)

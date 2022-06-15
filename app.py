@@ -4,7 +4,7 @@ from admin import admin
 
 app = Flask(__name__)
 app.register_blueprint(admin, url_prefix='/admin')
-
+app.secret_key = "SE-BEDA"
 #routes to user/client side
 @app.route('/', methods=["POST", "GET"])
 @app.route('/index', methods=["POST", "GET"])
@@ -14,17 +14,42 @@ def indexPage():
         author_checked = False
         institution_checked = False
         searchValue = request.form['searchValue']
-        
-        return redirect(url_for("searchArticle", searchVal=searchValue))
+        types = request.form.getlist('type')
+        if ('title' not in types) and ('author' not in types) and ('institution' not in types):
+            title_checked = True
+            author_checked = True
+            institution_checked = True
+        if 'title' in types:
+            title_checked = True
+        if 'author' in types:
+            author_checked = True
+        if 'institution' in types:
+            institution_checked = True
+        session['searchVal'] = [title_checked, author_checked, institution_checked]
+        return redirect(url_for("searchArticle", searchVal = searchValue))
     else:
         return render_template('/user-page/user_index.html')
 
 @app.route("/search/<searchVal>")
 def searchArticle(searchVal):
+        print(searchVal)
+        searchResults = []
+        print(session['searchVal'])
         try:
-            article = db.child("articles").equal_to(searchVal).get()
-            print(article.val())
-            return render_template('/user-page/user_index.html')
+            articles = db.child("articles").get()
+            for article in articles:
+                vals = article.val()
+                if(session['searchVal'][0]):
+                    if(vals["articleTitle"] == searchVal):
+                        searchResults.append(vals)
+                if(session['searchVal'][1]):
+                    if(vals["author"] == searchVal):
+                        searchResults.append(vals)
+                if(session['searchVal'][2]):
+                    if(vals["institution"] == searchVal):
+                        searchResults.append(vals)
+            print(searchResults)
+            return render_template('/user-page/search_result.html', searchResults = searchResults)
         except:
             print("FAILED")
             return render_template('/user-page/user_index.html')

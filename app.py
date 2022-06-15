@@ -51,6 +51,8 @@ def searchArticle(searchVal):
                     if(searchVal in vals["institution"].lower()):
                         searchResults.append(vals)
             print(searchResults)
+            searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
+            print(searchResults)
             return render_template('/user-page/search_result.html', searchResults = searchResults)
         except:
             print("FAILED")

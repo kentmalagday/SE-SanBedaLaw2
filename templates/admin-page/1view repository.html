@@ -29,8 +29,7 @@
     <table class="table align-items-center p-4">
         <tr>
             <div class="table header">
-                <th>ID</th>
-                <th>Title</th>
+                <th>Article Title</th>
                 <th>Author</th>
                 <th>Institution</th>
                 <th>Journal Title/s</th>
@@ -41,18 +40,19 @@
                 <th>Publishing Date</th>
             </div>
         </tr>
-        <tr>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-            <th>value input</th>
-        </tr>
+        {% for col in listOfRepo %}
+            <tr>
+                <th>{{ col['articleTitle'] }}</th>
+                <th>{{ col['author'] }}</th>
+                <th>{{ col['institution'] }}</th>
+                <th>{{ col['journalTitle'] }}</th>
+                <th>{{ col['url'] }}</th>
+                <th>{{ col['doi'] }}</th>
+                <th>{{ col['pubType'] }}</th>
+                <th>{{ col['page'] }}</th>
+                <th>{{ col['date'] }}</th>
+            </tr>
+        {% endfor %}
     </table>
 
 </body>

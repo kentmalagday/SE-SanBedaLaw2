@@ -255,3 +255,14 @@ table,th,td{
   column-span: all;
   align:right;
 }
+
+/* Contact Form */
+
+.cform{
+  font-family: 'Open Sans';
+
+}
+
+.cform button{
+  background: #2E052D;
+}

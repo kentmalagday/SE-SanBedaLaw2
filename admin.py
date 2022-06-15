@@ -4,13 +4,26 @@ from firebase_config import *
 admin = Blueprint('admin', __name__)
 
 @admin.route('/')
+@admin.route('/index')
 def indexPage():
     return render_template('/admin-page/admin_index.html')
 
 @admin.route("/signin", methods=["POST", "GET"])
 def signInAdmin():
     if request.method == "POST":
-        return redirect(url_for("admin.indexPage"))
+        try:
+            email = request.form["email"]
+            password = request.form["password"]
+            adminUser = auth.sign_in_with_email_and_password(email, password)
+            adminUserInfo = db.child('admin').child(adminUser['localId']).get()
+        except:
+            print("Invalid Credentials")
+            return redirect(url_for("admin.signInAdmin"))
+        else:
+            if adminUserInfo.val() is None:
+                print("Invalid Credentials")
+                return redirect(url_for("admin.signInAdmin"))
+            return redirect(url_for("admin.indexPage"))
     else:
         return render_template('/admin-page/admin_signin.html')
 
@@ -36,11 +49,16 @@ def helpPage():
 
 @admin.route('/view-repository')
 def viewRepositoryPage():
-    return render_template('/admin-page/1view repository.html')
+    repo = db.child('articles').get()
+    listOfRepo = []
+    for x in repo.each():
+        listOfRepo.append(x.val())
+    return render_template('/admin-page/1view repository.html', listOfRepo=listOfRepo)
 
 @admin.route('/access-requests')
 def accessRequestsPage():
-    return render_template('/admin-page/4access requests.html')
+    listOfAccessRequests = []
+    return render_template('/admin-page/4access requests.html', listOfAccessRequests=listOfAccessRequests)
 
 @admin.route('/add-article', methods=["POST", "GET"])
 def addArticlePage():
@@ -56,6 +74,7 @@ def addArticlePage():
             doi = request.form['doi']
             authorEmail = request.form['authorEmail']
             pubType = request.form['pubType']
+            institution = request.form['institution']
             data = {
                 "articleTitle" : articleTitle,
                 "author" : author,
@@ -67,7 +86,7 @@ def addArticlePage():
                 "url" : url,
                 "doi" : doi,
                 "pubType" : pubType,
-                "institution" : ""
+                "institution" : institution
             }
             db.child("articles").push(data)
             return redirect(url_for("admin.indexPage"))

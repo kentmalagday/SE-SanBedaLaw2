@@ -4,7 +4,8 @@ from admin import admin
 
 app = Flask(__name__)
 app.register_blueprint(admin, url_prefix='/admin')
-app.secret_key = "SE-BEDA"
+app.secret_key = "SE-SanBedaLaw"
+
 #routes to user/client side
 @app.route('/', methods=["POST", "GET"])
 @app.route('/index', methods=["POST", "GET"])
@@ -74,14 +75,15 @@ def signUpPage():
             auth.send_email_verification(new_user['idToken'])
             data = {"fullName" : fullName,
                     "institution" : institution,
-                    "email" : email,
-                    "admin" : False}
+                    "email" : email
+                    }
             db.child('users').child(new_user['localId']).set(data)                                     #add formatted data to Realtime DB
         except:
             existing_account = "Error in sign-up"                                           #catch error if email is used already
             print(existing_account)
             return render_template('/user-page/user_signup.html')
-        return redirect(url_for("signInPage"))
+        else:
+            return redirect(url_for("signInPage"))
     else:
         return render_template('/user-page/user_signup.html')
 
@@ -91,15 +93,14 @@ def signInPage():
         email = request.form["email"]
         password = request.form["password"]
         try:
-            login = auth.sign_in_with_email_and_password(email, password)
-            print(login['idToken'])
-            user = db.child('users').child(login['localId']).child('admin').get()
+            user = auth.sign_in_with_email_and_password(email, password)
+            userData = db.child('users').child(user['localId']).get()
         except:
             invalid_cred = "Invalid credentials"
             print(invalid_cred)
             return render_template('/user-page/user_signin.html')
         else:
-            if user.val() is True:
+            if userData.val() is None:
                 invalid_cred = "Invalid credentials"
                 return render_template('/user-page/user_signin.html')
             return redirect(url_for('indexPage'))
@@ -130,8 +131,6 @@ def contactPage():
 def aboutUsPage():
     return render_template('/user-page/aboutus.html')
 
-
-#routes to admin-side
 
 if __name__ == "__main__":
     app.run(debug=True)

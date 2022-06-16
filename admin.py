@@ -8,6 +8,20 @@ admin = Blueprint('admin', __name__)
 def indexPage():
     return render_template('/admin-page/admin_index.html')
 
+@admin.route('/signup')
+def signUpAdmin():
+    try:
+        admin = auth.create_user_with_email_and_password("ronquillolance@gmail.com", "01312002")
+        data = {"fullName" : "Lance Admin",
+            "institution" : "APC",
+            "email" : "ronquillolance@gmail.com"
+            }
+        db.child('admin').child(admin['localId']).set(data)
+    except:
+        return redirect(url_for("admin.indexPage"))
+    
+    return redirect(url_for("admin.indexPage"))
+
 @admin.route("/signin", methods=["POST", "GET"])
 def signInAdmin():
     if request.method == "POST":
@@ -15,13 +29,18 @@ def signInAdmin():
             email = request.form["email"]
             password = request.form["password"]
             adminUser = auth.sign_in_with_email_and_password(email, password)
-            adminUserInfo = db.child('admin').child(adminUser['localId']).get()
+            adminUserDb = db.child('admin').child(adminUser['localId']).get()
+            adminUserInfo = auth.get_account_info(adminUser['idToken'])
+            isVerified = adminUserInfo['users'][0]['emailVerified']
         except:
             print("Invalid Credentials")
             return redirect(url_for("admin.signInAdmin"))
         else:
-            if adminUserInfo.val() is None:
-                print("Invalid Credentials")
+            if adminUserDb.val() is None:
+                print(adminUserInfo.val()['email'])
+                return redirect(url_for("admin.signInAdmin"))
+            if isVerified is False:
+                print("email not verified")
                 return redirect(url_for("admin.signInAdmin"))
             return redirect(url_for("admin.indexPage"))
     else:

@@ -66,6 +66,10 @@ def signUpPage():
         email = request.form["email"]
         password = request.form["password"]
         cpassword = request.form["cpassword"]
+        emailSuffix = email[-7:]
+        if emailSuffix != ".edu.ph":
+            print("email must be school email")
+            return render_template('/user-page/user_signup.html')
         if password != cpassword:       #password must match
             print("password mismatch")
             return render_template('/user-page/user_signup.html')
@@ -82,6 +86,21 @@ def signUpPage():
                     }
             db.child('users').child(new_user['localId']).set(data)                                     #add formatted data to Realtime DB
         except:
+            getAccounts = db.child('admin').get()
+            accValues = getAccounts.val()
+            for account in accValues:
+                if accValues[account]['email'] == email:
+                    try:
+                        adminToUser = auth.sign_in_with_email_and_password(email, password)
+                        data = {
+                            'fullName' : fullName,
+                            'institution' : institution,
+                            'email' : email
+                        }
+                        db.child('users').child(adminToUser['localId']).set(data)
+                    except:
+                        print("error")
+                    return redirect(url_for("signInPage"))
             existing_account = "Error in sign-up"                                           #catch error if email is used already
             print(existing_account)
             return render_template('/user-page/user_signup.html')
@@ -95,9 +114,13 @@ def signInPage():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
+        
         try:
             user = auth.sign_in_with_email_and_password(email, password)
+            email = auth.get_account_info(user['idToken'])
+            isVerified = email['users'][0]['emailVerified']
             userData = db.child('users').child(user['localId']).get()
+            session['userData'] = userData.val()
         except:
             invalid_cred = "Invalid credentials"
             print(invalid_cred)
@@ -105,10 +128,20 @@ def signInPage():
         else:
             if userData.val() is None:
                 invalid_cred = "Invalid credentials"
+                print(invalid_cred)
                 return render_template('/user-page/user_signin.html')
-            return redirect(url_for('indexPage'))
+            if isVerified is False:
+                invalid_cred = "Email not verified"
+                print(invalid_cred)
+                return render_template('/user-page/user_signin.html')
+        return redirect(url_for('indexPage'))
     else:
         return render_template('/user-page/user_signin.html')
+    
+@app.route('/signout')
+def signOut():
+    session.pop('userData', None)
+    return redirect(url_for('signInPage'))
     
 @app.route('/account/settings')
 def settingsPage():
@@ -116,7 +149,7 @@ def settingsPage():
 
 @app.route('/account/help')
 def helpPage():
-    return render_template('/user-page/user_help.html')
+    return render_template('/user-page/user_help.html', name=session['userData']['fullName'], email=session['userData']['email'])
 
 @app.route('/article/<key>' ,  methods=["POST", "GET"])
 def articlePage(key):

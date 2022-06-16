@@ -8,6 +8,9 @@
     <link rel="icon" href="{{ url_for('static', filename='images/nall_logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>User | Sign in</title>
 </head>
@@ -21,9 +24,9 @@
                     <form class="login-form validate-form" method="post">
                         <img class="d-block mx-auto mb-2" src="{{ url_for('static', filename='images/nall_logo.png') }}" alt="" width="111px"
                             height="116px">
-                        <p style="text-align: center ; font-size: larger;  font-weight: 200;;">Network of Academic
+                        <p style="text-align: center ;" class="fw-bold">Network of Academic
                         <br>Law Librarians, Inc.</p>
-                        <h2 class="fw-bold mt-4 mb-4">Sign In</h2>
+                        <h2 class="fw-bold mt-4 mb-4" style="font-family: 'Open Sans';">Sign In</h2>
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label">Email address</label>
@@ -48,14 +51,28 @@
                             
                             <!-- Forgot Password -->
                             <div class="col">
-                                <a href="#!" class="">Forgot password?</a>
+                                <a href="#!" class="link">Forgot password?</a>
                             </div>
             
                         <!-- Submit button -->
                         <button type="submit" class="btn btn-primary btn-block mb-4 mt-5">Sign in</button>
 
                         </div>
+                        <div class="form-outline mb-4 text-center">
+                            <h2">or<h2>
+                            <a href="/src/user-page/user_signup.html" class="link" style="color: #8E3D8C; font-weight: bolder;">Create New Account</a>
+                        </div> 
+
+                       <!-- having trouble -->
+                       <div class=" bottom-0 mt-5 text-center">
+                        <p style="font-size: 12px; color: black;">Having Trouble? <a href="#!" style="font-size: 12px;color: #2E052D;">Contact Us</a></p>
+                    </div>
+                    
                     </form>
+                    
+                    
+
+                   
 
                     <!-- Background Img -->
                     <div class="login-img" style="background-image: url({{ url_for('static', filename='images/signin.png') }});">

@@ -51,7 +51,7 @@
             <div>
                 <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
             </div>
-            <div class="px-3 text-center text-white">Legal Education Board <br>
+            <div class="px-3 text-center text-white">
                 Network of Academic Law Librarians, Inc.
             </div>
             <span>
@@ -62,6 +62,7 @@
         </div>
     </header>
     <!--VIOLET PART-->
+
     <!--Side navbar start-->
 
     <div class="row h-100">
@@ -89,7 +90,7 @@
                         <!-- Name input -->
                         <div class="mb-3">
                             <label class="form-label" for="name">Name</label>
-                            <input class="form-control" id="name" type="text" placeholder="Enter your name"
+                            <input class="form-control" id="name" type="text" placeholder="Enter your name" value="{{name}}"
                                 data-sb-validations="required" />
                             <div class="invalid-feedback" data-sb-feedback="name:required">Name is required.</div>
                         </div>
@@ -97,7 +98,7 @@
                         <!-- Email address input -->
                         <div class="mb-3">
                             <label class="form-label" for=" ">Email Address</label>
-                            <input class="form-control" id=" " type="email" placeholder="Enter your email address"
+                            <input class="form-control" id=" " type="email" placeholder="Enter your email address" value="{{email}}"
                                 data-sb-validations="required, email" />
                             <div class="invalid-feedback" data-sb-feedback="emailAddress:required">Email Address is
                                 required.</div>
@@ -148,9 +149,10 @@
     </div>
 
 
-    <footer class="footer mt-auto py-3 fixed-bottom footer-style">
+    <!-- FOOTER -->
+    <footer class="footer fixed-bottom footer-style">
         <div class="container text-center">
-            <p> &#169; 2022 A Gateway to Open Access Legal Resources in the Philippines All rights reserved</p>
+            <p><br> &#169; 2022 A Gateway to Open Access Legal Resources in the Philippines All rights reserved</p>
         </div>
     </footer>
 

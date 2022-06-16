@@ -156,10 +156,10 @@
                     <!--CARD section-->
                     {% for result in searchResults%}
                         <div class="card mb-2" style="width: 100%;">
-                            <div class="card-body" id="cardbod">
+                            <div class="card-body" id="cardbod" name={{result[1]}}>
                             <!--Title-->
                                 <div class="d-flex">
-                                    <form action = "/article/{{result[1]}}" method = "post" id = "cardform">
+                                    <form action = "/article/{{result[1]}}" method = "post" id = {{result[1]}}>
                                         <input type = "hidden" value = {{result[1]}} name = "key"/>
                                     </form>
                                     <div>
@@ -286,10 +286,14 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
     <script>
-        let key = document.getElementById("cardbod");
-        key.addEventListener('click', function handle(){
-            document.getElementById("cardform").submit();
-        })
+        let keys = document.querySelectorAll('#cardbod');
+        for(var i = 0; i < keys.length; i++){
+            keys[i].addEventListener('click', function handle(){
+                console.log(this);
+                var name = this.getAttribute("name");
+                document.getElementById(name).submit();
+            })
+        }
     </script>
 </body>
 

@@ -23,9 +23,6 @@ body {
   font-size: 20px;
 }
 
-a:link, a:visited {
-  color: #7B7B7B;
-}
 
 .btn {
   background: #2E052D;
@@ -136,6 +133,8 @@ table,th,td{
   background-color: #f7f7f7;
   padding: 55px 55px 55px 55px;
   color: #2E052D;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
 }
 
 
@@ -148,10 +147,40 @@ table,th,td{
   z-index: 1;
 }
 
+/* signin link */
+
+a:link, a:visited {
+  color:#2E052D;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+}
+
+/* Sign Up */
+
+.button_icon{
+  display: inline-flex;
+  align-items: center;
+  color: #2E052D;
+  height: 100%;
+ 
+}
+.button_back{
+  display: flex;
+  height: auto;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 30px;
+}
+
 /* admin sign in */
 
 .asignin form {
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
 }
 
 .asignin form h2 {

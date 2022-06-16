@@ -1,6 +1,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 <title>User | Sign Up</title>
 </head>
 
@@ -12,20 +16,28 @@
             <div class="container-login">
                 <div class="wrap-login">
                     <form class="login-form validate-form" method="post">
+
+                        <!-- Back Button -->
+                        <button type="button" class="button_back">
+                            <span class="button_icon">
+                                <ion-icon name="arrow-back-outline"></ion-icon>
+                            </span>
+                          </button>
+
                         <img class="img-fluid d-block mx-auto mb-2" src="{{ url_for('static', filename='images/nall_logo.png') }}" alt="" width="111px"
                             height="116px">
-                        <p style="text-align: center ; font-size: larger;">Network of Academic
+                        <p style="text-align: center ;">Network of Academic
                             <br>Law Librarians, Inc.</p>
-                        <h2 class="fw-bold mt-4 mb-2">Sign Up</h2>
+                            <h2 class="fw-bold mt-4 mb-4" style="font-family: 'Open Sans';">Sign Up</h2>
                         <!-- Fullname -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label">Fullname</label>
-                            <input type="text" class="form-control" name="fullName" required />
+                        <div class="form-outline form mb-4">
+                            <label class="form-label">Full Name</label>
+                            <input type=" " class="form-control" name="Fullname" required />
                         </div>
                         <!-- Institution -->
                         <div class="form-outline mb-4">
                             <label class="form-label">Institution</label>
-                            <input type="text" class="form-control" name="institution" required />
+                            <input type=" " class="form-control" id="institution"  data-sb-validations="required"  />
                         </div>
                         <!-- Email -->
                         <div class="form-outline mb-4">
@@ -71,6 +83,8 @@
                     </div>
                 </div>
             </div>
+
+            <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script> 
 
     </body>
 

@@ -107,6 +107,12 @@ def addArticlePage():
                 "pubType" : pubType,
                 "institution" : institution
             }
+            listOfArticles = db.child("articles").get()
+            for article in listOfArticles:
+                articleVal = article.val()
+                if url in articleVal['url'] or doi in articleVal['doi']:
+                    print("url exists")
+                    return render_template('/admin-page/addarticle.html')
             db.child("articles").push(data)
             return redirect(url_for("admin.indexPage"))
         except:

@@ -43,13 +43,13 @@ def searchArticle(searchVal):
                 vals = article.val()
                 if(session['searchVal'][0]):
                     if(searchVal in vals["articleTitle"].lower()):
-                        searchResults.append(vals)
+                        searchResults.append((vals, article.key()))
                 if(session['searchVal'][1]):
                     if(searchVal in vals["author"].lower()):
-                        searchResults.append(vals)
+                        searchResults.append((vals, article.key()))
                 if(session['searchVal'][2]):
                     if(searchVal in vals["institution"].lower()):
-                        searchResults.append(vals)
+                        searchResults.append((vals, article.key()))
             print(searchResults)
             searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
             print(searchResults)
@@ -118,9 +118,13 @@ def settingsPage():
 def helpPage():
     return render_template('/user-page/user_help.html')
 
-@app.route('/article')
-def articlePage():
-    return render_template('/user-page/user_fullview.html')
+@app.route('/article/<key>' ,  methods=["POST", "GET"])
+def articlePage(key):
+    print(key)
+    article = db.child("articles").child(key).get()
+    print(article.key())
+    return render_template('/user-page/user_fullview.html', article = article.val())
+
 
 @app.route('/search')
 def searchArticlePage():

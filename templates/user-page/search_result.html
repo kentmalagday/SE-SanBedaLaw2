@@ -156,14 +156,17 @@
                     <!--CARD section-->
                     {% for result in searchResults%}
                         <div class="card mb-2" style="width: 100%;">
-                            <div class="card-body">
+                            <div class="card-body" id="cardbod">
                             <!--Title-->
                                 <div class="d-flex">
+                                    <form action = "/article/{{result[1]}}" method = "post" id = "cardform">
+                                        <input type = "hidden" value = {{result[1]}} name = "key"/>
+                                    </form>
                                     <div>
                                         <p class="card-text mb-2"><strong>Title:</strong></p>
                                     </div>
                                     <div>
-                                    <p class="card-text mb-2 mal">{{result['articleTitle']}}</p>
+                                    <p class="card-text mb-2 mal">{{result[0]['articleTitle']}}</p>
                                     </div>
                                 </div>
                                 <!--Abstract-->
@@ -172,7 +175,7 @@
                                         <p class="card-text mb-2"><strong>Abstract:</strong></p>
                                     </div>
                                     <div>
-                                    <p class="card-text mb-2 mal">{{result['abstract']}}</p>
+                                    <p class="card-text mb-2 mal">{{result[0]['abstract']}}</p>
                                     </div>
                                 </div>
 
@@ -182,7 +185,7 @@
                                         <p class="card-text mb-2"><strong>Author:</strong></p>
                                     </div>
                                     <div>
-                                    <p class="card-text mb-2 mal">{{result['author']}}</p>
+                                    <p class="card-text mb-2 mal">{{result[0]['author']}}</p>
                                     </div>
                                 </div>
 
@@ -192,7 +195,7 @@
                                         <p class="card-text mb-2"><strong>Journal Title:</strong></p>
                                     </div>
                                     <div>
-                                    <p class="card-text mb-2 mal">{{result['journalTitle']}}</p>
+                                    <p class="card-text mb-2 mal">{{result[0]['journalTitle']}}</p>
                                     </div>
                                 </div>
 
@@ -202,7 +205,7 @@
                                         <p class="card-text mb-2"><strong>URL:</strong></p>
                                     </div>
                                     <div>
-                                    <p class="card-text mb-2 mal">{{result['url']}}</p>
+                                    <p class="card-text mb-2 mal">{{result[0]['url']}}</p>
                                     </div>
                                 </div>
 
@@ -215,7 +218,7 @@
                                                         <p class="card-text mb-2"><strong>DOI:</strong></p>
                                                     </div>
                                                     <div>
-                                                    <p class="card-text mb-2 mal">{{result['doi']}}</p>
+                                                    <p class="card-text mb-2 mal">{{result[0]['doi']}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,7 +228,7 @@
                                                         <p class="card-text mb-2"><strong>Page:</strong></p>
                                                     </div>
                                                     <div>
-                                                    <p class="card-text mb-2 mal">{{result['page']}}</p>
+                                                    <p class="card-text mb-2 mal">{{result[0]['page']}}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -241,7 +244,7 @@
                                                     <p class="card-text mb-2"><strong>Publication Type:</strong></p>
                                                 </div>
                                                 <div>
-                                                <p class="card-text mb-2 mal">Publication Type text</p>
+                                                <p class="card-text mb-2 mal">{{result[0]['pubType']}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -251,7 +254,7 @@
                                                     <p class="card-text mb-2"><strong>Date Published:</strong></p>
                                                 </div>
                                                 <div>
-                                                <p class="card-text mb-2 mal">Date Published text</p>
+                                                <p class="card-text mb-2 mal">{{result[0]['date']}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -281,7 +284,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
-
+    <script>
+        let key = document.getElementById("cardbod");
+        key.addEventListener('click', function handle(){
+            document.getElementById("cardform").submit();
+        })
+    </script>
 </body>
 
 </html>

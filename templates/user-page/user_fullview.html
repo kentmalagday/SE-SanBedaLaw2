@@ -22,7 +22,7 @@
     <nav class="navbar navbar-expand-xl navbar-dark" style="background-color: #863084"
     aria-label="Sixth navbar example">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/src/user-page/user_index.html" style="margin-left: 3%;">
+        <a class="navbar-brand" href="/" style="margin-left: 3%;">
             <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample06"
@@ -63,7 +63,7 @@
         </div>
     </header>
     <!--VIOLET PART-->
-
+    <form method="post" action="{{ url_for('requestAccess', key=key) }}">
      <!--MAIN CONTENT-->
      <div class="container mt-5 mb-5">
         <div class="row mt-3 align-center">
@@ -87,9 +87,10 @@
             <p class="col-9 artvalue">{{article['date']}}</p>
             <hr>
                 <button onclick="history.back()" class="btn btn-primary btnFV">Back</button>
-                <button class="btn btn-primary  btnFV">Request Access</button>
+                <button type="submit" class="btn btn-primary  btnFV">Request Access</button>
             
     </div>
+</form>
     <!-- CONTENT -->
 
     <!-- FOOTER -->

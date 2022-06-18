@@ -1,8 +1,8 @@
-.pad{
+.pad {
     padding-left: 1.875rem !important;
 }
 
-.mar{
+.mar {
     margin-right: 0.625rem;
 }
 
@@ -10,16 +10,31 @@
     margin-left: 0.625rem;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
     background-color: #2E052D !important;
 }
 
-footer{
-    background-color: #2E052D; 
+footer {
+    background-color: #2E052D;
     color: white;
 
 }
 
 .card {
     background-color: #F7F7F7;
+}
+
+.navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+    border-right: 1px solid #363434;
+
+}
+
+
+footer {
+    background-color: #2E052D;
+    color: white;
+
 }

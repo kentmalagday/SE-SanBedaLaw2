@@ -9,6 +9,11 @@ body{
     height: 500px;
 }
 
+.navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+  border-right: 1px solid #363434;
+  
+}
+
 .side-text{
     color: #2E052D;
     font-size: 20px;

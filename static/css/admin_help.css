@@ -2,12 +2,18 @@ body{
     color: black;
     font-family: 'Inter'!;
 }  
+
+.navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+    border-right: 1px solid #363434;
+    
+  }
  /*nav bar */
 .side-nav{
     border-right: 1px solid #9F9F9F;
     border-radius: 2px;
     height: 900px;
 }
+
 
 .side-text{
     color: #2E052D;

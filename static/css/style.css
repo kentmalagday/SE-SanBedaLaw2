@@ -90,10 +90,10 @@ table,th,td{
 }
 
 
-  .navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
-    border-right: 2px solid #000000;
-
-  }
+.navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+  border-right: 1px solid #363434;
+  
+}
 
 
 /* user login */

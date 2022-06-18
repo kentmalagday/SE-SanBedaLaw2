@@ -85,13 +85,13 @@ def signUpPage():
         cpassword = request.form["cpassword"]
         emailSuffix = email[-7:]
         if emailSuffix != ".edu.ph":
-            msg = ("Pmail must be school email")
+            msg = ("Email must be school email")
             return render_template('/user-page/user_signup.html', error=msg)
         if password != cpassword:       #password must match
             msg = ("Password mismatch")
             return render_template('/user-page/user_signup.html', error=msg)
         elif len(password) < 8:         #password must be greater than 8
-            msg = ("assword not beyond 8")
+            msg = ("Password must be longer than 8 characters")
             return render_template('/user-page/user_signup.html', error=msg)
         try:
             #create user through Authentication in Firebase
@@ -102,7 +102,7 @@ def signUpPage():
                     "email" : email
                     }
             db.child('users').child(new_user['localId']).set(data)                                     #add formatted data to Realtime DB
-            return render_template('/user-page/user_signup.html')
+            return render_template('/user-page/user_signin.html', success = "Acount Created! Please Verify Email before Signing In.")
         except:
             existing_account = "User Exists"                                           #catch error if email is used already
             print(existing_account)

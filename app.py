@@ -124,24 +124,28 @@ def signInPage():
         password = request.form["password"]
         try:
             user = auth.sign_in_with_email_and_password(email, password)
-            email = auth.get_account_info(user['idToken'])
-            isVerified = email['users'][0]['emailVerified']
             userData = db.child('users').child(user['localId']).get()
-            session['userData'] = userData.val()
+            adminData = db.child('admin').child(user['localId']).get()
+            if (userData.val() is None) and (adminData.val() is None):
+                auth.delete_user_account(user['idToken'])
+            elif userData.val() is None:
+                invalid_cred = "Invalid credentials"
+                print(invalid_cred)
+                return render_template('/user-page/user_signin.html')
+            else:
+                userInfo = auth.get_account_info(user['idToken'])
+                isVerified = userInfo['users'][0]['emailVerified']
         except:
             invalid_cred = "Invalid credentials"
             print(invalid_cred)
             return render_template('/user-page/user_signin.html')
         else:
-            if userData.val() is None:
-                invalid_cred = "Invalid credentials"
-                print(invalid_cred)
-                return render_template('/user-page/user_signin.html')
             if isVerified is False:
                 invalid_cred = "Email not verified"
                 print(invalid_cred)
                 return render_template('/user-page/user_signin.html')
-        return redirect(url_for('indexPage'))
+            session['userData'] = (userData.key(), userData.val())
+            return redirect(url_for('indexPage'))
     else:
         user = session.get('userData')
         if user is not None:
@@ -182,7 +186,7 @@ def helpPage():
     if request.method == "POST":
         subject = request.form["subject"]
         message = request.form["message"]
-        user = session.get('userData')
+        user = session.get('userData')[1]
         send = Mail(user, None, message, subject)
         result = send.sendMail()
         return redirect(url_for('helpPage'))
@@ -212,7 +216,7 @@ def requestAccess(key):
     if user is not None:
         articleData = db.child("articles").child(key).get()
         try:
-            userData = session.get('userData')
+            userData = session.get('userData')[1]
             #sendMail = Mail(userData, articleData.val(), None, None)
             #result = sendMail.sendMail()
             #print(result)

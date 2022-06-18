@@ -16,20 +16,24 @@ def signInAdmin():
             password = request.form["password"]
             adminUser = auth.sign_in_with_email_and_password(email, password)
             adminUserDb = db.child('admin').child(adminUser['localId']).get()
-            adminUserInfo = auth.get_account_info(adminUser['idToken'])
-            isVerified = adminUserInfo['users'][0]['emailVerified']
+            userDb = db.child('users').child(adminUser['localId']).get()
+            if (adminUserDb.val() is None) and (userDb.val() is None):
+                auth.delete_user_account(adminUser['idToken'])
+                print("deleted account")
+            elif adminUserDb.val() is None:
+                print("Admin account not found")
+                return redirect(url_for("admin.signInAdmin"))
+            else:
+                adminUserInfo = auth.get_account_info(adminUser['idToken'])
+                isVerified = adminUserInfo['users'][0]['emailVerified']
         except:
-            print("Invalid Credentials")
+            print("Admin account not found")
             return redirect(url_for("admin.signInAdmin"))
         else:
-            if adminUserDb.val() is None:
-                print(adminUserInfo.val()['email'])
-                return redirect(url_for("admin.signInAdmin"))
             if isVerified is False:
                 print("email not verified")
                 return redirect(url_for("admin.signInAdmin"))
-            print(adminUserDb.val())
-            session['adminData'] = adminUserDb.val()
+            session['adminData'] = (adminUserDb.key(), adminUserDb.val())
             return redirect(url_for("admin.indexPage"))
     else:
         return render_template('/admin-page/admin_signin.html')
@@ -48,7 +52,7 @@ def rightMain():
 
 @admin.route('/settings')
 def settingsPage():
-    adminData = session.get('adminData')
+    adminData = session.get('adminData')[1]
     return render_template('/admin-page/admin_settings.html', adminData = adminData)
 
 @admin.route('/help')
@@ -76,9 +80,8 @@ def accessRequestsPage():
 def viewAdminPage():
     listOfRepo = []
     admins = db.child('admin').get()
-    adminsVal = admins.val()
-    for admin in adminsVal:
-        listOfRepo.append(adminsVal[admin])
+    for admin in admins:
+        listOfRepo.append((admin.key(), admin.val()))
     return render_template('/admin-page/admin_table.html', listOfRepo = listOfRepo)
 
 @admin.route('/add-admin', methods=["POST", "GET"])
@@ -174,6 +177,15 @@ def addArticlePage():
             return render_template('/admin-page/addarticle.html')
     else:
         return render_template('/admin-page/addarticle.html')
+
+@admin.route('/<key>/delete')
+def deleteAdminAccount(key):
+    adminKey = session['adminData'][0]
+    if adminKey == key:
+        print("cannot delete own account")
+        return redirect(url_for('admin.viewAdminPage'))
+    db.child('admin').child(key).remove()
+    return redirect(url_for('admin.viewAdminPage'))
 
 @admin.route('/signout')
 def signOut():

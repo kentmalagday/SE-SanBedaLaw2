@@ -90,9 +90,9 @@
         </tr>
         {% for col in listOfRepo %}
             <tr>
-                <th>{{ col['fullName'] }}</th>
-                <th>{{ col['email'] }}</th>
-                <th>{{ col['institution'] }}</th>
+                <th>{{ col[1]['fullName'] }}</th>
+                <th>{{ col[1]['email'] }}</th>
+                <th>{{ col[1]['institution'] }}</th>
                 <!--put edit/delete button or link here-->
                 <th> <a href=" "> Edit
                   <button id="myBtn" class="myBtn">Delete</button>

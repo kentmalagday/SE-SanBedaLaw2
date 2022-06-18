@@ -74,7 +74,12 @@ def accessRequestsPage():
 
 @admin.route('/admin-table')
 def viewAdminPage():
-    return render_template('/admin-page/admin_table.html')
+    listOfRepo = []
+    admins = db.child('admin').get()
+    adminsVal = admins.val()
+    for admin in adminsVal:
+        listOfRepo.append(adminsVal[admin])
+    return render_template('/admin-page/admin_table.html', listOfRepo = listOfRepo)
 
 @admin.route('/add-admin', methods=["POST", "GET"])
 def addAdminPage():
@@ -119,6 +124,7 @@ def addAdminPage():
                 'institution' : institution,
                 'email' : email
             }
+            db.child('users').child(admin['localId']).set(data)
             db.child('admin').child(admin['localId']).set(data)
             return redirect(url_for('admin.addAdminPage'))
     else:

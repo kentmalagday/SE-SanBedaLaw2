@@ -106,25 +106,9 @@ def signUpPage():
                     }
             db.child('users').child(new_user['localId']).set(data)                                     #add formatted data to Realtime DB
         except:
-            getAccounts = db.child('admin').get()
-            accValues = getAccounts.val()
-            for account in accValues:
-                if accValues[account]['email'] == email:
-                    try:
-                        adminToUser = auth.sign_in_with_email_and_password(email, password)
-                        data = {
-                            'fullName' : fullName,
-                            'institution' : institution,
-                            'email' : email
-                        }
-                        db.child('users').child(adminToUser['localId']).set(data)
-                    except:
-                        print("error")
-                    return redirect(url_for("signInPage"))
-            existing_account = "Error in sign-up"                                           #catch error if email is used already
+            existing_account = "User Exists"                                           #catch error if email is used already
             print(existing_account)
             return render_template('/user-page/user_signup.html')
-        else:
             return redirect(url_for("signInPage"))
     else:
         user = session.get('userData')

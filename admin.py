@@ -28,6 +28,7 @@ def signInAdmin():
             if isVerified is False:
                 print("email not verified")
                 return redirect(url_for("admin.signInAdmin"))
+            print(adminUserDb.val())
             session['adminData'] = adminUserDb.val()
             return redirect(url_for("admin.indexPage"))
     else:
@@ -65,6 +66,10 @@ def viewRepositoryPage():
 @admin.route('/access-requests')
 def accessRequestsPage():
     listOfAccessRequests = []
+    requests = db.child('requests').get()
+    requestsVal = requests.val()
+    for request in requestsVal:
+        listOfAccessRequests.append(requestsVal[request])
     return render_template('/admin-page/4access requests.html', listOfAccessRequests=listOfAccessRequests)
 
 @admin.route('/add-admin', methods=["POST", "GET"])
@@ -133,7 +138,7 @@ def addArticlePage():
             doi = request.form['doi']
             authorEmail = request.form['authorEmail']
             pubType = request.form['pubType']
-            institution = request.form['institution']
+            adminData = session.get('adminData')
             data = {
                 "articleTitle" : articleTitle,
                 "author" : author,
@@ -145,7 +150,7 @@ def addArticlePage():
                 "url" : url,
                 "doi" : doi,
                 "pubType" : pubType,
-                "institution" : institution
+                "institution" : adminData['institution']
             }
             listOfArticles = db.child("articles").get()
             for article in listOfArticles:

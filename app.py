@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, request, url_for, session, B
 from firebase_config import *
 from admin import admin
 from mail import Mail
+from datetime import date
 
 app = Flask(__name__)
 app.register_blueprint(admin, url_prefix='/admin')
@@ -228,12 +229,27 @@ def requestAccess(key):
         articleData = db.child("articles").child(key).get()
         try:
             userData = session.get('userData')
-            sendMail = Mail(userData, articleData.val(), None, None)
-            result = sendMail.sendMail()
-            print(result)
+            #sendMail = Mail(userData, articleData.val(), None, None)
+            #result = sendMail.sendMail()
+            #print(result)
         except:
             print("no user logged in")
-        return redirect(url_for('indexPage'))
+            return redirect(url_for('signInPage'))
+        else:
+            today = date.today()
+            today = today.strftime("%Y-%m-%d")
+            
+            data = {
+                'date' : today,
+                'title' : articleData.val()['articleTitle'],
+                'author' : articleData.val()['author'],
+                'institution' : articleData.val()['institution'],
+                'fullName' : userData['fullName'],
+                'email' : userData['email'],
+                'url' : articleData.val()['url']
+            }
+            db.child('requests').push(data)
+            return redirect(url_for('indexPage'))
     else:
         return redirect(url_for('signInPage'))
 

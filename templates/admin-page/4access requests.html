@@ -21,12 +21,11 @@
             <div class="table header">
                 <th>Date</th><!--date of when it was requested-->
                 <th>Title</th> <!-- Article Title-->
-                <th>User Name</th> <!--Requester's ID number-->
+                <th>Author</th>
+                <th>Institution</th>
+                <th>User Full Name</th> <!--Requester's ID number-->
                 <th>User Email</th> <!-- Requester's Email -->
-                <th>Reason</th> <!-- Reason for Access -->
-                <th>Access</th> <!-- if approved or rejected -->
-                <!--OPTIONAL-->
-                <th>Date of Approval</th> <!--If request is approved-->
+                <th>URL</th> <!-- Reason for Access -->
             </div>
         </tr>
         <tr>
@@ -34,11 +33,11 @@
                 <tr>
                     <th>{{ col['date'] }}</th>
                     <th>{{ col['title'] }}</th>
-                    <th>{{ col['userName'] }}</th>
+                    <th>{{ col['author'] }}</th>
+                    <th>{{ col['institution'] }}</th>
+                    <th>{{ col['fullName'] }}</th>
                     <th>{{ col['email'] }}</th>
-                    <th>{{ col['reason'] }}</th>
-                    <th>{{ col['access'] }}</th>
-                    <th>{{ col['dateOfApproval'] }}</th>
+                    <th>{{ col['url'] }}</th>
                 </tr>
             {% endfor %}
         </tr>

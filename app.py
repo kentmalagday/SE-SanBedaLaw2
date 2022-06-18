@@ -30,7 +30,11 @@ def indexPage():
         session['searchVal'] = [title_checked, author_checked, institution_checked]
         return redirect(url_for("searchArticle", searchVal = searchValue))
     else:
-        return render_template('/user-page/user_index.html')
+        user = session.get('userData')
+        if user is not None:
+            return render_template('/user-page/user_index.html')
+        else:
+            return redirect(url_for('signInPage'))
 
 @app.route("/search/<searchVal>", methods=["POST", "GET"])
 def searchArticle(searchVal):
@@ -40,30 +44,34 @@ def searchArticle(searchVal):
         session['searchVal'] = [True, True, True]
         return redirect(url_for("searchArticle", searchVal = searchValue))
     else:
-        print(searchVal)
-        searchResults = []
-        searchVal = searchVal.lower()
-        try:
-            articles = db.child("articles").get()
-            for article in articles:
-                vals = article.val()
-                if session.get('searchVal') is not None:
-                    if(session['searchVal'][0]):
-                        if(searchVal in vals["articleTitle"].lower()):
-                            searchResults.append((vals, article.key()))
-                    if(session['searchVal'][1]):
-                        if(searchVal in vals["author"].lower()):
-                            searchResults.append((vals, article.key()))
-                    if(session['searchVal'][2]):
-                        if(searchVal in vals["institution"].lower()):
-                            searchResults.append((vals, article.key()))
-            #print(searchResults)
-            searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
-            #print(searchResults)
-            return render_template('/user-page/search_result.html', searchResults = searchResults)
-        except:
-            print("FAILED")
-            return render_template('/user-page/user_index.html')
+        user = session.get('userData')
+        if user is not None:
+            print(searchVal)
+            searchResults = []
+            searchVal = searchVal.lower()
+            try:
+                articles = db.child("articles").get()
+                for article in articles:
+                    vals = article.val()
+                    if session.get('searchVal') is not None:
+                        if(session['searchVal'][0]):
+                            if(searchVal in vals["articleTitle"].lower()):
+                                searchResults.append((vals, article.key()))
+                        if(session['searchVal'][1]):
+                            if(searchVal in vals["author"].lower()):
+                                searchResults.append((vals, article.key()))
+                        if(session['searchVal'][2]):
+                            if(searchVal in vals["institution"].lower()):
+                                searchResults.append((vals, article.key()))
+                #print(searchResults)
+                searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
+                #print(searchResults)
+                return render_template('/user-page/search_result.html', searchResults = searchResults)
+            except:
+                print("FAILED")
+                return render_template('/user-page/user_index.html')
+        else:
+            return redirect(url_for('signInPage'))
 
 @app.route('/signup', methods=["POST", "GET"])
 def signUpPage():
@@ -114,14 +122,17 @@ def signUpPage():
         else:
             return redirect(url_for("signInPage"))
     else:
-        return render_template('/user-page/user_signup.html')
+        user = session.get('userData')
+        if user is not None:
+            return redirect(url_for('indexPage'))
+        else:
+            return render_template('/user-page/user_signup.html')
 
 @app.route('/signin', methods=["POST", "GET"])
 def signInPage():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
-        
         try:
             user = auth.sign_in_with_email_and_password(email, password)
             email = auth.get_account_info(user['idToken'])
@@ -143,7 +154,11 @@ def signInPage():
                 return render_template('/user-page/user_signin.html')
         return redirect(url_for('indexPage'))
     else:
-        return render_template('/user-page/user_signin.html')
+        user = session.get('userData')
+        if user is not None:
+            return redirect(url_for('indexPage'))
+        else:
+            return render_template('/user-page/user_signin.html')
     
 @app.route('/signout')
 def signOut():
@@ -152,30 +167,56 @@ def signOut():
     
 @app.route('/account/settings')
 def settingsPage():
-    return render_template('/user-page/user_settings.html')
+    user = session.get('userData')
+    if user is not None:
+        return render_template('/user-page/user_settings.html')
+    else:
+        return redirect(url_for('signInPage'))
 
-@app.route('/account/help')
+@app.route('/account/help', methods=["POST", "GET"])
 def helpPage():
-    return render_template('/user-page/user_help.html', name=session['userData']['fullName'], email=session['userData']['email'])
+    if request.method == "POST":
+        subject = request.form["subject"]
+        message = request.form["message"]
+        user = session.get('userData')
+        send = Mail(user, None, message, subject)
+        result = send.sendMail()
+        return redirect(url_for('helpPage'))
+    else:
+        user = session.get('userData')
+        if user is not None:
+            return render_template('/user-page/user_help.html', name=session['userData']['fullName'], email=session['userData']['email'])
+        else:
+            return redirect(url_for('signInPage'))
+
+
 
 @app.route('/article/<key>' ,  methods=["POST", "GET"])
 def articlePage(key):
-    article = db.child("articles").child(key).get()
-    #print(article.key())
-    return render_template('/user-page/user_fullview.html', article = article.val(), key = key)
+    user = session.get('userData')
+    if user is not None:
+        article = db.child("articles").child(key).get()
+        #print(article.key())
+        return render_template('/user-page/user_fullview.html', article = article.val(), key = key)
+    else:
+        return redirect(url_for('signInPage'))
 
 #send email to user
 @app.route('/article/<key>/request-access', methods=["POST", "GET"])
 def requestAccess(key):
-    articleData = db.child("articles").child(key).get()
-    try:
-        userData = session.get('userData')
-        sendMail = Mail(userData, articleData.val())
-        result = sendMail.sendMail()
-        print(result)
-    except:
-        print("no user logged in")
-    return redirect(url_for('indexPage'))
+    user = session.get('userData')
+    if user is not None:
+        articleData = db.child("articles").child(key).get()
+        try:
+            userData = session.get('userData')
+            sendMail = Mail(userData, articleData.val(), None, None)
+            result = sendMail.sendMail()
+            print(result)
+        except:
+            print("no user logged in")
+        return redirect(url_for('indexPage'))
+    else:
+        return redirect(url_for('signInPage'))
 
 @app.route('/search')
 def searchArticlePage():
@@ -183,11 +224,19 @@ def searchArticlePage():
 
 @app.route('/contact-us')
 def contactPage():
-    return render_template('/user-page/contactus.html')
+    user = session.get('userData')
+    if user is not None:
+        return render_template('/user-page/contactus.html')
+    else:
+        return redirect(url_for('indexPage'))
 
 @app.route('/about-us')
 def aboutUsPage():
-    return render_template('/user-page/aboutus.html')
+    user = session.get('userData')
+    if user is not None:
+        return render_template('/user-page/aboutus.html')
+    else:
+        return redirect(url_for('indexPage'))
 
 
 if __name__ == "__main__":

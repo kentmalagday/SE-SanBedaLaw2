@@ -38,6 +38,7 @@
                 <th>Publication Type</th>
                 <th>Page Number</th>
                 <th>Publishing Date</th>
+                <th>Action</th>
             </div>
         </tr>
         {% for col in listOfRepo %}
@@ -51,6 +52,7 @@
                 <th>{{ col['pubType'] }}</th>
                 <th>{{ col['page'] }}</th>
                 <th>{{ col['date'] }}</th>
+                <th><!--put edit/delete button or link here--></th>
             </tr>
         {% endfor %}
     </table>

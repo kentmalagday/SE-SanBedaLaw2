@@ -79,6 +79,13 @@ def accessRequestsPage():
     listOfAccessRequests = []
     return render_template('/admin-page/4access requests.html', listOfAccessRequests=listOfAccessRequests)
 
+@admin.route('/add-admin', methods=["POST", "GET"])
+def addAdminPage():
+    if request.method == "POST":
+        return redirect(url_for('addAdminPage'))
+    else:
+        return render_template('/admin-page/add_admin.html')
+
 @admin.route('/add-article', methods=["POST", "GET"])
 def addArticlePage():
     if request.method == "POST":

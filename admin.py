@@ -72,6 +72,10 @@ def accessRequestsPage():
         listOfAccessRequests.append(requestsVal[request])
     return render_template('/admin-page/4access requests.html', listOfAccessRequests=listOfAccessRequests)
 
+@admin.route('/admin-table')
+def viewAdminPage():
+    return render_template('/admin-page/admin_table.html')
+
 @admin.route('/add-admin', methods=["POST", "GET"])
 def addAdminPage():
     if request.method == "POST":

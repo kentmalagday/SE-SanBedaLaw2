@@ -107,15 +107,15 @@
         </tr>
         {% for col in listOfRepo %}
             <tr>
-                <th>{{ col['articleTitle'] }}</th>
-                <th>{{ col['author'] }}</th>
-                <th>{{ col['institution'] }}</th>
-                <th>{{ col['journalTitle'] }}</th>
-                <th>{{ col['url'] }}</th>
-                <th>{{ col['doi'] }}</th>
-                <th>{{ col['pubType'] }}</th>
-                <th>{{ col['page'] }}</th>
-                <th>{{ col['date'] }}</th>
+                <th>{{ col[1]['articleTitle'] }}</th>
+                <th>{{ col[1]['author'] }}</th>
+                <th>{{ col[1]['institution'] }}</th>
+                <th>{{ col[1]['journalTitle'] }}</th>
+                <th>{{ col[1]['url'] }}</th>
+                <th>{{ col[1]['doi'] }}</th>
+                <th>{{ col[1]['pubType'] }}</th>
+                <th>{{ col[1]['page'] }}</th>
+                <th>{{ col[1]['date'] }}</th>
                 <th><a href=" " id="myBtn"> Edit </a>
                   <button class="trigger2" id="myBtn">Delete</button>
                     <!-- The Modal -->

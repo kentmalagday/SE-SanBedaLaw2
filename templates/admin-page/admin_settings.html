@@ -13,7 +13,7 @@
 <body class="d-flex flex-column h-100" >
     <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #863084;">
         <div class="container">
-            <a class="navbar-brand " href="#">
+            <a class="navbar-brand " href="/admin/">
                 <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
             </a>
             <div class="collapse navbar-collapse" id="navbarsExample02">
@@ -34,9 +34,6 @@
                 <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
             </div>
             <div class="px-3 text-center text-white">Network of Academic Law Librarians, Inc.</div>
-            <div>
-                <img src="{{ url_for('static', filename='images/nall_logo2.png') }}" width="50" height="54" />
-            </div>
         </div>
     </header>
 
@@ -57,25 +54,19 @@
                 <hr>
                 <div class="input-group mb-3">
                     <p class="short">Name </p>
-                    <input type="text" class="inputs form-control">
+                    <input type="text" class="inputs form-control" value={{adminData['fullName']}}>
                     <button type="button" class="btn btn-light" >Edit</button>
                   </div>
                 <hr>
                 <div class="input-group mb-3">
                     <p class="short">Email </p>
-                    <input type="emal" class="inputs form-control">
+                    <input type="emal" class="inputs form-control" value={{adminData['email']}}>
                     <button type="button" class="btn btn-light" >Edit</button>
                   </div>
                 <hr>
                 <div class="input-group mb-3">
                     <p class="long">Institution </p>
-                    <input type="text" class="inputs form-control">
-                    <button type="button" class="btn btn-light" >Edit</button>
-                  </div>
-                <hr>
-                <div class="input-group mb-3">
-                    <p class="long">Password </p>
-                    <input type="password" class="inputs form-control">
+                    <input type="text" class="inputs form-control" value={{adminData['institution']}}>
                     <button type="button" class="btn btn-light" >Edit</button>
                   </div>
                 <hr>

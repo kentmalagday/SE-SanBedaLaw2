@@ -47,7 +47,8 @@ def rightMain():
 
 @admin.route('/settings')
 def settingsPage():
-    return render_template('/admin-page/admin_settings.html')
+    adminData = session.get('adminData')
+    return render_template('/admin-page/admin_settings.html', adminData = adminData)
 
 @admin.route('/help')
 def helpPage():
@@ -69,11 +70,12 @@ def accessRequestsPage():
 @admin.route('/add-admin', methods=["POST", "GET"])
 def addAdminPage():
     if request.method == "POST":
-        name = request.form['adminName']
-        institution = request.form['institution']
-        email = request.form['email']
-        password = request.form['password']
-        cpassword = request.form['cpassword']
+        name = request.form["adminName"]
+        institution = request.form["adminInstitution"]
+        print(institution)
+        email = request.form["email"]
+        password = request.form["password"]
+        cpassword = request.form["cpassword"]
         if password != cpassword:
             print("password not matching")
             return redirect(url_for('admin.addAdminPage'))

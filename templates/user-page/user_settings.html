@@ -85,25 +85,18 @@
                 <hr>
                 <div class="input-group mb-3">
                     <p>Name </p>
-                    <input type="text" class="inputs form-control">
+                    <input type="text" class="inputs form-control" value={{userData['name']}}>
                     <button type="button" class="btn btn-light">Edit</button>
                 </div>
                 <hr>
                 <div class="input-group mb-3">
                     <p>Email </p>
-                    <input type="email" class="inputs form-control">
-                    <button type="button" class="btn btn-light">Edit</button>
+                    <input type="email" class="inputs form-control" value={{userData['email']}} readonly>
                 </div>
                 <hr>
                 <div class="input-group mb-3">
                     <p class="long">Institution </p>
-                    <input type="text" class="inputs form-control">
-                    <button type="button" class="btn btn-light">Edit</button>
-                </div>
-                <hr>
-                <div class="input-group mb-3">
-                    <p class="long">Password </p>
-                    <input type="password" class="inputs form-control">
+                    <input type="text" class="inputs form-control" value={{userData['institution']}}>
                     <button type="button" class="btn btn-light">Edit</button>
                 </div>
                 <hr>

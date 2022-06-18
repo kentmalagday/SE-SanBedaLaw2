@@ -16,6 +16,8 @@ def indexPage():
         author_checked = False
         institution_checked = False
         searchValue = request.form['searchValue']
+        if searchValue == "":
+            return redirect(url_for('searchArticlePage'))
         types = request.form.getlist('type')
         if ('title' not in types) and ('author' not in types) and ('institution' not in types):
             title_checked = True
@@ -41,6 +43,8 @@ def searchArticle(searchVal):
     if request.method == "POST":
         searchValue = request.form['searchValue']
         session.pop('searchVal', None)
+        if searchValue == "":
+            return redirect(url_for("searchArticlePage"))
         session['searchVal'] = [True, True, True]
         return redirect(url_for("searchArticle", searchVal = searchValue))
     else:
@@ -218,9 +222,25 @@ def requestAccess(key):
     else:
         return redirect(url_for('signInPage'))
 
-@app.route('/search')
+@app.route('/search', methods=["POST", "GET"])
 def searchArticlePage():
-    return render_template('/user-page/search_result.html')
+    if request.method == "POST":
+        searchValue = request.form['searchValue']
+        if searchValue == "":
+            return redirect(url_for('searchArticlePage'))
+        session.pop('searchVal', None)
+        session['searchVal'] = [True, True, True]
+        return redirect(url_for('searchArticle', searchVal = searchValue))
+    else:
+        user = session.get('userData')
+        if user is not None:
+            listOfArticles = []
+            articles = db.child('articles').get()
+            for article in articles.each():
+                listOfArticles.append((article.val(), article.key()))
+            return render_template('/user-page/search_result.html', searchResults = listOfArticles)
+        else:
+            return redirect(url_for('signInPage'))
 
 @app.route('/contact-us')
 def contactPage():

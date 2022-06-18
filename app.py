@@ -163,6 +163,21 @@ def signInPage():
             return redirect(url_for('indexPage'))
         else:
             return render_template('/user-page/user_signin.html')
+        
+@app.route('/forget-password', methods = ["POST", "GET"])
+def forgetPasswordPage():
+    if request.method == "POST":
+        email = request.form['email']
+        try:
+            result = auth.send_password_reset_email(email)
+            print(result)
+        except Exception as e:
+            print(e)
+            return redirect(url_for('forgetPasswordPage'))
+        return redirect(url_for('signInPage'))
+    else:
+        return render_template('/user-page/user_forgetpass.html')
+    
     
 @app.route('/signout')
 def signOut():
@@ -173,7 +188,7 @@ def signOut():
 def settingsPage():
     user = session.get('userData')
     if user is not None:
-        return render_template('/user-page/user_settings.html')
+        return render_template('/user-page/user_settings.html', userData = user)
     else:
         return redirect(url_for('signInPage'))
 
@@ -195,7 +210,7 @@ def helpPage():
 
 
 
-@app.route('/article/<key>' ,  methods=["POST", "GET"])
+@app.route('/article/<key>', methods=["POST", "GET"])
 def articlePage(key):
     user = session.get('userData')
     if user is not None:

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, url_for, session, Blueprint
+from flask import Flask, flash, redirect, render_template, request, url_for, session, Blueprint
 from firebase_config import *
 from admin import admin
 from mail import Mail
@@ -31,6 +31,7 @@ def indexPage():
         if 'institution' in types:
             institution_checked = True
         session['searchVal'] = [title_checked, author_checked, institution_checked]
+        print(session['searchVal'])
         return redirect(url_for("searchArticle", searchVal = searchValue))
     else:
         user = session.get('userData')
@@ -43,10 +44,8 @@ def indexPage():
 def searchArticle(searchVal):
     if request.method == "POST":
         searchValue = request.form['searchValue']
-        session.pop('searchVal', None)
         if searchValue == "":
             return redirect(url_for("searchArticlePage"))
-        session['searchVal'] = [True, True, True]
         return redirect(url_for("searchArticle", searchVal = searchValue))
     else:
         user = session.get('userData')
@@ -68,12 +67,10 @@ def searchArticle(searchVal):
                         if(session['searchVal'][2]):
                             if(searchVal in vals["institution"].lower()):
                                 searchResults.append((vals, article.key()))
-                #print(searchResults)
                 searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
-                #print(searchResults)
-                return render_template('/user-page/search_result.html', searchResults = searchResults)
+                print(session.get('searchVal'))
+                return render_template('/user-page/search_result.html', searchResults = searchResults, searchVal = searchVal, checked = session.get('searchVal'))
             except:
-                print("FAILED")
                 return render_template('/user-page/user_index.html')
         else:
             return redirect(url_for('signInPage'))
@@ -88,14 +85,14 @@ def signUpPage():
         cpassword = request.form["cpassword"]
         emailSuffix = email[-7:]
         if emailSuffix != ".edu.ph":
-            print("email must be school email")
-            return render_template('/user-page/user_signup.html')
+            msg = ("Pmail must be school email")
+            return render_template('/user-page/user_signup.html', error=msg)
         if password != cpassword:       #password must match
-            print("password mismatch")
-            return render_template('/user-page/user_signup.html')
+            msg = ("Password mismatch")
+            return render_template('/user-page/user_signup.html', error=msg)
         elif len(password) < 8:         #password must be greater than 8
-            print("password not beyond 8")
-            return render_template('/user-page/user_signup.html')
+            msg = ("assword not beyond 8")
+            return render_template('/user-page/user_signup.html', error=msg)
         try:
             #create user through Authentication in Firebase
             new_user = auth.create_user_with_email_and_password(email, password)
@@ -105,10 +102,10 @@ def signUpPage():
                     "email" : email
                     }
             db.child('users').child(new_user['localId']).set(data)                                     #add formatted data to Realtime DB
+            return render_template('/user-page/user_signup.html')
         except:
             existing_account = "User Exists"                                           #catch error if email is used already
             print(existing_account)
-            return render_template('/user-page/user_signup.html')
             return redirect(url_for("signInPage"))
     else:
         user = session.get('userData')
@@ -243,23 +240,7 @@ def requestAccess(key):
 
 @app.route('/search', methods=["POST", "GET"])
 def searchArticlePage():
-    if request.method == "POST":
-        searchValue = request.form['searchValue']
-        if searchValue == "":
-            return redirect(url_for('searchArticlePage'))
-        session.pop('searchVal', None)
-        session['searchVal'] = [True, True, True]
-        return redirect(url_for('searchArticle', searchVal = searchValue))
-    else:
-        user = session.get('userData')
-        if user is not None:
-            listOfArticles = []
-            articles = db.child('articles').get()
-            for article in articles.each():
-                listOfArticles.append((article.val(), article.key()))
-            return render_template('/user-page/search_result.html', searchResults = listOfArticles)
-        else:
-            return redirect(url_for('signInPage'))
+    return redirect(url_for("indexPage"))
 
 @app.route('/contact-us')
 def contactPage():

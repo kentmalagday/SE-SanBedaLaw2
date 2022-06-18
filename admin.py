@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, url_for, request
+from flask import Blueprint, redirect, render_template, url_for, request, session
 from firebase_config import *
 
 admin = Blueprint('admin', __name__)
@@ -7,20 +7,6 @@ admin = Blueprint('admin', __name__)
 @admin.route('/index')
 def indexPage():
     return render_template('/admin-page/admin_index.html')
-
-@admin.route('/signup')
-def signUpAdmin():
-    try:
-        admin = auth.create_user_with_email_and_password("ronquillolance@gmail.com", "01312002")
-        data = {"fullName" : "Lance Admin",
-            "institution" : "APC",
-            "email" : "ronquillolance@gmail.com"
-            }
-        db.child('admin').child(admin['localId']).set(data)
-    except:
-        return redirect(url_for("admin.indexPage"))
-    
-    return redirect(url_for("admin.indexPage"))
 
 @admin.route("/signin", methods=["POST", "GET"])
 def signInAdmin():
@@ -42,6 +28,7 @@ def signInAdmin():
             if isVerified is False:
                 print("email not verified")
                 return redirect(url_for("admin.signInAdmin"))
+            session['adminData'] = adminUserDb.val()
             return redirect(url_for("admin.indexPage"))
     else:
         return render_template('/admin-page/admin_signin.html')
@@ -82,9 +69,53 @@ def accessRequestsPage():
 @admin.route('/add-admin', methods=["POST", "GET"])
 def addAdminPage():
     if request.method == "POST":
-        return redirect(url_for('addAdminPage'))
+        name = request.form['adminName']
+        institution = request.form['institution']
+        email = request.form['email']
+        password = request.form['password']
+        cpassword = request.form['cpassword']
+        if password != cpassword:
+            print("password not matching")
+            return redirect(url_for('admin.addAdminPage'))
+        try:
+            admin = auth.create_user_with_email_and_password(email, password)
+        except:
+            getAccounts = db.child('users').get()
+            accValues = getAccounts.val()
+            for account in accValues:
+                if accValues[account]['email'] == email:
+                    try:
+                        userToAdmin = auth.sign_in_with_email_and_password(email, password)
+                    except:
+                        print("User to admin -- invalid password")
+                        return redirect(url_for('admin.addAdminPage'))
+                    else:
+                        data = {
+                            'fullName' : name,
+                            'institution' : institution,
+                            'email' : email
+                        }
+                        db.child('admin').child(userToAdmin['localId']).set(data)
+                        return redirect(url_for('admin.addAdminPage'))
+                else:
+                    continue
+            print("admin account already exists")
+            return redirect(url_for('admin.addAdminPage'))
+        else:
+            auth.send_email_verification(admin['idToken'])
+            data = {
+                'fullName' : name,
+                'institution' : institution,
+                'email' : email
+            }
+            db.child('admin').child(admin['localId']).set(data)
+            return redirect(url_for('admin.addAdminPage'))
     else:
+        # admin = session.get('adminData')
+        # if admin is not None:
         return render_template('/admin-page/add_admin.html')
+        # else:
+        #     return redirect(url_for('admin.signInAdmin'))
 
 @admin.route('/add-article', methods=["POST", "GET"])
 def addArticlePage():
@@ -129,4 +160,5 @@ def addArticlePage():
 
 @admin.route('/signout')
 def signOut():
+    session.pop('adminData', None)
     return redirect(url_for("admin.signInAdmin"))

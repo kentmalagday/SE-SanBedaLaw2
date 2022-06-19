@@ -64,8 +64,13 @@ def viewRepositoryPage():
     repo = db.child('articles').get()
     listOfRepo = []
     for x in repo.each():
-        listOfRepo.append(x.val())
+        listOfRepo.append((x.key(), x.val()))
     return render_template('/admin-page/1view repository.html', listOfRepo=listOfRepo)
+
+@admin.route('/view-repository/<key>/delete', methods=["POST"])
+def deleteRepository(key):
+    print(key)
+    return redirect(url_for('admin.indexPage'))
 
 @admin.route('/access-requests')
 def accessRequestsPage():

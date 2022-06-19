@@ -1,5 +1,4 @@
 from flask import Flask, flash, redirect, render_template, request, url_for, session, Blueprint
-from sqlalchemy import false
 from firebase_config import *
 from admin import admin
 from mail import Mail
@@ -57,61 +56,72 @@ def indexPage(): #Used for searchResults either nasa Index page or when searchin
 
 @app.route("/search/<searchVal>")
 def searchArticle(searchVal):
-        user = session.get('userData')
-        if user is not None:
-            print(searchVal)
-            searchResults = []
-            searchVal = searchVal.lower()
-            try:
-                articles = db.child("articles").get()
-                for article in articles:
-                    vals = article.val()
-                    if(searchVal == " "): #If empty search value, automatically add article to searchResults
-                        searchResults.append((vals, article.key()))
-                        continue
-                    if session.get('searchVal') is not None:
-                        if(session['searchVal'][0]):
-                            if(searchVal in vals["articleTitle"].lower()):
-                                searchResults.append((vals, article.key()))
-                        if(session['searchVal'][1]):
-                            if(searchVal in vals["author"].lower()):
-                                searchResults.append((vals, article.key()))
-                        if(session['searchVal'][2]):
-                            if(searchVal in vals["institution"].lower()):
-                                searchResults.append((vals, article.key()))
-                searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
-                if session.get('filters') is not None:
-                    if session['filters'] != [True] * 6: #if may filters na nakaset magreremove ng results sa searchResults that doesnnt match those filters
-                        for result in searchResults:
-                            if(session['filters'][0]):
-                                if result[0]['pubType'].lower() != "dissertation":
-                                    searchResults.remove(result)
-                                    continue
-                            if(session['filters'][1]):
-                                if result[0]['pubType'].lower() != "journal":
-                                    searchResults.remove(result)
-                                    continue
-                            if(session['filters'][2]):
-                                if result[0]['pubType'].lower() != "book":
-                                    searchResults.remove(result)
-                                    continue
-                            if(session['filters'][3]):
-                                if result[0]['pubType'].lower() != "proceedings":
-                                    searchResults.remove(result)
-                                    continue
-                            if(session['filters'][4]):
-                                if result[0]['pubType'].lower() != "readings":
-                                    searchResults.remove(result)
-                                    continue
-                            if(session['filters'][5]):
-                                if result[0]['pubType'].lower() != "researchproject":
-                                    searchResults.remove(result)
-                                    continue
-                return render_template('/user-page/search_result.html', searchResults = searchResults, searchVal = searchVal, checked = session.get('searchVal'), filters = session.get('filters'))
-            except:
-                return render_template('/user-page/user_index.html')
-        else:
-            return redirect(url_for('signInPage'))
+    user = session.get('userData')
+    if user is not None:
+        print(searchVal)
+        searchResults = []
+        searchVal = searchVal.lower()
+        try:
+            articles = db.child("articles").get()
+            for article in articles:
+                vals = article.val()
+                if(searchVal == " "): #If empty search value, automatically add article to searchResults
+                    searchResults.append((vals, article.key()))
+                    continue
+                if session.get('searchVal') is not None:
+                    if(session['searchVal'][0]):
+                        if(searchVal in vals["articleTitle"].lower()):
+                            searchResults.append((vals, article.key()))
+                    if(session['searchVal'][1]):
+                        if(searchVal in vals["author"].lower()):
+                            searchResults.append((vals, article.key()))
+                    if(session['searchVal'][2]):
+                        if(searchVal in vals["institution"].lower()):
+                            searchResults.append((vals, article.key()))
+            searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
+            searchFiltered = []
+            if session.get('filters') is not None:
+                if session['filters'] != [True] * 6: #if may filters na nakaset magreremove ng results sa searchResults that doesnnt match those filters
+                    for result in searchResults:
+                        added = False
+                        if(session['filters'][0]):
+                            if result[0]['pubType'].lower() == "dissertation" and added is False:
+                                searchFiltered.append(result)
+                                added = True
+                                continue
+                        if(session['filters'][1]):
+                            if result[0]['pubType'].lower() == "journal" and added is False:
+                                searchFiltered.append(result)
+                                added = True
+                                continue
+                        if(session['filters'][2]):
+                            if result[0]['pubType'].lower() == "book" and added is False:
+                                searchFiltered.append(result)
+                                added = True
+                                continue
+                        if(session['filters'][3]):
+                            if result[0]['pubType'].lower() == "proceedings" and added is False:
+                                searchFiltered.append(result)
+                                added = True
+                                continue
+                        if(session['filters'][4]):
+                            if result[0]['pubType'].lower() == "readings" and added is False:
+                                searchFiltered.append(result)
+                                added = True
+                                continue
+                        if(session['filters'][5]):
+                            if result[0]['pubType'].lower() == "researchproject" and added is False:
+                                searchFiltered.append(result)
+                                added = True
+                                continue
+                else:
+                    searchFiltered = searchResults
+            return render_template('/user-page/search_result.html', searchResults = searchFiltered, searchVal = searchVal, checked = session.get('searchVal'), filters = session.get('filters'))
+        except Exception as e:
+            print(e)
+            return render_template('/user-page/user_index.html')
+    else:
+        return redirect(url_for('signInPage'))
 
 @app.route('/signup', methods=["POST", "GET"])
 def signUpPage():
@@ -139,10 +149,12 @@ def signUpPage():
                     "institution" : institution,
                     "email" : email
                     }
-            db.child('users').child(new_user['localId']).set(data)                                     #add formatted data to Realtime DB
-            return render_template('/user-page/user_signin.html', success = "Acount Created! Please Verify Email before Signing In.")
+            #add formatted data to Realtime DB
+            db.child('users').child(new_user['localId']).set(data)
+            return render_template('/user-page/user_signin.html', success = "Account Created! Please Verify Email before Signing In.")
         except:
-            existing_account = "User Exists"                                           #catch error if email is used already
+            #catch error if email is used already
+            existing_account = "User Exists"                                          
             print(existing_account)
             return redirect(url_for("signInPage"))
     else:

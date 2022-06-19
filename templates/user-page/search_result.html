@@ -125,33 +125,57 @@
 
                     <h4>Filter</h4>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input" id="dissertation">
+                        {% if filters[0] %}
+                            <input type="checkbox" class="form-check-input" value="dissertation" name = "filter" checked>
+                        {% else %}
+                        <input type="checkbox" class="form-check-input" value="dissertation" name = "filter">
+                        {% endif %}
                         <label for="dissertation" class="form-check-label">Dissertation</label>
                     </div>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input" id="journal">
+                        {% if filters[1] %}
+                            <input type="checkbox" class="form-check-input" value="journal" name = "filter" checked>
+                        {% else %}
+                        <input type="checkbox" class="form-check-input" value="journal" name = "filter">
+                        {% endif %}
                         <label for="journal" class="form-check-label">Journal</label>
                     </div>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input" id="book">
+                        {% if filters[2] %}
+                            <input type="checkbox" class="form-check-input" value="book" name = "filter" checked>
+                        {% else %}
+                        <input type="checkbox" class="form-check-input" value="book" name = "filter">
+                        {% endif %}
                         <label for="boobk" class="form-check-label">Book</label>
                     </div>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input" id="proceedings">
+                        {% if filters[3] %}
+                            <input type="checkbox" class="form-check-input" value="proceedings" name = "filter" checked>
+                        {% else %}
+                            <input type="checkbox" class="form-check-input" value="proceedings" name = "filter">
+                        {% endif %}
                         <label for="proceedings" class="form-check-label">Proceedings</label>
                     </div>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input" id="readings">
+                        {% if filters[4] %}
+                            <input type="checkbox" class="form-check-input" value="readings" name = "filter" checked>
+                        {% else %}
+                            <input type="checkbox" class="form-check-input" value="readings" name = "filter">
+                        {% endif %}
                         <label for="readings" class="form-check-label">Readings</label>
                     </div>
                     <div class="mb-2 form-check">
-                        <input type="checkbox" class="form-check-input" id="researchproject">
+                        {% if filters[5] %}
+                            <input type="checkbox" class="form-check-input" value="researchproject" name = "filter" checked>
+                        {% else %}
+                            <input type="checkbox" class="form-check-input" value="researchproject" name = "filter">
+                        {% endif %}
                         <label for="researchproject" class="form-check-label">Research Project</label>
                     </div>
                     <h4>Year</h4>
                     <div class="mb-3">
                         <div class="d-flex pad">
-                            <input type="text" name="" id="" size="6rem" class="mar">
+                            <input type="text" name="" id="" size="6rem" class="mar" >
                             <span><strong>-</strong></span>
                             <input type="text" name="" id="" size="6rem" class="mal">
                         </div>

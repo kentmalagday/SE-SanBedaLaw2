@@ -1,4 +1,5 @@
 from flask import Flask, flash, redirect, render_template, request, url_for, session, Blueprint
+from sqlalchemy import false
 from firebase_config import *
 from admin import admin
 from mail import Mail
@@ -30,6 +31,20 @@ def indexPage():
             author_checked = True
         if 'institution' in types:
             institution_checked = True
+        filters = request.form.getlist('filter')
+        if(filters):
+            filter_dict = {"dissertation": False,
+                            "journal": False,
+                            "book": False,
+                            "proceedings": False,
+                            "readings": False,
+                            "researchproject": False}
+            for filter in filters:
+                filter_dict[filter] = True
+            session['filters'] = [filter for filter in filter_dict.values()]
+            print(session['filters'])
+        else:
+            session['filters'] = [True] * 6
         session['searchVal'] = [title_checked, author_checked, institution_checked]
         print(session['searchVal'])
         return redirect(url_for("searchArticle", searchVal = searchValue))
@@ -68,8 +83,44 @@ def searchArticle(searchVal):
                             if(searchVal in vals["institution"].lower()):
                                 searchResults.append((vals, article.key()))
                 searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
-                print(session.get('searchVal'))
-                return render_template('/user-page/search_result.html', searchResults = searchResults, searchVal = searchVal, checked = session.get('searchVal'))
+                if session.get('filters') is not None:
+                    if session['filters'] != [True] * 6:
+                        print(len(searchResults))
+                        print(searchResults)
+                        print("searches")
+                        print(searchResults[1])
+                        for ind in range(len(searchResults)):
+                            print(ind)
+                            result = searchResults[ind]
+                            print(result)
+                            if(session['filters'][0]):
+                                if result[0]['pubType'].lower() != "dissertation":
+                                    searchResults.remove(result)
+                                    continue
+                            if(session['filters'][1]):
+                                if result[0]['pubType'].lower() != "journal":
+                                    searchResults.remove(result)
+                                    continue
+                            if(session['filters'][2]):
+                                if result[0]['pubType'].lower() != "book":
+                                    searchResults.remove(result)
+                                    continue
+                            if(session['filters'][3]):
+                                if result[0]['pubType'].lower() != "proceedings":
+                                    searchResults.remove(result)
+                                    continue
+                            if(session['filters'][4]):
+                                if result[0]['pubType'].lower() != "readings":
+                                    searchResults.remove(result)
+                                    continue
+                            if(session['filters'][5]):
+                                if result[0]['pubType'].lower() != "researchproject":
+                                    searchResults.remove(result)
+                                    continue
+                print("SEARCHED")
+                print(searchResults)
+                print("ALMOST THERE")
+                return render_template('/user-page/search_result.html', searchResults = searchResults, searchVal = searchVal, checked = session.get('searchVal'), filters = session.get('filters'))
             except:
                 return render_template('/user-page/user_index.html')
         else:

@@ -89,10 +89,7 @@ def searchArticle(searchVal):
                         print(searchResults)
                         print("searches")
                         print(searchResults[1])
-                        for ind in range(len(searchResults)):
-                            print(ind)
-                            result = searchResults[ind]
-                            print(result)
+                        for result in searchResults:
                             if(session['filters'][0]):
                                 if result[0]['pubType'].lower() != "dissertation":
                                     searchResults.remove(result)

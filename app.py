@@ -12,14 +12,14 @@ app.secret_key = "SE-SanBedaLaw"
 #routes to user/client side
 @app.route('/', methods=["POST", "GET"])
 @app.route('/index', methods=["POST", "GET"])
-def indexPage():
+def indexPage(): #Used for searchResults either nasa Index page or when searching another value sa searchResults page
     if request.method == "POST":
         title_checked = False
         author_checked = False
         institution_checked = False
         searchValue = request.form['searchValue']
-        if searchValue == "":
-            return redirect(url_for('searchArticlePage'))
+        if searchValue == "": # if empty string, reveal all articles
+            searchValue = " "
         types = request.form.getlist('type')
         if ('title' not in types) and ('author' not in types) and ('institution' not in types):
             title_checked = True
@@ -31,7 +31,7 @@ def indexPage():
             author_checked = True
         if 'institution' in types:
             institution_checked = True
-        filters = request.form.getlist('filter')
+        filters = request.form.getlist('filter') #Check if may exisiting filters
         if(filters):
             filter_dict = {"dissertation": False,
                             "journal": False,
@@ -44,7 +44,7 @@ def indexPage():
             session['filters'] = [filter for filter in filter_dict.values()]
             print(session['filters'])
         else:
-            session['filters'] = [True] * 6
+            session['filters'] = [True] * 6 #No checked filters so true lahat
         session['searchVal'] = [title_checked, author_checked, institution_checked]
         print(session['searchVal'])
         return redirect(url_for("searchArticle", searchVal = searchValue))
@@ -55,14 +55,8 @@ def indexPage():
         else:
             return redirect(url_for('signInPage'))
 
-@app.route("/search/<searchVal>", methods=["POST", "GET"])
+@app.route("/search/<searchVal>")
 def searchArticle(searchVal):
-    if request.method == "POST":
-        searchValue = request.form['searchValue']
-        if searchValue == "":
-            return redirect(url_for("searchArticlePage"))
-        return redirect(url_for("searchArticle", searchVal = searchValue))
-    else:
         user = session.get('userData')
         if user is not None:
             print(searchVal)
@@ -72,6 +66,9 @@ def searchArticle(searchVal):
                 articles = db.child("articles").get()
                 for article in articles:
                     vals = article.val()
+                    if(searchVal == " "): #If empty search value, automatically add article to searchResults
+                        searchResults.append((vals, article.key()))
+                        continue
                     if session.get('searchVal') is not None:
                         if(session['searchVal'][0]):
                             if(searchVal in vals["articleTitle"].lower()):
@@ -84,11 +81,7 @@ def searchArticle(searchVal):
                                 searchResults.append((vals, article.key()))
                 searchResults = [i for n, i in enumerate(searchResults) if i not in searchResults[n + 1:]]
                 if session.get('filters') is not None:
-                    if session['filters'] != [True] * 6:
-                        print(len(searchResults))
-                        print(searchResults)
-                        print("searches")
-                        print(searchResults[1])
+                    if session['filters'] != [True] * 6: #if may filters na nakaset magreremove ng results sa searchResults that doesnnt match those filters
                         for result in searchResults:
                             if(session['filters'][0]):
                                 if result[0]['pubType'].lower() != "dissertation":
@@ -114,9 +107,6 @@ def searchArticle(searchVal):
                                 if result[0]['pubType'].lower() != "researchproject":
                                     searchResults.remove(result)
                                     continue
-                print("SEARCHED")
-                print(searchResults)
-                print("ALMOST THERE")
                 return render_template('/user-page/search_result.html', searchResults = searchResults, searchVal = searchVal, checked = session.get('searchVal'), filters = session.get('filters'))
             except:
                 return render_template('/user-page/user_index.html')

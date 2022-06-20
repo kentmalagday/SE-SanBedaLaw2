@@ -240,7 +240,7 @@ def helpPage():
     else:
         user = session.get('userData')
         if user is not None:
-            return render_template('/user-page/user_help.html', name=session['userData']['fullName'], email=session['userData']['email'])
+            return render_template('/user-page/user_help.html', name=session['userData'][1]['fullName'], email=session['userData'][1]['email'])
         else:
             return redirect(url_for('signInPage'))
 

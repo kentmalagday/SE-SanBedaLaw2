@@ -39,6 +39,12 @@
         background-color: white ;
         border-color: #2E052D ;
     }
+    .modbtn1{
+    	width:60px ;
+        align-items: center ;
+        background-color: white ;
+        border-color: #2E052D ;
+    }
     #myBtn{
     	border:0px ;
         width:60px ;
@@ -96,36 +102,40 @@
                 <th>Actions</th>
             </div>
         </tr>
+        <tbody>
         {% for col in listOfRepo %}
             <tr>
-                <th>{{ col[1]['fullName'] }}</th>
-                <th>{{ col[1]['email'] }}</th>
-                <th>{{ col[1]['institution'] }}</th>
+                <th>{{ col['adminName'] }}</th>
+                <th>{{ col['email'] }}</th>
+                <th>{{ col['institution'] }}</th>
                 <!--put edit/delete button or link here-->
                 <th> <a href=" " id="myBtn"> Edit </a>
-                  <button class="trigger2" id="myBtn">Delete</button>
+                    <a class="trigger2" id="myBtn" data-target="{{id}}" data-id="{{id}}" data-toggle="modal2" >Delete</a>
                     <!-- The Modal -->
                   <div class="modal2">
                     <!-- Modal content -->
                       <div class="modal2-content">
                           <span class="close-button">&times;</span>
-                          <p align=center>Are you sure do you want to delete the said Admin account?<br><br>
-                          <button class="modbtn" align="center" onclick=""> Yes </button>  <button class="modbtn " align="center" onclick=""> No </button></p>
+                          <p align=center>Are you sure do you want to delete the said Item?<br><br>
+                          <a href=" "><button class="modbtn" 
+	                          align="center" data-target="{{id}}" 
+	                          data-id="{{id}}"> Yes  </button></a>  
+	                      <button class="modbtn1 " align="center" data-dismiss="modal2"> No </button></p>
                       </div>
                     </div>
                  </th>
             </tr>
         {% endfor %}
+    </tbody>
     </table>
 
-    <script>
-    const modal2 = document.querySelector(".modal2");
-    const trigger2 = document.querySelector(".trigger2");
-    const closeButton = document.querySelector(".close-button");
 
-    function toggleModal() {
-        modal2.classList.toggle("show-modal2");
-    }
+<script>
+    const modal2 = document.querySelector(".modal2");
+    const trigger2 = document.querySelectorAll(".trigger2");
+    const closeButton = document.querySelectorAll(".close-button");
+    const noButton = document.querySelectorAll(".modbtn1")
+    var allTriggers = document.querySelectorAll(".trigger2, .close-button, .modbtn1");
 
     function windowOnClick(event) {
         if (event.target === modal2) {
@@ -133,9 +143,30 @@
         }
     }
 
-    trigger2.addEventListener("click", toggleModal);
-    closeButton.addEventListener("click", toggleModal);
+    function toggleModal() {
+        modal2.classList.toggle("show-modal");
+    }
+    Array.from(trigger2).forEach(trigger => {
+    trigger.addEventListener("click", toggleModal);
+        });
+
+    Array.from(closeButton).forEach(closeButton => {
+        closeButton.addEventListener("click", toggleModal);
+        });
+    Array.from(noButton).forEach(noButton => {
+        noButton.addEventListener("click", toggleModal);
+        });
+        
+    Array.from(window).forEach(window => {
+        window.addEventListener("click", windowOnClick);
+        });
+    //function toggleModal() {
+    //    modal.classList.toggle("show-modal");
+    //}
+
+
     window.addEventListener("click", windowOnClick);
-    </script>
+</script>
+
 </body>
 </html>

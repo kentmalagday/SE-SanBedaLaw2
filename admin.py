@@ -26,7 +26,8 @@ def signInAdmin():
             else:
                 adminUserInfo = auth.get_account_info(adminUser['idToken'])
                 isVerified = adminUserInfo['users'][0]['emailVerified']
-        except:
+        except Exception as e:
+            print(e)
             print("Admin account not found")
             return redirect(url_for("admin.signInAdmin"))
         else:
@@ -66,11 +67,6 @@ def viewRepositoryPage():
     for x in repo.each():
         listOfRepo.append((x.key(), x.val()))
     return render_template('/admin-page/1view repository.html', listOfRepo=listOfRepo)
-
-@admin.route('/view-repository/<key>/delete', methods=["POST"])
-def deleteRepository(key):
-    print(key)
-    return redirect(url_for('admin.indexPage'))
 
 @admin.route('/access-requests')
 def accessRequestsPage():
@@ -183,7 +179,7 @@ def addArticlePage():
     else:
         return render_template('/admin-page/addarticle.html')
 
-@admin.route('/<key>/delete')
+@admin.route('/admin-table/delete/<key>')
 def deleteAdminAccount(key):
     adminKey = session['adminData'][0]
     if adminKey == key:
@@ -191,6 +187,11 @@ def deleteAdminAccount(key):
         return redirect(url_for('admin.viewAdminPage'))
     db.child('admin').child(key).remove()
     return redirect(url_for('admin.viewAdminPage'))
+
+@admin.route('/view-repository/delete/<key>')
+def deleteRepository(key):
+    db.child('articles').child(key).remove()
+    return redirect(url_for('admin.viewRepositoryPage'))
 
 @admin.route('/signout')
 def signOut():

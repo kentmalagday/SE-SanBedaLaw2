@@ -81,12 +81,12 @@
 
 <body>
     <div class="textabove text-center p-4" style="color: #2E052D;">
-        <h1>View Repository</h1>
+        <h1>View Admin Accounts</h1>
     </div>
 
     <!-- input button -->
 
-        <form action="/admin/add-user" target="_parent">
+        <form action="/admin/add-admin" target="_parent">
             <button class="button" type="submit" style="background-color: #2E052D; border-radius: 15px; height:40px; width:200px;">+ Add User</button>
         </form>
 
@@ -105,9 +105,9 @@
         <tbody>
         {% for col in listOfRepo %}
             <tr>
-                <th>{{ col['adminName'] }}</th>
-                <th>{{ col['email'] }}</th>
-                <th>{{ col['institution'] }}</th>
+                <th>{{ col[1]['fullName'] }}</th>
+                <th>{{ col[1]['email'] }}</th>
+                <th>{{ col[1]['institution'] }}</th>
                 <!--put edit/delete button or link here-->
                 <th> <a href=" " id="myBtn"> Edit </a>
                     <a class="trigger2" id="myBtn" data-target="{{id}}" data-id="{{id}}" data-toggle="modal2" >Delete</a>
@@ -117,7 +117,7 @@
                       <div class="modal2-content">
                           <span class="close-button">&times;</span>
                           <p align=center>Are you sure do you want to delete the said Item?<br><br>
-                          <a href=" "><button class="modbtn" 
+                          <a href="/admin/admin-table/delete/{{ col[0] }}"><button class="modbtn" 
 	                          align="center" data-target="{{id}}" 
 	                          data-id="{{id}}"> Yes  </button></a>  
 	                      <button class="modbtn1 " align="center" data-dismiss="modal2"> No </button></p>
@@ -144,7 +144,7 @@
     }
 
     function toggleModal() {
-        modal2.classList.toggle("show-modal");
+        modal2.classList.toggle("show-modal2");
     }
     Array.from(trigger2).forEach(trigger => {
     trigger.addEventListener("click", toggleModal);

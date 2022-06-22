@@ -12,7 +12,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_help.css') }}">
+        <link rel="stylesheet" href="/static/css/admin_setting.css">
+        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_help.css') }}"> -->
 
 
 </head>
@@ -105,30 +106,30 @@
                     <hr>
                     <div class="col py-3">
                         
-           
+        
                     <div class="input-group mb-3">
-                        <label for=" " class="col-form-label">Name</label>
+                        <label for=" " class="col-form-label">Name</label> <p style="color:white">____.</p>
                         <input type="text" class="inputs form-control" value={{userData['fullName']}} readonly>
                         <button type="button" class="btn btn-light">Edit</button> <!--punta user_editName-->
                     </div>
                     <hr>
                     <div class="input-group mb-3">
-                        <label for=" " class="col-form-label">Email</label>
+                        <label for=" " class="col-form-label">Email</label> <p style="color:white">_____</p>
                         <input type="email" class="inputs form-control" value={{userData['email']}} readonly>
                         <button type="button" class="btn btn-light" style="color:aliceblue">____</button>
                     </div>
                     <hr>
                     <div class="input-group mb-3">
-                        <label for=" " class="col-form-label">Institution</label>
+                        <label for=" " class="col-form-label">Institution</label> <p style="color:white"></p>
                         <input type="text" class="inputs form-control" value={{userData['institution']}} readonly>
                         <button type="button" class="btn btn-light">Edit</button> <!--punta user_editInstitution-->
                     </div>
                     <hr>
                     <div class="input-group mb-3">
-                        <label for=" " class="col-form-label">Password</label>
+                        <label for=" " class="col-form-label">Password</label> <p style="color:white">_</p>
                         <input type="text" class="inputs form-control" value=****** readonly>
                         <button type="button" class="btn btn-light" >Edit</button>  <!--punta sa user_editPassword-->
-                      </div>
+                    </div>
                     <hr>
                         <!-- CONTACT INFO -->
                 </div>

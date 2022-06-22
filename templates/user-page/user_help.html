@@ -7,6 +7,11 @@
     <title>Help & Support</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_help.css') }}">
 
 
@@ -25,7 +30,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarsExample06" style="font-family: 'Inter' ;">
+            <div class="collapse navbar-collapse" id="navbarsExample06">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="/about-us" class="nav-link active">About Us</a>
@@ -62,25 +67,43 @@
 
     <!--Side navbar start-->
 
-    <div class="row h-100">
-        <div class="side-nav col-sm-3 col-md-2 col-lg-2 container-fluid">
-            <div class="side-text p-5">
-                <a href="/account/settings" class="nav-link">Settings and Privacy</a> <br>
-                <a href="/account/help" class="nav-link">Help & Support</a>
-                <br><br><br><br><br><br><br><br><br><br><br>
-                <div style="margin-bottom: 17.5rem;">
-                </div>
-                <a href="/signout" class="nav-link" style="color:rgba(244, 83, 83, 1)">Sign out</a>
-            </div>
-        </div>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-light">
+                <div class="side d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 min-vh-100">
 
-        <div class="main-window col-sm-9 col-md-10 col-lg-10 p-4 ">
-            <div class="w-75 px-3">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+                        id="menu">
+                        <li class="nav-item">
+                            <a href="/account/settings" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Settings and Privacy</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/account/help" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Help & Support</span>
+                            </a>
+                        </li>
+                       
+                    </ul>
+                    <hr>
+                    <div class="container pb-4">
+                        <a href="/signout" class="nav-link" style="color:rgba(244, 83, 83, 1)">Sign out</a>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="w-75 p-5">
                 <h4 style="color: rgba(46, 5, 45, 1)">Help & Support</h4>
                 <hr>
                 <h2 style="text-align: center;"> Contact Us </h2>
+
+
                 <!-- CONTACT INFO -->
-                <div class="container cform py-4">
+
+                
+                <div class="container cform py-3 ">
 
                     <form id="contactForm" method="post">
 
@@ -138,18 +161,15 @@
                 </div>
             </div>
             <!-- CONTACT INFO -->
-
-
-
+            </div>
         </div>
-    </div>
     </div>
 
 
     <!-- FOOTER -->
     <footer class="footer fixed-bottom footer-style">
-        <div class="container text-center">
-            <p><br> &#169; 2022 A Gateway to Open Access Legal Resources in the Philippines All rights reserved</p>
+        <div class="container text-center mt-3">
+            <p style="font-family: 'Inter'; font-weight: bold;font-size: 12px;" > &#169; 2022 A Gateway to Open Access Legal Resources in the Philippines All rights reserved</p>
         </div>
     </footer>
 

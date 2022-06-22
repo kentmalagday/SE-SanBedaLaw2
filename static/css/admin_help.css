@@ -8,14 +8,14 @@ body{
     
   }
  /*nav bar */
-.side-nav{
+.side{
     border-right: 1px solid #9F9F9F;
     border-radius: 2px;
-    height: 900px;
+    height: auto;
 }
 
 
-.side-text{
+.side{
     color: #2E052D;
     font-size: 20px;
 }

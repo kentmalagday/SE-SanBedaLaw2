@@ -184,19 +184,27 @@ a:link, a:visited {
 }
 
 .asignin form h2 {
-  font-family: 'Inter';
+  font-family:'Inter', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 22px;
   line-height: 22px;
 }
-.asignin form label, a,p {
-  font-family: 'Inter';
+.asignin form label, p {
+  font-family: 'Inter', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 12px;
   line-height: 15px;
 }
+
+.asignin form a {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-size: 13px;
+  font-weight: bold;
+}
+
 
 
 /* Search */

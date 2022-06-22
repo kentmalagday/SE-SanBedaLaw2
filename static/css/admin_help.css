@@ -12,13 +12,10 @@ body{
     border-right: 1px solid #9F9F9F;
     border-radius: 2px;
     height: auto;
-}
-
-
-.side{
     color: #2E052D;
     font-size: 20px;
 }
+
 
 a:link, a:visited {
     color: #7B7B7B;

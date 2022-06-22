@@ -7,9 +7,9 @@
     <title>Settings & Privacy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
-    <!-- <link rel="stylesheet" href="/static/css/admin_setting.css"> -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_setting.css') }}">
+        
+        <!-- <link rel="stylesheet" href="/static/css/admin_setting.css"> -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_setting.css') }}">
 </head>
 
 <body class="d-flex flex-column h-100" >
@@ -53,33 +53,15 @@
 
         <div class="main-window col-10 p-5" style="background-color:white;">
             <div class="w-75 px-3">
-                <h4>Settings and Privacy</h4>
+                <h4>Edit Institution</h4>
                 <hr>
                 <div class="input-group mb-3">
-                    <p class="short">Name</p>
-                    <input type="text" class="inputs form-control" value={{adminData['fullName']}} readonly>
-                    <button type="button" class="btn btn-light" >Edit</button> <!--punta sa admin_editName-->
-                  </div>
-                <hr>
-                <div class="input-group mb-3">
-                    <p class="short">Email </p>
-                    <input type="emal" class="inputs form-control" value={{adminData['email']}} readonly>
-                    <button type="button" class="btn btn-light" style="color:aliceblue">Edit</button>
-                  </div>
-                <hr>
-                <div class="input-group mb-3">
-                    <p class="long">Institution </p>
-                    <input type="text" class="inputs form-control" value={{adminData['institution']}} readonly>
-                    <button type="button" class="btn btn-light" >Edit</button>  <!--punta sa admin_editInstitution-->
+                    <p class="short">Institution</p>
+                    <input type="text" class="inputs form-control" value={{adminData['institution']}}>
                   </div>
                 <hr>
 
-                <div class="input-group mb-3">
-                    <p class="long">Password</p>
-                    <input type="text" class="inputs form-control" value=****** readonly>
-                    <button type="button" class="btn btn-light" >Edit</button>  <!--punta sa admin_editPassword-->
-                  </div>
-                <hr>
+                <center><button style="background-color: #2E052D; color:aliceblue;">Save Changes</button></center>
             <!-- CONTACT INFO -->
 
                              
@@ -101,4 +83,3 @@
 </body>
 
 </html>
-

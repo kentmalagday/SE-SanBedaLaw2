@@ -99,10 +99,14 @@
 
                 <!-- CONTACT INFO -->
 
-                
         
                     <div class="w-75 p-5">
                         <h4>Settings and Privacy</h4>
+                        {% if alert %}
+                        <div>
+                            <p>{{alert}}</p>
+                        </div>
+                        {% endif %}
                     <hr>
                     <div class="col py-3">
                         
@@ -122,7 +126,7 @@
                     <div class="input-group mb-3">
                         <label for=" " class="col-form-label">Institution</label> <p style="color:white"></p>
                         <input type="text" class="inputs form-control" value="{{userData[1]['institution']}}" readonly>
-                        <button type="button" class="btn btn-light">Edit</button> <!--punta user_editInstitution-->
+                        <a href="/account/edit-institution/{{userData[0]}}"><button type="button" class="btn btn-light">Edit</button></a> <!--punta user_editInstitution-->
                     </div>
                     <hr>
                     <div class="input-group mb-3">

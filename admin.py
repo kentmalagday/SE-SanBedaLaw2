@@ -39,27 +39,27 @@ def signInAdmin():
             session['adminData'] = (adminUserDb.key(), adminUserDb.val())
             return redirect(url_for("admin.indexPage"))
     else:
-        alert = session['alert']
-        if alert is not None:
-            session.pop('alert', None)
-            return render_template('/admin-page/admin_signin.html', alert=alert)
-        else:
+        try:
+            alert = session['alert']
+            if alert is not None:
+                session.pop('alert', None)
+                return render_template('/admin-page/admin_signin.html', alert=alert)
+        except:
             return render_template('/admin-page/admin_signin.html')
         
 @admin.route('/forget-password', methods=["POST", "GET"])
 def forgetPasswordPage():
     if request.method == "POST":
         email = request.form['email']
-        # try:
-        #     auth.send_password_reset_email(email)
-        # except:
-        #     session['alert'] = "Account with inputted email not found."
-        #     return redirect(url_for('admin.forgetPasswordPage'))
+        try:
+            auth.send_password_reset_email(email)
+        except:
+            session['alert'] = "Account with inputted email not found."
+            return redirect(url_for('admin.forgetPasswordPage'))
         session['alert'] = "Password reset link has been sent to your email."
         return redirect(url_for('admin.forgetPasswordPage'))
     else:
         alert = session.get('alert')
-        print(alert)
         if alert is not None:
             session.pop('alert', None)
             return render_template('/admin-page/admin_forgetpass.html', alert=alert)

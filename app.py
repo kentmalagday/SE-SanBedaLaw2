@@ -138,13 +138,16 @@ def signUpPage():
             emailSuffix = email[-7:]
             if emailSuffix != ".edu.ph":
                 msg = ("Email must be school email")
-                return render_template('/user-page/user_signup.html', error=msg)
+                session['alert'] = msg
+                return redirect(url_for('signUpPage'))
             if password != cpassword:       #password must match
                 msg = ("Password mismatch")
-                return render_template('/user-page/user_signup.html', error=msg)
+                session['alert'] = msg
+                return redirect(url_for('signUpPage'))
             elif len(password) < 8:         #password must be greater than 8
                 msg = ("Password must be longer than 8 characters")
-                return render_template('/user-page/user_signup.html', error=msg)
+                session['alert'] = msg
+                return redirect(url_for('signUpPage'))
             try:
                 #create user through Authentication in Firebase
                 new_user = auth.create_user_with_email_and_password(email, password)
@@ -160,11 +163,17 @@ def signUpPage():
                 return redirect(url_for('signInPage'))
             except:
                 #catch error if email is used already
-                existing_account = "User Exists"                                          
-                print(existing_account)
-                return redirect(url_for("signInPage"))
+                existing_account = "Email already been used."
+                session['alert'] = existing_account                                 
+                return redirect(url_for("signUpPage"))
         else:
-            return render_template('/user-page/user_signup.html')
+            try:
+                alert = session['alert']
+                if alert is not None:
+                    session.pop('alert', None)
+                    return render_template('/user-page/user_signup.html', alert=alert)
+            except:
+                return render_template('/user-page/user_signup.html')
 
 @app.route('/signin', methods=["POST", "GET"])
 def signInPage():
@@ -218,11 +227,14 @@ def forgetPasswordPage():
             result = auth.send_password_reset_email(email)
             print(result)
         except Exception as e:
-            print(e)
+            session['alert'] = "User not found with that email."
             return redirect(url_for('forgetPasswordPage'))
         session['alert'] = "Password reset link has been sent to your email."
         return redirect(url_for('signInPage'))
     else:
+        alert = session.get('alert')
+        if alert is not None:
+            return render_template('/user-page/user_forgetpass.html', alert = alert)
         return render_template('/user-page/user_forgetpass.html')
     
     
@@ -235,8 +247,13 @@ def signOut():
 @app.route('/account/settings')
 def settingsPage():
     user = session.get('userData')
+    alert = session.get('alert')
     if user is not None:
-        return render_template('/user-page/user_settings.html', userData = user)
+        if alert is not None:
+            session.pop('alert', None)
+            return render_template('/user-page/user_settings.html', userData = user, alert=alert)
+        else:
+            return render_template('/user-page/user_settings.html', userData = user)
     else:
         return redirect(url_for('signInPage'))
     
@@ -257,7 +274,7 @@ def editInstitutionPage(key):
                 session['userData'] = ((userData.key(), userData.val()))
             return redirect(url_for('settingsPage'))
         else:
-            
+            session['alert'] = "Edited Institution Successfully."
             return render_template('/user-page/user_editInstitution.html', userData = user)
     else:
         return redirect(url_for('signInPage'))
@@ -277,9 +294,9 @@ def editNamePage(key):
             else:
                 userData = db.child('users').child(userKey).get()
                 session['userData'] = ((userData.key(), userData.val()))
+                session['alert'] = "Edited Name Successfully."
             return redirect(url_for('settingsPage'))
         else:
-            
             return render_template('/user-page/user_editName.html', userData = user)
     else:
         return redirect(url_for('signInPage'))
@@ -292,9 +309,14 @@ def helpPage():
         user = session.get('userData')[1]
         send = Mail(user, None, message, subject)
         result = send.sendMail()
+        if result > 0:
+            session['alert'] = "Thank you for sending your concern. We will get back to you later."
+        else:
+            session['alert'] = "There has been an error in sending your message. Please try again later."
         return redirect(url_for('helpPage'))
     else:
         user = session.get('userData')
+        alert = session.get('alert')
         if user is not None:
             return render_template('/user-page/user_help.html', name=session['userData'][1]['fullName'], email=session['userData'][1]['email'])
         else:

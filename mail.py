@@ -42,8 +42,8 @@ Yours truly,
             smtp_server.login(self.gmail_user,self.gmail_password)
             smtp_server.send_message(msg)
             smtp_server.close()
-            return("Success")
+            return(1)
         except Exception as ex:
-            return ("Error: ", ex)
+            return (0)
 
 

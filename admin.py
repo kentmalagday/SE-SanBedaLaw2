@@ -61,7 +61,8 @@ def signInAdmin():
             return redirect(url_for("admin.signInAdmin"))
         else:
             if isVerified is False:
-                session['alert'] = "Account is not yet email verified."
+                session['alert'] = "Account is not yet email verified. Another email has been sent out for verification."
+                auth.send_email_verification(adminUser['idToken'])
                 return redirect(url_for("admin.signInAdmin"))
             session['adminData'] = (adminUserDb.key(), adminUserDb.val())
             return redirect(url_for("admin.indexPage"))

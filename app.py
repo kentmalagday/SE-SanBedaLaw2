@@ -220,7 +220,8 @@ def signInPage():
                 return redirect(url_for('signInPage'))
             else:
                 if isVerified is False:
-                    invalid_cred = "User Account is still not email verified."
+                    invalid_cred = "User Account is still not email verified. Please check your email."
+                    auth.send_email_verification(user['idToken'])
                     session['alert'] = invalid_cred
                     return redirect(url_for('signInPage'))
                 session['userData'] = (userData.key(), userData.val())

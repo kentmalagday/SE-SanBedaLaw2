@@ -151,6 +151,7 @@ def viewRepositoryPage():
     else:
         print('Not null')
         listOfRepo = session['repoList']
+        session['repoList'] = None
             
     alert = session.get('alert')
     if alert is not None:

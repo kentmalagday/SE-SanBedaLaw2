@@ -168,7 +168,19 @@ table,th,td{
   font-size: 12px;
   line-height: 15px;
 }
-
+.btnlink{
+  margin-bottom:15px;
+  margin-right:5px;
+  text-align: right;
+}
+.btnlink{
+  color:#2E052D;
+  font-size:15px;
+  text-decoration: none;
+}
+.btnlink:hover{
+  color:rgba(134, 48, 132, 1);
+}
 
 /* Search */
 

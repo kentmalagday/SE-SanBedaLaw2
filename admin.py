@@ -71,13 +71,22 @@ def signInAdmin():
 def forgetPasswordPage():
     if request.method == "POST":
         email = request.form['email']
-        try:
-            auth.send_password_reset_email(email)
-        except:
+        isAdmin = False
+        checkIfAdmin = db.child('admin').get()
+        for accounts in checkIfAdmin.val():
+            if checkIfAdmin.val()[accounts]['email'] == email:
+                isAdmin = True
+        if isAdmin is True:
+            try:
+                auth.send_password_reset_email(email)
+            except:
+                session['alert'] = "Account with inputted email not found."
+                return redirect(url_for('admin.forgetPasswordPage'))
+            session['alert'] = "Password reset link has been sent to your email."
+            return redirect(url_for('admin.forgetPasswordPage'))
+        else:
             session['alert'] = "Account with inputted email not found."
             return redirect(url_for('admin.forgetPasswordPage'))
-        session['alert'] = "Password reset link has been sent to your email."
-        return redirect(url_for('admin.forgetPasswordPage'))
     else:
         alert = session.get('alert')
         if alert is not None:
@@ -182,62 +191,67 @@ def viewAdminPage():
 
 @admin.route('/add-admin', methods=["POST", "GET"])
 def addAdminPage():
-    if request.method == "POST":
-        name = request.form["adminName"]
-        institution = request.form["adminInstitution"]
-        print(institution)
-        email = request.form["email"]
-        password = request.form["password"]
-        cpassword = request.form["cpassword"]
-        if password != cpassword:
-            session['alert'] = "Mismatching passwords"
-            return redirect(url_for('admin.addAdminPage'))
-        try:
-            admin = auth.create_user_with_email_and_password(email, password)
-        except:
-            getAccounts = db.child('users').get()
-            accValues = getAccounts.val()
-            for account in accValues:
-                if accValues[account]['email'] == email:
-                    try:
-                        userToAdmin = auth.sign_in_with_email_and_password(email, password)
-                    except:
-                        print("User to admin -- invalid password")
-                        return redirect(url_for('admin.addAdminPage'))
+    adminData = session.get('adminData')
+    if adminData[1]['root'] is True:
+        if request.method == "POST":
+            name = request.form["adminName"]
+            institution = request.form["adminInstitution"]
+            print(institution)
+            email = request.form["email"]
+            password = request.form["password"]
+            cpassword = request.form["cpassword"]
+            if password != cpassword:
+                session['alert'] = "Mismatching passwords"
+                return redirect(url_for('admin.addAdminPage'))
+            try:
+                admin = auth.create_user_with_email_and_password(email, password)
+            except:
+                getAccounts = db.child('users').get()
+                accValues = getAccounts.val()
+                for account in accValues:
+                    if accValues[account]['email'] == email:
+                        try:
+                            userToAdmin = auth.sign_in_with_email_and_password(email, password)
+                        except:
+                            print("User to admin -- invalid password")
+                            return redirect(url_for('admin.addAdminPage'))
+                        else:
+                            data = {
+                                'fullName' : name,
+                                'institution' : institution,
+                                'email' : email,
+                                'root' : False,
+                                'enabled' : True
+                            }
+                            db.child('admin').child(userToAdmin['localId']).set(data)
+                            return redirect(url_for('admin.addAdminPage'))
                     else:
-                        data = {
-                            'fullName' : name,
-                            'institution' : institution,
-                            'email' : email,
-                            'root' : False,
-                            'enabled' : True
-                        }
-                        db.child('admin').child(userToAdmin['localId']).set(data)
-                        return redirect(url_for('admin.addAdminPage'))
-                else:
-                    continue
-            session['alert'] = "Admin Account already exists."
-            return redirect(url_for('admin.addAdminPage'))
+                        continue
+                session['alert'] = "Admin Account already exists."
+                return redirect(url_for('admin.addAdminPage'))
+            else:
+                auth.send_email_verification(admin['idToken'])
+                data = {
+                    'fullName' : name,
+                    'institution' : institution,
+                    'email' : email,
+                    'root' : False,
+                    'enabled' : True
+                }
+                db.child('users').child(admin['localId']).set(data)
+                db.child('admin').child(admin['localId']).set(data)
+                session['alert'] = "Admin account has been added."
+                return redirect(url_for('admin.addAdminPage'))
         else:
-            auth.send_email_verification(admin['idToken'])
-            data = {
-                'fullName' : name,
-                'institution' : institution,
-                'email' : email,
-                'root' : False,
-                'enabled' : True
-            }
-            db.child('users').child(admin['localId']).set(data)
-            db.child('admin').child(admin['localId']).set(data)
-            session['alert'] = "Admin account has been added."
-            return redirect(url_for('admin.addAdminPage'))
+            alert = session.get('alert')
+            if alert is not None:
+                session.pop('alert', None)
+                return render_template('/admin-page/add_admin.html', alert = alert)
+            else:
+                return render_template('/admin-page/add_admin.html')
     else:
-        alert = session.get('alert')
-        if alert is not None:
-            session.pop('alert', None)
-            return render_template('/admin-page/add_admin.html', alert = alert)
-        else:
-            return render_template('/admin-page/add_admin.html')
+        session['alert'] = "Only Root Admin Account can add admin accounts."
+        return redirect(url_for('admin.viewRepositoryPage'))
 
 @admin.route('/add-article', methods=["POST", "GET"])
 def addArticlePage():

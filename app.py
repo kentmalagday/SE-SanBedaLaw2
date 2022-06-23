@@ -238,6 +238,8 @@ def forgetPasswordPage():
         return render_template('/user-page/user_forgetpass.html')
     
     
+
+
 @app.route('/signout')
 def signOut():
     session.pop('userData', None)

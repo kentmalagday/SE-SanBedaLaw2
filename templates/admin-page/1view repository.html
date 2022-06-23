@@ -87,8 +87,10 @@
 
     <!-- search bar and input button -->
     <div class="search-bar">
-        <input type="text" name="search" placeholder="Search...">
-        <i class="fa fa-search" aria-hidden="true"></i>
+        <form action="/admin/searchValue" id = "searchForm" method = 'post'>
+            <input type="text" name="search" placeholder="Search...">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </form>
         <form action="/admin/add-article" target="_parent">
             <button class="button" type="submit" style="background-color: #2E052D; border-radius: 15px; height:40px; width:200px;">+ Add Article</button>
         </form>
@@ -148,6 +150,8 @@
 
 
     <script>
+        
+
         const modal2 = document.querySelector(".modal2");
         const trigger2 = document.querySelectorAll(".trigger2");
         const closeButton = document.querySelectorAll(".close-button");

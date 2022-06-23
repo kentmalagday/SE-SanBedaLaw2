@@ -1,4 +1,6 @@
+
 from flask import Blueprint, redirect, render_template, url_for, request, session
+from sqlalchemy import null
 from firebase_config import *
 
 admin = Blueprint('admin', __name__)
@@ -7,6 +9,25 @@ admin = Blueprint('admin', __name__)
 @admin.route('/index')
 def indexPage():
     return render_template('/admin-page/admin_index.html')
+
+@admin.route('/searchValue', methods=['POST','GET'])
+def searchVal():
+    if request.method == 'POST':
+        if session['repoList'] != None:
+            session['repoList'] = None
+        searchVal = request.form['search']
+        print(searchVal)
+        repo = db.child('articles').get()
+        listOfRepo = []
+        for x in repo.each():
+            for values in x.val().values():
+                if searchVal in values.lower():
+                    listOfRepo.append((x.key(), x.val()))
+
+        listOfRepo = [i for n, i in enumerate(listOfRepo) if i not in listOfRepo[n + 1:]]
+        session['repoList'] = listOfRepo
+        return redirect(url_for("admin.viewRepositoryPage"))
+        
 
 @admin.route("/signin", methods=["POST", "GET"])
 def signInAdmin():
@@ -122,10 +143,15 @@ def helpPage():
 
 @admin.route('/view-repository')
 def viewRepositoryPage():
-    repo = db.child('articles').get()
-    listOfRepo = []
-    for x in repo.each():
-        listOfRepo.append((x.key(), x.val()))
+    if session.get('repoList') == None:
+        repo = db.child('articles').get()
+        listOfRepo = []
+        for x in repo.each():
+            listOfRepo.append((x.key(), x.val()))
+    else:
+        print('Not null')
+        listOfRepo = session['repoList']
+            
     alert = session.get('alert')
     if alert is not None:
         session.pop('alert', None)

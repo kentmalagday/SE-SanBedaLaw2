@@ -10,6 +10,78 @@
 
     <!-- <link rel="stylesheet" href="/static/css/admin_setting.css"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_setting.css') }}">
+    <style>
+        .center {
+            text-align: center;
+        }
+        .link1{
+          float: right;
+          text-decoration: underline !important;
+          font-size:14px !important;
+        }
+        /* The Modal (background) */
+        .modal2 {
+            position: fixed ;
+            left: 0 ;
+            top: 0 ;
+            min-height: 1000px ;
+            width: 100% ;
+            height: 100% ;
+            background-color: rgba(0, 0, 0, 0.5) ;
+            opacity: 0 ;
+            visibility: hidden ;
+            transform: scale(1.1) ;
+            transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+            z-index:2 !important;
+        }
+    
+        .modal2-content {
+            position: absolute ;
+            top: 50% ;
+            left: 50% ;
+            transform: translate(-50%, -50%);
+            background-color: white ;
+            padding: 1rem 1.5rem ;
+            width: 24rem ;
+            border-radius: 0.5rem ;
+        }
+        .modbtn{
+          width:60px ;
+            align-items: center ;
+            background-color: white ;
+            border-color: #2E052D ;
+        }
+        #myBtn{
+          border:0px ;
+            width:60px ;
+            font-size: 14px ;
+            background-color: white ;
+            color: #2E052D ;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    
+        .close-button {
+        float: right ;
+        width: 1.5rem ;
+        line-height: 1.5rem ;
+        text-align: center ;
+        cursor: pointer  ;
+        border-radius: 0.25rem ;
+        background-color: lightgray ;
+        }
+    
+        .close-button:hover {
+            background-color: darkgray ;
+        }
+    
+        .show-modal2 {
+            opacity: 1 ;
+            visibility: visible ;
+            transform: scale(1.0) ;
+            transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s ;
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column h-100" >
@@ -81,6 +153,22 @@
                     <button type="button" class="btn btn-light" >Edit</button>  <!--punta sa admin_editPassword-->
                   </div>
                 <hr>
+
+                <div class="input-group mb-3">
+                    <p class="long"><a href="#!" class="trigger2" style="color: #FF0000;">Delete Account</a></p>
+                    <div class="modal2">
+                  
+                <!-- Modal content -->
+                <div class="modal2-content">
+                    <span class="close-button">&times;</span>
+                        <form class="center">
+                        <b>Are you sure you want to delete your account?</b><br><br>
+                        <input type="hidden" value="{{adminData[0]}}"><button type="button" class="btn btn-light">Yes</button>
+
+                        <button type="button" class="btn btn-light">No</button>
+                    </form>
+                </div>
+
             <!-- CONTACT INFO -->
 
                              
@@ -95,6 +183,26 @@
             <p> &#169; 2022 A Gateway to Open Access Legal Resources in the Philippines All rights reserved</p>
         </div>
     </footer>
+
+    <script>
+        const modal2 = document.querySelector(".modal2");
+            const trigger2 = document.querySelector(".trigger2");
+            const closeButton = document.querySelector(".close-button");
+                
+            function toggleModal() {
+                modal2.classList.toggle("show-modal2");
+            }
+                
+            function windowOnClick(event) {
+                if (event.target === modal2) {
+                    toggleModal();
+                }
+            }
+             
+            trigger2.addEventListener("click", toggleModal);
+            closeButton.addEventListener("click", toggleModal);
+            window.addEventListener("click", windowOnClick);
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">

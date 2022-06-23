@@ -318,6 +318,26 @@ def editNamePage(key):
             return render_template('/user-page/user_editName.html', userData = user)
     else:
         return redirect(url_for('signInPage'))
+    
+@app.route('/account/delete/<key>', methods=["POST", "GET"])
+def deactivateUser(key):
+    userData = session['userData']
+    if userData is not None:
+        if request.method == "POST":
+            if userData[0] == key:
+                try:
+                    db.child('users').child(key).remove()
+                except:
+                    session['alert'] = "No user with given UID exists."
+                    return redirect(url_for('settingsPage'))
+                else:
+                    session['alert'] = "Account deactivated."
+                    return redirect(url_for('signInPage'))
+            else:
+                session['alert'] = "Deleting another user is not possible."
+                return redirect(url_for('settingsPage'))
+    else:
+        return redirect(url_for('signInPage'))
 
 @app.route('/account/help', methods=["POST", "GET"])
 def helpPage():

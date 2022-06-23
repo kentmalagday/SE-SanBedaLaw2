@@ -1,4 +1,3 @@
-
 from flask import Blueprint, redirect, render_template, url_for, request, session
 from firebase_config import *
 
@@ -259,7 +258,7 @@ def addAdminPage():
                 return render_template('/admin-page/add_admin.html')
     else:
         session['alert'] = "Only Root Admin Account can add admin accounts."
-        return redirect(url_for('admin.viewRepositoryPage'))
+        return redirect(url_for('admin.indexPage'))
 
 @admin.route('/add-article', methods=["POST", "GET"])
 def addArticlePage():

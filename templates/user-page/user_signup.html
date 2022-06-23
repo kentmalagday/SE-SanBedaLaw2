@@ -29,6 +29,11 @@
                         <p style="text-align: center ;">Network of Academic
                             <br>Law Librarians, Inc.</p>
                             <h2 class="fw-bold mt-4 mb-4" style="font-family: 'Open Sans';">Sign Up</h2>
+                            {% if alert %}
+                                    <div>
+                                        <p>{{alert}}</p>
+                                    </div>
+                            {% endif %}
                         <!-- Fullname -->
                         <div class="form-outline form mb-4">
                             <label class="form-label">Full Name</label>

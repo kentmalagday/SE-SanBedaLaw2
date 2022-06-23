@@ -138,13 +138,16 @@ def signUpPage():
             emailSuffix = email[-7:]
             if emailSuffix != ".edu.ph":
                 msg = ("Email must be school email")
-                return render_template('/user-page/user_signup.html', error=msg)
+                session['alert'] = msg
+                return redirect(url_for('signUpPage'))
             if password != cpassword:       #password must match
                 msg = ("Password mismatch")
-                return render_template('/user-page/user_signup.html', error=msg)
+                session['alert'] = msg
+                return redirect(url_for('signUpPage'))
             elif len(password) < 8:         #password must be greater than 8
                 msg = ("Password must be longer than 8 characters")
-                return render_template('/user-page/user_signup.html', error=msg)
+                session['alert'] = msg
+                return redirect(url_for('signUpPage'))
             try:
                 #create user through Authentication in Firebase
                 new_user = auth.create_user_with_email_and_password(email, password)
@@ -160,11 +163,17 @@ def signUpPage():
                 return redirect(url_for('signInPage'))
             except:
                 #catch error if email is used already
-                existing_account = "User Exists"                                          
-                print(existing_account)
-                return redirect(url_for("signInPage"))
+                existing_account = "Email already been used."
+                session['alert'] = existing_account                                 
+                return redirect(url_for("signUpPage"))
         else:
-            return render_template('/user-page/user_signup.html')
+            try:
+                alert = session['alert']
+                if alert is not None:
+                    session.pop('alert', None)
+                    return render_template('/user-page/user_signup.html', alert=alert)
+            except:
+                return render_template('/user-page/user_signup.html')
 
 @app.route('/signin', methods=["POST", "GET"])
 def signInPage():

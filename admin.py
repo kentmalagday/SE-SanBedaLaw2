@@ -253,6 +253,49 @@ def addArticlePage():
             return render_template('/admin-page/addarticle.html')
     else:
         return render_template('/admin-page/addarticle.html')
+    
+@admin.route('/edit-article/<key>', methods=["POST", "GET"])
+def editArticlePage(key):
+    if request.method == "POST":
+        articleTitle = request.form['articleTitle']
+        author = request.form['author']
+        journalTitle = request.form['journalTitle']
+        authorEmail = request.form['authorEmail']
+        abstract = request.form['abstract']
+        page = request.form['page']
+        date = request.form['date']
+        institution = request.form['institution']
+        url = request.form['url']
+        doi = request.form['doi']
+        pubType = request.form['pubType']
+        
+        data = {
+            'articleTitle' : articleTitle,
+            'author' : author,
+            'journalTitle' : journalTitle,
+            'authorEmail' : authorEmail,
+            'abstract' : abstract,
+            'page' : page,
+            'date' : date,
+            'institution' : institution,
+            'url' : url,
+            'doi' : doi,
+            'pubType' : pubType
+        }
+        
+        key = request.form['key']
+        try:
+            db.child('articles').child(key).update(data)
+        except:
+            session['alert'] = "Error in updating repository"
+        else:
+            session['alert'] = "Repository updated successfully"
+        finally:
+            return redirect(url_for('admin.viewRepositoryPage'))
+    else:
+        article = db.child('articles').child(key).get()
+        articleVal = article.val()
+        return render_template('/admin-page/editarticle.html', articleVal = articleVal, key=key)
 
 @admin.route('/admin-table/delete/<key>')
 def deleteAdminAccount(key):

@@ -18,99 +18,75 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #863084;">
-        <div class="container">
-            <a class="navbar-brand " href="#">
-                <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
-            </a>
-            <div class="collapse navbar-collapse" id="navbarsExample02">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="/admin/">Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!--VIOLET PART-->
-    <header class="p-4 text-white" style="background-color: #2E052D;">
-        <div class="container d-flex flex-wrap align-items-center justify-content-center">
-            <div>
-                <img src="{{ url_for('static', filename='images/nall_logo.png') }}" width="50" height="54" />
-            </div>
-            <div class="px-3 text-center text-white">Legal Education Board <br>
-                Network of Academic Law Librarians, Inc.
-            </div>
-            <span>
-                <hr></span>
-           
-        </div>
-    </header>
-    <!--VIOLET PART-->
-
     <!--MAIN CONTENT-->
     <div class="container mt-2">
-        <h2 class="text-center mt-3">Add Article</h2>
+        <h2 class="text-center mt-3">Edit Article</h2>
         <form class="pt-5" id="form" method="post"> <!--FORM ADD ARTICLE-->
             <div class="form-group row text-end">
                 <label class="col-sm-2 col-form-label">Article Title:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="articleTitle">
+                    <input type="text" class="form-control" name="articleTitle" value="{{articleVal['articleTitle']}}" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Author</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="author">
+                    <input type="text" class="form-control" name="author" value="{{articleVal['author']}}" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Journal Title:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="journalTitle">
+                    <input type="text" class="form-control" name="journalTitle" value="{{articleVal['journalTitle']}}" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Author Email:</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name="authorEmail">
+                    <input type="email" class="form-control" name="authorEmail" value="{{articleVal['authorEmail']}}" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Abstract</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" name="abstract" rows="3"></textarea>
+                    <textarea class="form-control" name="abstract" rows="3" required>{{articleVal['abstract']}}</textarea>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Page:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="page" min="1">
+                    <input type="number" class="form-control" name="page" min="1" value="{{articleVal['page']}}" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Date Published:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="date" id="datepicker" style="background: transparent;" readonly>
+                    <input type="text" class="form-control" name="date" id="datepicker" style="background: transparent;" value="{{articleVal['date']}}" required readonly>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3 text-end">
+                <label class="col-sm-2 col-form-label">Institution:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="institution" value="{{articleVal['institution']}}" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">URL:</label>
                 <div class="col-sm-10">
-                    <input type="url" class="form-control" name="url">
+                    <input type="url" class="form-control" name="url" value="{{articleVal['url']}}" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">DOI:</label>
                 <div class="col-sm-10">
-                    <input type="url" class="form-control" name="doi">
+                    <input type="url" class="form-control" name="doi" value="{{articleVal['doi']}}" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Publication Type:</label>
                 <div class="col-sm-10">
-                    <select name="pubType" class="form-select">
+                    <select name="pubType" class="form-select" value="{{articleVal['pubType']}}" required>
                         <option selected disabled>--Select Publication Type--</option>
                         <option value="Dissertation">Dissertation</option>
                         <option value="Journal">Journal</option>
@@ -130,16 +106,10 @@
             </div>
            
     </div>
-
+    <input type="hidden" name="key" value="{{key}}">
     </form>
     </div>
 
-    <!---->
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-5">
-        <div class="container text-center">
-            <p> &#169; 2022 A Gateway to Open Access Legal Resources in the Philippines All rights reserved</p>
-        </div>
-    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>

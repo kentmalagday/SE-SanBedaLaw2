@@ -7,7 +7,11 @@ admin = Blueprint('admin', __name__)
 @admin.route('/')
 @admin.route('/index')
 def indexPage():
-    return render_template('/admin-page/admin_index.html')
+    admin = session.get('adminData')
+    if admin is not None:
+        return render_template('/admin-page/admin_index.html')
+    else:
+        return redirect(url_for("admin.signInAdmin"))
 
 @admin.route('/searchValue', methods=['POST','GET'])
 def searchVal():
@@ -31,6 +35,9 @@ def searchVal():
 @admin.route("/signin", methods=["POST", "GET"])
 def signInAdmin():
     if request.method == "POST":
+        admin = session.get('adminData')
+        if admin is not None:
+            return redirect(url_for('admin.indexPage'))
         try:
             email = request.form["email"]
             password = request.form["password"]

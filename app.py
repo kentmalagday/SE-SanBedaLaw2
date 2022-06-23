@@ -226,11 +226,12 @@ def forgetPasswordPage():
         try:
             result = auth.send_password_reset_email(email)
             print(result)
+            session['alert'] = "Password reset link has been sent to your email."
+            return redirect(url_for('signInPage'))
         except Exception as e:
             session['alert'] = "User not found with that email."
             return redirect(url_for('forgetPasswordPage'))
-        session['alert'] = "Password reset link has been sent to your email."
-        return redirect(url_for('signInPage'))
+        
     else:
         alert = session.get('alert')
         if alert is not None:

@@ -1,6 +1,5 @@
 
 from flask import Blueprint, redirect, render_template, url_for, request, session
-from sqlalchemy import null
 from firebase_config import *
 
 admin = Blueprint('admin', __name__)

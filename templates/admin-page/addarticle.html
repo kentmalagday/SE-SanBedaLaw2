@@ -56,61 +56,61 @@
             <div class="form-group row text-end">
                 <label class="col-sm-2 col-form-label">Article Title:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="articleTitle">
+                    <input type="text" class="form-control" name="articleTitle" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Author</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="author">
+                    <input type="text" class="form-control" name="author" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Journal Title:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="journalTitle">
+                    <input type="text" class="form-control" name="journalTitle" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Author Email:</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name="authorEmail">
+                    <input type="email" class="form-control" name="authorEmail" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Abstract</label>
                 <div class="col-sm-10">
-                    <textarea class="form-control" name="abstract" rows="3"></textarea>
+                    <textarea class="form-control" name="abstract" rows="3" required></textarea>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Page:</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="page" min="1">
+                    <input type="number" class="form-control" name="page" min="1" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Date Published:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="date" id="datepicker" style="background: transparent;" readonly>
+                    <input type="text" class="form-control" name="date" id="datepicker" style="background: transparent;" readonly required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">URL:</label>
                 <div class="col-sm-10">
-                    <input type="url" class="form-control" name="url">
+                    <input type="url" class="form-control" name="url" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">DOI:</label>
                 <div class="col-sm-10">
-                    <input type="url" class="form-control" name="doi">
+                    <input type="url" class="form-control" name="doi" required>
                 </div>
             </div>
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Publication Type:</label>
                 <div class="col-sm-10">
-                    <select name="pubType" class="form-select">
+                    <select name="pubType" class="form-select" required>
                         <option selected disabled>--Select Publication Type--</option>
                         <option value="Dissertation">Dissertation</option>
                         <option value="Journal">Journal</option>

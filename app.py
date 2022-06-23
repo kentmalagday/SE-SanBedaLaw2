@@ -331,7 +331,8 @@ def deactivateUser(key):
                     session['alert'] = "No user with given UID exists."
                     return redirect(url_for('settingsPage'))
                 else:
-                    session['alert'] = "Account deactivated."
+                    session['alert'] = "Account deleted from database."
+                    session.pop('userData', None)
                     return redirect(url_for('signInPage'))
             else:
                 session['alert'] = "Deleting another user is not possible."
@@ -341,24 +342,27 @@ def deactivateUser(key):
 
 @app.route('/account/help', methods=["POST", "GET"])
 def helpPage():
-    if request.method == "POST":
-        subject = request.form["subject"]
-        message = request.form["message"]
-        user = session.get('userData')[1]
-        send = Mail(user, None, message, subject)
-        result = send.sendMail()
-        if result > 0:
-            session['alert'] = "Thank you for sending your concern. We will get back to you later."
+    user = session.get('userData')
+    if user is not None:
+        if request.method == "POST":
+            subject = request.form["subject"]
+            message = request.form["message"]
+            user = session.get('userData')[1]
+            send = Mail(user, None, message, subject)
+            result = send.sendMail()
+            if result > 0:
+                session['alert'] = "Thank you for sending your concern. We will get back to you later."
+            else:
+                session['alert'] = "There has been an error in sending your message. Please try again later."
+            return redirect(url_for('helpPage'))
         else:
-            session['alert'] = "There has been an error in sending your message. Please try again later."
-        return redirect(url_for('helpPage'))
-    else:
-        user = session.get('userData')
-        alert = session.get('alert')
-        if user is not None:
+            alert = session.get('alert')
+            if alert is not None:
+                session.pop('alert', None)
+                return render_template('/user-page/user_help.html', name=session['userData'][1]['fullName'], email=session['userData'][1]['email'], alert=alert)
             return render_template('/user-page/user_help.html', name=session['userData'][1]['fullName'], email=session['userData'][1]['email'])
-        else:
-            return redirect(url_for('signInPage'))
+    else:
+        return redirect(url_for('signInPage'))
 
 
 

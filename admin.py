@@ -45,6 +45,8 @@ def signInAdmin():
             userDb = db.child('users').child(adminUser['localId']).get()
             if (adminUserDb.val() is None) and (userDb.val() is None):
                 auth.delete_user_account(adminUser['idToken'])
+                session['alert'] = "Invalid credentials"
+                return redirect(url_for("admin.signInAdmin"))
             elif adminUserDb.val() is None:
                 session['alert'] = "Invalid credentials"
                 return redirect(url_for("admin.signInAdmin"))
@@ -151,6 +153,30 @@ def settingsEditName(key):
         return redirect(url_for('settingsPage'))
     else:
         return render_template('/admin-page/admin_editName.html', adminData=adminData)
+    
+@admin.route('/settings/delete/<key>', methods=["POST", "GET"])
+def deleteAccount(key):
+    adminData = session.get('adminData')
+    if adminData is not None:
+        if request.method == "POST":
+            if adminData[0] == key:
+                if adminData[1]['root'] is True:
+                    session['alert'] = "Root admin can not be deleted."
+                    return redirect(url_for('admin.settingsPage'))
+                try:
+                    db.child('admin').child(key).remove()
+                except:
+                    session['alert'] = "No admin account with UID exists"
+                    return redirect(url_for('admin.settingsPage'))
+                else:
+                    session['alert'] = "Account deleted from database."
+                    session.pop('adminData', None)
+                    return redirect(url_for('admin.signInAdmin'))
+            else:
+                session['alert'] = "Deleting another user is not possible."
+                return redirect(url_for('admin.settingsPage'))
+    else:
+        return redirect(url_for('admin.signInAdmin'))
 
 @admin.route('/help')
 def helpPage():
@@ -343,6 +369,8 @@ def editArticlePage(key):
         article = db.child('articles').child(key).get()
         articleVal = article.val()
         return render_template('/admin-page/editarticle.html', articleVal = articleVal, key=key)
+    
+
 
 @admin.route('/admin-table/delete/<key>')
 def deleteAdminAccount(key):

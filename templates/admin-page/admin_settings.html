@@ -161,9 +161,9 @@
                 <!-- Modal content -->
                 <div class="modal2-content">
                     <span class="close-button">&times;</span>
-                        <form class="center">
+                        <form class="center" method="POST" action="/admin/settings/delete/{{adminData[0]}}">
                         <b>Are you sure you want to delete your account?</b><br><br>
-                        <input type="hidden" value="{{adminData[0]}}"><button type="button" class="btn btn-light">Yes</button>
+                        <input type="hidden" value="{{adminData[0]}}"><button type="submit" class="btn btn-light">Yes</button>
 
                         <button type="button" class="btn btn-light">No</button>
                     </form>

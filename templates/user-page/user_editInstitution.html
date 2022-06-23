@@ -81,16 +81,19 @@
 
         <div class="main-window col-md-10 p-4 " style="background-color:white;">
             <div class="w-75 px-3">
+                <form method="post">
                 <h4>Edit Institution</h4>
                 <hr>
                 <div class="input-group mb-3">
+                    <input type="hidden" name="userKey" value="{{userData[0]}}">
                     <p>Institution </p>
-                    <input type="text" class="inputs form-control" value={{userData['institution']}}>
+                    <input type="text" class="inputs form-control" name="newInstitution" value="{{userData[1]['institution']}}">
                 </div>
                 <hr>
 
-                <center><button style="background-color: #2E052D; color:aliceblue;">Save Changes</button></center>
+                <center><button type="submit" style="background-color: #2E052D; color:aliceblue;">Save Changes</button></center>
                 <!-- CONTACT INFO -->
+                </form>
 
 
 

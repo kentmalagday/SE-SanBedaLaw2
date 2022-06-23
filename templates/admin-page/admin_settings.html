@@ -54,23 +54,24 @@
         <div class="main-window col-10 p-5" style="background-color:white;">
             <div class="w-75 px-3">
                 <h4>Settings and Privacy</h4>
+                <span>{{alert}}</span>
                 <hr>
                 <div class="input-group mb-3">
                     <p class="short">Name</p> <text style="color:white">.</text>
-                    <input type="text" class="inputs form-control" value={{adminData['fullName']}} readonly> 
-                    <button type="button" class="btn btn-light" >Edit</button> <!--punta sa admin_editName-->
+                    <input type="text" class="inputs form-control" value="{{adminData[1]['fullName']}}" readonly> 
+                    <a href="/admin/settings/edit-name/{{adminData[0]}}"><button type="button" class="btn btn-light" >Edit</button></a> <!--punta sa admin_editName-->
                   </div>
                 <hr>
                 <div class="input-group mb-3">
                     <p class="short">Email </p> <text style="color:white">..</text>
-                    <input type="emal" class="inputs form-control" value={{adminData['email']}} readonly>
+                    <input type="emal" class="inputs form-control" value="{{adminData[1]['email']}}" readonly>
                     <button type="button" class="btn btn-light" style="color:aliceblue">Edit</button>
                   </div>
                 <hr>
                 <div class="input-group mb-3">
                     <p class="long">Institution </p> <text style="color:white">.</text>
-                    <input type="text" class="inputs form-control" value={{adminData['institution']}} readonly>
-                    <button type="button" class="btn btn-light" >Edit</button>  <!--punta sa admin_editInstitution-->
+                    <input type="text" class="inputs form-control" value="{{adminData[1]['institution']}}" readonly>
+                    <a href="/admin/settings/edit-institution/{{adminData[0]}}"><button type="button" class="btn btn-light" >Edit</button></a>  <!--punta sa admin_editInstitution-->
                   </div>
                 <hr>
 

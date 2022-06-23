@@ -53,15 +53,18 @@
 
         <div class="main-window col-10 p-5" style="background-color:white;">
             <div class="w-75 px-3">
+                <form method="post">
                 <h4>Edit Institution</h4>
                 <hr>
                 <div class="input-group mb-3">
+                    <input type="hidden" name="adminKey" value="{{adminData[0]}}">
                     <p class="short">Institution</p>
-                    <input type="text" class="inputs form-control" value={{adminData['institution']}}>
+                    <input type="text" class="inputs form-control" name="newInstitution" value="{{adminData[1]['institution']}}">
                   </div>
                 <hr>
 
                 <center><button style="background-color: #2E052D; color:aliceblue;">Save Changes</button></center>
+                </form>
             <!-- CONTACT INFO -->
 
                              

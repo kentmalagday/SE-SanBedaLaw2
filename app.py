@@ -125,80 +125,90 @@ def searchArticle(searchVal):
 
 @app.route('/signup', methods=["POST", "GET"])
 def signUpPage():
-    if request.method == "POST":
-        fullName = request.form["fullName"]
-        institution = request.form["institution"]
-        email = request.form["email"]
-        password = request.form["password"]
-        cpassword = request.form["cpassword"]
-        emailSuffix = email[-7:]
-        if emailSuffix != ".edu.ph":
-            msg = ("Email must be school email")
-            return render_template('/user-page/user_signup.html', error=msg)
-        if password != cpassword:       #password must match
-            msg = ("Password mismatch")
-            return render_template('/user-page/user_signup.html', error=msg)
-        elif len(password) < 8:         #password must be greater than 8
-            msg = ("Password must be longer than 8 characters")
-            return render_template('/user-page/user_signup.html', error=msg)
-        try:
-            #create user through Authentication in Firebase
-            new_user = auth.create_user_with_email_and_password(email, password)
-            auth.send_email_verification(new_user['idToken'])
-            data = {"fullName" : fullName,
-                    "institution" : institution,
-                    "email" : email
-                    }
-            #add formatted data to Realtime DB
-            db.child('users').child(new_user['localId']).set(data)
-            return render_template('/user-page/user_signin.html', success = "Account Created! Please Verify Email before Signing In.")
-        except:
-            #catch error if email is used already
-            existing_account = "User Exists"                                          
-            print(existing_account)
-            return redirect(url_for("signInPage"))
+    user = session.get('userData')
+    if user is not None:
+        return redirect(url_for('indexPage'))
     else:
-        user = session.get('userData')
-        if user is not None:
-            return redirect(url_for('indexPage'))
+        if request.method == "POST":
+            fullName = request.form["fullName"]
+            institution = request.form["institution"]
+            email = request.form["email"]
+            password = request.form["password"]
+            cpassword = request.form["cpassword"]
+            emailSuffix = email[-7:]
+            if emailSuffix != ".edu.ph":
+                msg = ("Email must be school email")
+                return render_template('/user-page/user_signup.html', error=msg)
+            if password != cpassword:       #password must match
+                msg = ("Password mismatch")
+                return render_template('/user-page/user_signup.html', error=msg)
+            elif len(password) < 8:         #password must be greater than 8
+                msg = ("Password must be longer than 8 characters")
+                return render_template('/user-page/user_signup.html', error=msg)
+            try:
+                #create user through Authentication in Firebase
+                new_user = auth.create_user_with_email_and_password(email, password)
+                auth.send_email_verification(new_user['idToken'])
+                data = {"fullName" : fullName,
+                        "institution" : institution,
+                        "email" : email,
+                        "enabled" : True
+                        }
+                #add formatted data to Realtime DB
+                db.child('users').child(new_user['localId']).set(data)
+                session['alert'] = "Account Created! Please Verify Email before Signing In."
+                return redirect(url_for('signInPage'))
+            except:
+                #catch error if email is used already
+                existing_account = "User Exists"                                          
+                print(existing_account)
+                return redirect(url_for("signInPage"))
         else:
             return render_template('/user-page/user_signup.html')
 
 @app.route('/signin', methods=["POST", "GET"])
 def signInPage():
-    if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
-        try:
-            user = auth.sign_in_with_email_and_password(email, password)
-            userData = db.child('users').child(user['localId']).get()
-            adminData = db.child('admin').child(user['localId']).get()
-            if (userData.val() is None) and (adminData.val() is None):
-                auth.delete_user_account(user['idToken'])
-            elif userData.val() is None:
-                invalid_cred = "Invalid credentials"
-                print(invalid_cred)
-                return render_template('/user-page/user_signin.html')
-            else:
-                userInfo = auth.get_account_info(user['idToken'])
-                isVerified = userInfo['users'][0]['emailVerified']
-        except:
-            invalid_cred = "Invalid credentials"
-            print(invalid_cred)
-            return render_template('/user-page/user_signin.html')
-        else:
-            if isVerified is False:
-                invalid_cred = "Email not verified"
-                print(invalid_cred)
-                return render_template('/user-page/user_signin.html')
-            session['userData'] = (userData.key(), userData.val())
-            return redirect(url_for('indexPage'))
+    user = session.get('userData')
+    if user is not None:
+        return redirect(url_for('indexPage'))
     else:
-        user = session.get('userData')
-        if user is not None:
-            return redirect(url_for('indexPage'))
+        if request.method == "POST":
+            email = request.form["email"]
+            password = request.form["password"]
+            try:
+                user = auth.sign_in_with_email_and_password(email, password)
+                userData = db.child('users').child(user['localId']).get()
+                adminData = db.child('admin').child(user['localId']).get()
+                if (userData.val() is None) and (adminData.val() is None):
+                    auth.delete_user_account(user['idToken'])
+                elif userData.val() is None:
+                    invalid_cred = "Invalid credentials"
+                    session['alert'] = invalid_cred
+                    return redirect(url_for('signInPage'))
+                elif userData.val()['enabled'] is False:
+                    session['alert'] = "User Account is deactivated."
+                    return redirect(url_for('signInPage'))
+                else:
+                    userInfo = auth.get_account_info(user['idToken'])
+                    isVerified = userInfo['users'][0]['emailVerified']
+            except:
+                invalid_cred = "Invalid credentials"
+                session['alert'] = invalid_cred
+                return redirect(url_for('signInPage'))
+            else:
+                if isVerified is False:
+                    invalid_cred = "User Account is still not email verified."
+                    session['alert'] = invalid_cred
+                    return redirect(url_for('signInPage'))
+                session['userData'] = (userData.key(), userData.val())
+                return redirect(url_for('indexPage'))
         else:
-            return render_template('/user-page/user_signin.html')
+            alert = session.get('alert')
+            if alert is not None:
+                session.pop('alert', None)
+                return render_template('/user-page/user_signin.html', success=alert)
+            else:
+                return render_template('/user-page/user_signin.html')
         
 @app.route('/forget-password', methods = ["POST", "GET"])
 def forgetPasswordPage():
@@ -210,6 +220,7 @@ def forgetPasswordPage():
         except Exception as e:
             print(e)
             return redirect(url_for('forgetPasswordPage'))
+        session['alert'] = "Password reset link has been sent to your email."
         return redirect(url_for('signInPage'))
     else:
         return render_template('/user-page/user_forgetpass.html')
@@ -218,6 +229,7 @@ def forgetPasswordPage():
 @app.route('/signout')
 def signOut():
     session.pop('userData', None)
+    session['alert'] = "You have been logged out."
     return redirect(url_for('signInPage'))
     
 @app.route('/account/settings')
@@ -225,6 +237,50 @@ def settingsPage():
     user = session.get('userData')
     if user is not None:
         return render_template('/user-page/user_settings.html', userData = user)
+    else:
+        return redirect(url_for('signInPage'))
+    
+@app.route('/account/edit-institution/<key>', methods=["POST", "GET"])
+def editInstitutionPage(key):
+    user = session.get('userData')
+    if user is not None:
+        if request.method == "POST":
+            userKey = request.form['userKey']
+            newInstitution = request.form['newInstitution']
+            try:
+                db.child('users').child(userKey).update({"institution" : newInstitution})
+            except Exception as e:
+                print(e)
+                print("User data not found")
+            else:
+                userData = db.child('users').child(userKey).get()
+                session['userData'] = ((userData.key(), userData.val()))
+            return redirect(url_for('settingsPage'))
+        else:
+            
+            return render_template('/user-page/user_editInstitution.html', userData = user)
+    else:
+        return redirect(url_for('signInPage'))
+    
+@app.route('/account/edit-name/<key>', methods=["POST", "GET"])
+def editNamePage(key):
+    user = session.get('userData')
+    if user is not None:
+        if request.method == "POST":
+            userKey = request.form['userKey']
+            newName = request.form['newName']
+            try:
+                db.child('users').child(userKey).update({"fullName" : newName})
+            except Exception as e:
+                print(e)
+                print("User data not found")
+            else:
+                userData = db.child('users').child(userKey).get()
+                session['userData'] = ((userData.key(), userData.val()))
+            return redirect(url_for('settingsPage'))
+        else:
+            
+            return render_template('/user-page/user_editName.html', userData = user)
     else:
         return redirect(url_for('signInPage'))
 

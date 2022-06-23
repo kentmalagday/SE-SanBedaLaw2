@@ -93,6 +93,7 @@
 
     <!-- tables -->
     <br>
+    <span>{{alert}}</span>
     <table class="table align-items-center p-4">
         <tr>
             <div class="table header">
@@ -103,29 +104,31 @@
             </div>
         </tr>
         <tbody>
-        {% for col in listOfRepo %}
-            <tr>
-                <th>{{ col[1]['fullName'] }}</th>
-                <th>{{ col[1]['email'] }}</th>
-                <th>{{ col[1]['institution'] }}</th>
-                <!--put edit/delete button or link here-->
-                <th> <a href=" " id="myBtn"> Edit </a>
-                    <a class="trigger2" id="myBtn" data-target="{{id}}" data-id="{{id}}" data-toggle="modal2" >Delete</a>
-                    <!-- The Modal -->
-                  <div class="modal2">
-                    <!-- Modal content -->
-                      <div class="modal2-content">
-                          <span class="close-button">&times;</span>
-                          <p align=center>Are you sure do you want to delete the said Item?<br><br>
-                          <a href="/admin/admin-table/delete/{{ col[0] }}"><button class="modbtn" 
-	                          align="center" data-target="{{id}}" 
-	                          data-id="{{id}}"> Yes  </button></a>  
-	                      <button class="modbtn1 " align="center" data-dismiss="modal2"> No </button></p>
-                      </div>
-                    </div>
-                 </th>
-            </tr>
-        {% endfor %}
+        {% if listOfRepo %}
+            {% for col in listOfRepo %}
+                <tr>
+                    <th>{{ col[1]['fullName'] }}</th>
+                    <th>{{ col[1]['email'] }}</th>
+                    <th>{{ col[1]['institution'] }}</th>
+                    <!--put edit/delete button or link here-->
+                    <th> <a href=" " id="myBtn"> Edit </a>
+                        <a class="trigger2" id="myBtn" data-target="{{id}}" data-id="{{id}}" data-toggle="modal2" >Delete</a>
+                        <!-- The Modal -->
+                    <div class="modal2">
+                        <!-- Modal content -->
+                        <div class="modal2-content">
+                            <span class="close-button">&times;</span>
+                            <p align=center>Are you sure do you want to delete the said Item?<br><br>
+                            <a href="/admin/admin-table/delete/{{ col[0] }}"><button class="modbtn" 
+                                align="center" data-target="{{id}}" 
+                                data-id="{{id}}"> Yes  </button></a>  
+                            <button class="modbtn1 " align="center" data-dismiss="modal2"> No </button></p>
+                        </div>
+                        </div>
+                    </th>
+                </tr>
+            {% endfor %}
+        {% endif %}
     </tbody>
     </table>
 

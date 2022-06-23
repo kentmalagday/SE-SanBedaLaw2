@@ -83,15 +83,17 @@
             <div class="w-75 px-3">
                 <h4>Edit Name</h4>
                 <hr>
+                <form method="post">
                 <div class="input-group mb-3">
+                    <input type="hidden" name="userKey" value="{{userData[0]}}">
                     <p>Name </p>
-                    <input type="text" class="inputs form-control" value={{userData['fullName']}}>
+                    <input type="text" class="inputs form-control" name="newName" value="{{userData[1]['fullName']}}">
                 </div>
                 <hr>
 
-                <center><button style="background-color: #2E052D; color:aliceblue;">Save Changes</button></center>
+                <center><button type="submit" style="background-color: #2E052D; color:aliceblue;">Save Changes</button></center>
                 <!-- CONTACT INFO -->
-
+                 </form>
 
 
             </div>

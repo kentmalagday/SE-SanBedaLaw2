@@ -19,25 +19,52 @@ def signInAdmin():
             userDb = db.child('users').child(adminUser['localId']).get()
             if (adminUserDb.val() is None) and (userDb.val() is None):
                 auth.delete_user_account(adminUser['idToken'])
-                print("deleted account")
             elif adminUserDb.val() is None:
-                print("Admin account not found")
+                session['alert'] = "Invalid credentials"
                 return redirect(url_for("admin.signInAdmin"))
+            elif adminUserDb.val()['enabled'] is False:
+                session['alert'] = "Account is deactivated."
+                return redirect(url_for('admin.signInAdmin'))
             else:
                 adminUserInfo = auth.get_account_info(adminUser['idToken'])
                 isVerified = adminUserInfo['users'][0]['emailVerified']
         except Exception as e:
             print(e)
-            print("Admin account not found")
+            session['alert'] = "Invalid credentials"
             return redirect(url_for("admin.signInAdmin"))
         else:
             if isVerified is False:
-                print("email not verified")
+                session['alert'] = "Account is not yet email verified."
                 return redirect(url_for("admin.signInAdmin"))
             session['adminData'] = (adminUserDb.key(), adminUserDb.val())
             return redirect(url_for("admin.indexPage"))
     else:
-        return render_template('/admin-page/admin_signin.html')
+        alert = session['alert']
+        if alert is not None:
+            session.pop('alert', None)
+            return render_template('/admin-page/admin_signin.html', alert=alert)
+        else:
+            return render_template('/admin-page/admin_signin.html')
+        
+@admin.route('/forget-password', methods=["POST", "GET"])
+def forgetPasswordPage():
+    if request.method == "POST":
+        email = request.form['email']
+        # try:
+        #     auth.send_password_reset_email(email)
+        # except:
+        #     session['alert'] = "Account with inputted email not found."
+        #     return redirect(url_for('admin.forgetPasswordPage'))
+        session['alert'] = "Password reset link has been sent to your email."
+        return redirect(url_for('admin.forgetPasswordPage'))
+    else:
+        alert = session.get('alert')
+        print(alert)
+        if alert is not None:
+            session.pop('alert', None)
+            return render_template('/admin-page/admin_forgetpass.html', alert=alert)
+        else:
+            return render_template('/admin-page/admin_forgetpass.html')
 
 @admin.route('/header-nav')
 def headerNav():
@@ -53,8 +80,41 @@ def rightMain():
 
 @admin.route('/settings')
 def settingsPage():
-    adminData = session.get('adminData')[1]
-    return render_template('/admin-page/admin_settings.html', adminData = adminData)
+    adminData = session.get('adminData')
+    alert = session.get('alert')
+    if alert is not None:
+        session.pop('alert', None)
+        return render_template('/admin-page/admin_settings.html', adminData = adminData, alert=alert)
+    else:
+        return render_template('/admin-page/admin_settings.html', adminData = adminData)
+
+@admin.route('/settings/edit-institution/<key>', methods=["POST", "GET"])
+def settingsEditInstitution(key):
+    adminData = session.get('adminData')
+    if request.method == "POST":
+        newInstitution = request.form['newInstitution']
+        adminKey = request.form['adminKey']
+        db.child('admin').child(adminKey).update({'institution' : newInstitution})
+        adminData = db.child('admin').child(adminKey).get()
+        session['adminData'] = adminData
+        session['alert'] = "Updated Institution Successfully."
+        return redirect(url_for('settingsPage'))
+    else:
+        return render_template('/admin-page/admin_editInstitution.html', adminData=adminData)
+
+@admin.route('/settings/edit-name/<key>', methods=["POST", "GET"])
+def settingsEditName(key):
+    adminData = session.get('adminData')
+    if request.method == "POST":
+        newName = request.form['newName']
+        adminKey = request.form['adminKey']
+        db.child('admin').child(adminKey).update({'fullName' : newName})
+        adminData = db.child('admin').child(adminKey).get()
+        session['adminData'] = adminData
+        session['alert'] = "Updated Name Successfully."
+        return redirect(url_for('settingsPage'))
+    else:
+        return render_template('/admin-page/admin_editName.html', adminData=adminData)
 
 @admin.route('/help')
 def helpPage():
@@ -66,6 +126,10 @@ def viewRepositoryPage():
     listOfRepo = []
     for x in repo.each():
         listOfRepo.append((x.key(), x.val()))
+    alert = session.get('alert')
+    if alert is not None:
+        session.pop('alert', None)
+        return render_template('/admin-page/1view repository.html', listOfRepo=listOfRepo, alert=alert)
     return render_template('/admin-page/1view repository.html', listOfRepo=listOfRepo)
 
 @admin.route('/access-requests')
@@ -83,7 +147,12 @@ def viewAdminPage():
     admins = db.child('admin').get()
     for admin in admins:
         listOfRepo.append((admin.key(), admin.val()))
-    return render_template('/admin-page/admin_table.html', listOfRepo = listOfRepo)
+    alert = session.get('alert')
+    if alert is not None:
+        session.pop('alert', None)
+        return render_template('/admin-page/admin_table.html', listOfRepo = listOfRepo, alert=alert)
+    else:
+        return render_template('/admin-page/admin_table.html', listOfRepo = listOfRepo)
 
 @admin.route('/add-admin', methods=["POST", "GET"])
 def addAdminPage():
@@ -95,7 +164,7 @@ def addAdminPage():
         password = request.form["password"]
         cpassword = request.form["cpassword"]
         if password != cpassword:
-            print("password not matching")
+            session['alert'] = "Mismatching passwords"
             return redirect(url_for('admin.addAdminPage'))
         try:
             admin = auth.create_user_with_email_and_password(email, password)
@@ -113,30 +182,36 @@ def addAdminPage():
                         data = {
                             'fullName' : name,
                             'institution' : institution,
-                            'email' : email
+                            'email' : email,
+                            'root' : False,
+                            'enabled' : True
                         }
                         db.child('admin').child(userToAdmin['localId']).set(data)
                         return redirect(url_for('admin.addAdminPage'))
                 else:
                     continue
-            print("admin account already exists")
+            session['alert'] = "Admin Account already exists."
             return redirect(url_for('admin.addAdminPage'))
         else:
             auth.send_email_verification(admin['idToken'])
             data = {
                 'fullName' : name,
                 'institution' : institution,
-                'email' : email
+                'email' : email,
+                'root' : False,
+                'enabled' : True
             }
             db.child('users').child(admin['localId']).set(data)
             db.child('admin').child(admin['localId']).set(data)
+            session['alert'] = "Admin account has been added."
             return redirect(url_for('admin.addAdminPage'))
     else:
-        # admin = session.get('adminData')
-        # if admin is not None:
-        return render_template('/admin-page/add_admin.html')
-        # else:
-        #     return redirect(url_for('admin.signInAdmin'))
+        alert = session.get('alert')
+        if alert is not None:
+            session.pop('alert', None)
+            return render_template('/admin-page/add_admin.html', alert = alert)
+        else:
+            return render_template('/admin-page/add_admin.html')
 
 @admin.route('/add-article', methods=["POST", "GET"])
 def addArticlePage():
@@ -182,10 +257,15 @@ def addArticlePage():
 @admin.route('/admin-table/delete/<key>')
 def deleteAdminAccount(key):
     adminKey = session['adminData'][0]
+    isRoot = db.child('admin').child(key).get()
+    if isRoot.val()['root'] is True:
+        session['alert'] = "Root admin can not be deleted."
+        return redirect(url_for('admin.viewAdminPage'))
     if adminKey == key:
-        print("cannot delete own account")
+        session['alert'] = "Can not delete own account."
         return redirect(url_for('admin.viewAdminPage'))
     db.child('admin').child(key).remove()
+    session['alert'] = "Deleted admin account from database. Account will be deleted completely on next user login."
     return redirect(url_for('admin.viewAdminPage'))
 
 @admin.route('/view-repository/delete/<key>')
@@ -196,4 +276,5 @@ def deleteRepository(key):
 @admin.route('/signout')
 def signOut():
     session.pop('adminData', None)
+    session['alert'] = "You have been logged out."
     return redirect(url_for("admin.signInAdmin"))

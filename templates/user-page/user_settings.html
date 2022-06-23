@@ -109,19 +109,19 @@
         
                     <div class="input-group mb-3">
                         <label for=" " class="col-form-label">Name</label> <p style="color:white">____.</p>
-                        <input type="text" class="inputs form-control" value={{userData['fullName']}} readonly>
-                        <button type="button" class="btn btn-light">Edit</button> <!--punta user_editName-->
+                        <input type="text" class="inputs form-control" value="{{userData[1]['fullName']}}" readonly>
+                        <a href="/account/edit-name/{{userData[0]}}"><button type="button" class="btn btn-light">Edit</button></a> <!--punta user_editName-->
                     </div>
                     <hr>
                     <div class="input-group mb-3">
                         <label for=" " class="col-form-label">Email</label> <p style="color:white">_____</p>
-                        <input type="email" class="inputs form-control" value={{userData['email']}} readonly>
+                        <input type="email" class="inputs form-control" value="{{userData[1]['email']}}" readonly>
                         <button type="button" class="btn btn-light" style="color:aliceblue">____</button>
                     </div>
                     <hr>
                     <div class="input-group mb-3">
                         <label for=" " class="col-form-label">Institution</label> <p style="color:white"></p>
-                        <input type="text" class="inputs form-control" value={{userData['institution']}} readonly>
+                        <input type="text" class="inputs form-control" value="{{userData[1]['institution']}}" readonly>
                         <button type="button" class="btn btn-light">Edit</button> <!--punta user_editInstitution-->
                     </div>
                     <hr>

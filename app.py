@@ -37,9 +37,17 @@ def indexPage(): #Used for searchResults either nasa Index page or when searchin
                             "book": False,
                             "proceedings": False,
                             "readings": False,
-                            "researchproject": False}
+                            "researchproject": False,
+                            "startYear": '1700',
+                            "endYear": '2022'}
             for filter in filters:
                 filter_dict[filter] = True
+            start = request.form['startYear']
+            end = request.form["endYear"]
+            if start:
+                filter_dict['startYear'] = start
+            if end:
+                filter_dict['endYear'] = end
             session['filters'] = [filter for filter in filter_dict.values()]
             print(session['filters'])
         else:
@@ -84,6 +92,10 @@ def searchArticle(searchVal):
                 if session['filters'] != [True] * 6: #if may filters na nakaset magreremove ng results sa searchResults that doesnnt match those filters
                     for result in searchResults:
                         added = False
+                        if (result[0]['date'].split('/')[2] < session['filters'][6]):
+                            continue
+                        elif (result[0]['date'].split('/')[2] > session['filters'][7]):
+                            continue
                         if(session['filters'][0]):
                             if result[0]['pubType'].lower() == "dissertation" and added is False:
                                 searchFiltered.append(result)
@@ -114,6 +126,8 @@ def searchArticle(searchVal):
                                 searchFiltered.append(result)
                                 added = True
                                 continue
+                        
+                        
                 else:
                     searchFiltered = searchResults
             return render_template('/user-page/search_result.html', searchResults = searchFiltered, searchVal = searchVal, checked = session.get('searchVal'), filters = session.get('filters'))

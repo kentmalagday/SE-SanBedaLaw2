@@ -70,7 +70,7 @@
         <div class="row">
             <div class="col-lg-3 p-4">
                 
-                <form action="/index" method="post">
+                <form action="/index" method="post" id = "filterForm">
                    <!--Search bar here-->
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">
@@ -175,14 +175,14 @@
                     <h4>Year</h4>
                     <div class="mb-3">
                         <div class="d-flex pad">
-                            <input type="text" name="" id="" size="6rem" class="mar" >
+                            <input type="text" name="startYear" id="startYear" size="6rem" class="mar" value = {{filters[6]}}>
                             <span><strong>-</strong></span>
-                            <input type="text" name="" id="" size="6rem" class="mal">
+                            <input type="text" name="endYear" id="endYear" size="6rem" class="mal" value = {{filters[7]}}>
                         </div>
                     </div>
                     <div class="d-grid gap-2">
                         <button class="btn btn-primary" type="submit">Apply Filters</button>
-                        <button class="btn btn-primary" type="button">Reset Filters</button>
+                        <button class="btn btn-primary" type="button" id = "reset">Reset Filters</button>
                     </div>
                     
                 </form>
@@ -342,6 +342,17 @@
                 document.getElementById('sorts').getElementsByTagName('form')
            })
         }
+
+        let resetButton = document.getElementById('reset')
+        resetButton.addEventListener('click', function reset(){
+            var checks = document.querySelectorAll("input[type=checkbox]")
+            for(var i = 0; i < checks.length; i++){
+                checks[i].checked = true;
+            }
+            document.getElementById('startYear').value = '1700'
+            document.getElementById('endYear').value = '2022'
+            document.getElementById('filterForm').submit();
+        })
 
 
     </script>

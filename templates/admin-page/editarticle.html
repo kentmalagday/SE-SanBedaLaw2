@@ -21,7 +21,7 @@
     <!--MAIN CONTENT-->
     <div class="container mt-2">
         <h2 class="text-center mt-3">Edit Article</h2>
-        <form class="pt-5" id="form" method="post"> <!--FORM ADD ARTICLE-->
+        <form class="pt-5" id="form" method="post" onsubmit = "return checkPub()"> <!--FORM ADD ARTICLE-->
             <div class="form-group row text-end">
                 <label class="col-sm-2 col-form-label">Article Title:</label>
                 <div class="col-sm-10">
@@ -86,7 +86,7 @@
             <div class="form-group row mt-3 text-end">
                 <label class="col-sm-2 col-form-label">Publication Type:</label>
                 <div class="col-sm-10">
-                    <select name="pubType" class="form-select" value="{{articleVal['pubType']}}" required>
+                    <select name="pubType" class="form-select" required>
                         <option selected disabled>--Select Publication Type--</option>
                         <option value="Dissertation">Dissertation</option>
                         <option value="Journal">Journal</option>
@@ -124,6 +124,15 @@
                 dateFormat: 'yy-mm-dd'
             });
         } );
+
+        function checkPub(){
+            let sel = document.querySelector('.form-select')
+            if (sel.value === "--Select Publication Type--"){
+                alert('Please select Publication Type!');
+                return false;
+            }   
+            return true;
+        }
     </script>
 </body>
 

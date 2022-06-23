@@ -339,7 +339,11 @@
         for(var i = 0; i < sortButtons.length; i++){
            sortButtons[i].addEventListener('click', function clicked(){
                 console.log("CLICKED SORT")
-                document.getElementById('sorts').getElementsByTagName('form')
+                var results = document.getElementById('result')
+                for(var i = 0; i < results.lenght; i++){
+                    console.log('wow')
+                    console.log(results[i].firstChild().firstChild().lastChild().firstChild().innerHTML)
+        }
            })
         }
 
@@ -354,6 +358,21 @@
             document.getElementById('filterForm').submit();
         })
 
+        var results = document.getElementById('result')
+        for(var i = 0; i < results.lenght; i++){
+            console.log(result.firstChild().firstChild().lastChild().firstChild().innerHTML)
+        }
+        const objectComparisonCallback = (arrayItemA, arrayItemB) => {
+            if (arrayItemA.apples < arrayItemB.apples) {
+              return -1
+            }
+          
+            if (arrayItemA.apples > arrayItemB.apples) {
+              return 1
+            }
+          
+            return 0
+          }
 
     </script>
 </body>

@@ -212,8 +212,9 @@ def viewRepositoryPage():
         if session.get('repoList') == None:
             repo = db.child('articles').get()
             listOfRepo = []
-            for x in repo.each():
-                listOfRepo.append((x.key(), x.val()))
+            if repo.val() is not None:
+                for x in repo.each():
+                    listOfRepo.append((x.key(), x.val()))
         else:
             print('Not null')
             listOfRepo = session['repoList']

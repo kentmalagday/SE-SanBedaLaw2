@@ -238,15 +238,23 @@ def signInPage():
 def forgetPasswordPage():
     if request.method == "POST":
         email = request.form['email']
-        try:
-            result = auth.send_password_reset_email(email)
-            print(result)
-            session['alert'] = "Password reset link has been sent to your email."
-            return redirect(url_for('signInPage'))
-        except Exception as e:
+        isUser = False
+        checkIfUser = db.child('users').get()
+        for accounts in checkIfUser.val():
+            if checkIfUser.val()[accounts]['email'] == email:
+                isUser = True
+        if isUser is True:
+            try:
+                result = auth.send_password_reset_email(email)
+                print(result)
+                session['alert'] = "Password reset link has been sent to your email."
+                return redirect(url_for('signInPage'))
+            except Exception as e:
+                session['alert'] = "User not found with that email."
+                return redirect(url_for('forgetPasswordPage'))
+        else:
             session['alert'] = "User not found with that email."
             return redirect(url_for('forgetPasswordPage'))
-        
     else:
         alert = session.get('alert')
         if alert is not None:

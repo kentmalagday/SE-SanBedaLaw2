@@ -17,7 +17,8 @@ def searchVal():
     adminData = session.get('adminData')
     if adminData is not None:
         if request.method == 'POST':
-            if session['repoList'] != None:
+            repoList = session.get('repoList')
+            if repoList is not None:
                 session['repoList'] = None
             searchVal = request.form['search']
             print(searchVal)

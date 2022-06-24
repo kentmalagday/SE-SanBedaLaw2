@@ -235,8 +235,9 @@ def accessRequestsPage():
         listOfAccessRequests = []
         requests = db.child('requests').get()
         requestsVal = requests.val()
-        for request in requestsVal:
-            listOfAccessRequests.append(requestsVal[request])
+        if requestsVal is not None:
+            for request in requestsVal:
+                listOfAccessRequests.append(requestsVal[request])
         return render_template('/admin-page/4access requests.html', listOfAccessRequests=listOfAccessRequests)
     else:
         return redirect(url_for('admin.signInAdmin'))
@@ -247,8 +248,9 @@ def viewAdminPage():
     if adminData is not None:
         listOfRepo = []
         admins = db.child('admin').get()
-        for admin in admins:
-            listOfRepo.append((admin.key(), admin.val()))
+        if admins.val() is not None:
+            for admin in admins:
+                listOfRepo.append((admin.key(), admin.val()))
         alert = session.get('alert')
         if alert is not None:
             session.pop('alert', None)

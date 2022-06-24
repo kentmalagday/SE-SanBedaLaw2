@@ -87,13 +87,13 @@
                     <div class="d-flex mt-3 mb-2" id = "sorts">
                         <h6 class="mt-1">Sort by:</h6>
                             <div>
-                                <span class="btn btn-primary btn-sm mal" id = "titleButton">Title</span>
+                                <button class="btn btn-primary btn-sm mal" name = "titleButton" value = "title">Title</button>
                             </div>
                             <div>
-                                <span class="btn btn-primary btn-sm mal"id = "pagesButton">Pages</span>
+                                <button class="btn btn-primary btn-sm mal" name = "pagesButton" value = "page">Pages</button>
                             </div>
                             <div>
-                                <span class="btn btn-primary btn-sm mal" id = "dateButton">Date</span>
+                                <button class="btn btn-primary btn-sm mal" name = "dateButton"value = "date">Date</button>
                             </div>
                     </div>
                     <!--start filters-->
@@ -334,16 +334,28 @@
                 document.getElementById(name).submit();
             })
         }
+        const objectComparisonCallback = (arrayItemA, arrayItemB) => {
+            if (arrayItemA < arrayItemB) {
+              return -1
+            }
+          
+            if (arrayItemA > arrayItemB) {
+              return 1
+            }
+          
+            return 0
+          }
 
         var sortButtons = document.getElementById('sorts').getElementsByTagName('span');
         for(var i = 0; i < sortButtons.length; i++){
            sortButtons[i].addEventListener('click', function clicked(){
                 console.log("CLICKED SORT")
-                var results = document.getElementById('result')
-                for(var i = 0; i < results.lenght; i++){
+                var results = document.querySelectorAll('#result')
+                for(var i = 0; i < results.length; i++){
                     console.log('wow')
-                    console.log(results[i].firstChild().firstChild().lastChild().firstChild().innerHTML)
-        }
+                    console.log(results[i].firstChild.nextElementSibling.firstChild.nextElementSibling.lastChild.previousSibling.firstChild.nextElementSibling.innerHTML)
+                }
+                
            })
         }
 
@@ -362,17 +374,7 @@
         for(var i = 0; i < results.lenght; i++){
             console.log(result.firstChild().firstChild().lastChild().firstChild().innerHTML)
         }
-        const objectComparisonCallback = (arrayItemA, arrayItemB) => {
-            if (arrayItemA.apples < arrayItemB.apples) {
-              return -1
-            }
-          
-            if (arrayItemA.apples > arrayItemB.apples) {
-              return 1
-            }
-          
-            return 0
-          }
+    
 
     </script>
 </body>

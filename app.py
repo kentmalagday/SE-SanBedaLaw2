@@ -3,6 +3,7 @@ from firebase_config import *
 from admin import admin
 from mail import Mail
 from datetime import date
+import datetime
 
 app = Flask(__name__)
 app.register_blueprint(admin, url_prefix='/admin')
@@ -54,6 +55,15 @@ def indexPage(): #Used for searchResults either nasa Index page or when searchin
             session['filters'] = [True] * 6 #No checked filters so true lahat
         session['searchVal'] = [title_checked, author_checked, institution_checked]
         print(session['searchVal'])
+        if request.form.get('titleButton') == 'title':
+            print('sort title')
+            session['sort'] = 'title'
+        elif(request.form.get('pagesButton') == 'page'):
+            print('sort page')
+            session['sort'] = 'page'
+        elif request.form.get('dateButton') == 'date':
+            print('sort date')
+            session['sort'] = 'date'
         return redirect(url_for("searchArticle", searchVal = searchValue))
     else:
         user = session.get('userData')
@@ -130,6 +140,13 @@ def searchArticle(searchVal):
                         
                 else:
                     searchFiltered = searchResults
+                
+                if session['sort'] == 'title':
+                    searchFiltered = sorted(searchFiltered, key = lambda x:x[0]['articleTitle'])
+                elif session['sort'] == 'page':
+                    searchFiltered = sorted(searchFiltered, key = lambda x:int(x[0]['page']))
+                elif session['sort'] == 'date':
+                    searchFiltered = sorted(searchFiltered, key = lambda x:datetime.datetime.strptime(x[0]['date'], "%m/%d/%Y"))
             return render_template('/user-page/search_result.html', searchResults = searchFiltered, searchVal = searchVal, checked = session.get('searchVal'), filters = session.get('filters'))
         except Exception as e:
             print(e)

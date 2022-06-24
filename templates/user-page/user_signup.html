@@ -6,6 +6,78 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 <title>User | Sign Up</title>
+<style>
+    .center {
+        text-align: center;
+    }
+    .link1{
+      float: right;
+      text-decoration: underline !important;
+      font-size:14px !important;
+    }
+    /* The Modal (background) */
+    .modal2 {
+        position: fixed ;
+        left: 0 ;
+        top: 0 ;
+        min-height: 1000px ;
+        width: 100% ;
+        height: 100% ;
+        background-color: rgba(0, 0, 0, 0.5) ;
+        opacity: 0 ;
+        visibility: hidden ;
+        transform: scale(1.1) ;
+        transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+        z-index:2 !important;
+    }
+
+    .modal2-content {
+        position: absolute ;
+        top: 50% ;
+        left: 50% ;
+        transform: translate(-50%, -50%);
+        background-color: white ;
+        padding: 1rem 1.5rem ;
+        width: 24rem ;
+        border-radius: 0.5rem ;
+    }
+    .modbtn{
+      width:60px ;
+        align-items: center ;
+        background-color: white ;
+        border-color: #2E052D ;
+    }
+    #myBtn{
+      border:0px ;
+        width:60px ;
+        font-size: 14px ;
+        background-color: white ;
+        color: #2E052D ;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .close-button {
+    float: right ;
+    width: 1.5rem ;
+    line-height: 1.5rem ;
+    text-align: center ;
+    cursor: pointer  ;
+    border-radius: 0.25rem ;
+    background-color: lightgray ;
+    }
+
+    .close-button:hover {
+        background-color: darkgray ;
+    }
+
+    .show-modal2 {
+        opacity: 1 ;
+        visibility: visible ;
+        transform: scale(1.0) ;
+        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s ;
+    }
+</style>
 </head>
 
 <body>
@@ -69,8 +141,18 @@
                                     <input class="form-check-input" type="checkbox" value="" required />
                                     <label class="form-check-label" for="" style="font-weight: 400;
                                     font-size: 14px;
-                                    line-height: 19px;"> I am of legal age and agrees to the <b>TERMS</b> and
-                                        <b>CONDITIONS</b> </label>
+                                    line-height: 19px;"> I am of legal age and agrees to the <a href="#!" class="trigger2" style="color: #FF0000;">
+                                        <b>TERMS</b> and <b>CONDITIONS</b></a></p>
+                                         </label><div class="modal2">
+                                         
+                                         <!-- Modal content -->
+                                            <div class="modal2-content">
+                                                <span class="close-button">&times;</span>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae pharetra augue. Vestibulum et dignissim mi, nec pellentesque dui. Cras quis tristique massa. Etiam ultrices aliquam convallis. Cras ultricies orci felis, posuere aliquet nunc rutrum ac. Aenean egestas semper ornare. Donec nibh lorem, malesuada sed egestas eget, lobortis vel purus.
+                                                <br><br>
+                                                Nam eu eros non odio placerat ultricies. Quisque sit amet eros nec lorem lacinia tincidunt. Pellentesque velit mauris, scelerisque id tortor nec, vehicula mattis lacus. Morbi gravida neque ac condimentum scelerisque. Nunc pellentesque, mi eget pellentesque varius, est eros vulputate felis, sed iaculis purus odio sed dolor. Praesent rhoncus fermentum libero eget vulputate. Vestibulum sodales neque at arcu blandit euismod. Nullam posuere ipsum elit, in malesuada eros sagittis a. Nunc sit amet quam sem. Nulla sed congue ligula, gravida feugiat est. Donec vel dictum augue. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus maximus nulla ex, maximus mattis ipsum ornare non. Donec vulputate vitae ante et malesuada.
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
 
@@ -88,6 +170,26 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                const modal2 = document.querySelector(".modal2");
+                    const trigger2 = document.querySelector(".trigger2");
+                    const closeButton = document.querySelector(".close-button");
+                        
+                    function toggleModal() {
+                        modal2.classList.toggle("show-modal2");
+                    }
+                        
+                    function windowOnClick(event) {
+                        if (event.target === modal2) {
+                            toggleModal();
+                        }
+                    }
+                     
+                    trigger2.addEventListener("click", toggleModal);
+                    closeButton.addEventListener("click", toggleModal);
+                    window.addEventListener("click", windowOnClick);
+            </script>
 
             <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script> 
 

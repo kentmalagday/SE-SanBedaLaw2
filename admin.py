@@ -91,8 +91,9 @@ def forgetPasswordPage():
             except:
                 session['alert'] = "Account with inputted email not found."
                 return redirect(url_for('admin.forgetPasswordPage'))
-            session['alert'] = "Password reset link has been sent to your email."
-            return redirect(url_for('admin.forgetPasswordPage'))
+            else:
+                session['alert'] = "Password reset link has been sent to your email."
+                return redirect(url_for('admin.forgetPasswordPage'))
         else:
             session['alert'] = "Account with inputted email not found."
             return redirect(url_for('admin.forgetPasswordPage'))

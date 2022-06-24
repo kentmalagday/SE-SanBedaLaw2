@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+       
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,75 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>User | Sign in</title>
+    <style>
+        .link1{
+          float: right;
+          text-decoration: underline !important;
+          font-size:14px !important;
+        }
+        /* The Modal (background) */
+        .modal2 {
+            position: fixed ;
+            left: 0 ;
+            top: 0 ;
+            min-height: 1000px ;
+            width: 100% ;
+            height: 100% ;
+            background-color: rgba(0, 0, 0, 0.5) ;
+            opacity: 0 ;
+            visibility: hidden ;
+            transform: scale(1.1) ;
+            transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+            z-index:2 !important;
+        }
+    
+        .modal2-content {
+            position: absolute ;
+            top: 50% ;
+            left: 50% ;
+            transform: translate(-50%, -50%);
+            background-color: white ;
+            padding: 1rem 1.5rem ;
+            width: 24rem ;
+            border-radius: 0.5rem ;
+        }
+        .modbtn{
+          width:60px ;
+            align-items: center ;
+            background-color: white ;
+            border-color: #2E052D ;
+        }
+        #myBtn{
+          border:0px ;
+            width:60px ;
+            font-size: 14px ;
+            background-color: white ;
+            color: #2E052D ;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    
+        .close-button {
+        float: right ;
+        width: 1.5rem ;
+        line-height: 1.5rem ;
+        text-align: center ;
+        cursor: pointer  ;
+        border-radius: 0.25rem ;
+        background-color: lightgray ;
+        }
+    
+        .close-button:hover {
+            background-color: darkgray ;
+        }
+    
+        .show-modal2 {
+            opacity: 1 ;
+            visibility: visible ;
+            transform: scale(1.0) ;
+            transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s ;
+        }
+      </style>
 </head>
 
 <body>
@@ -22,6 +92,9 @@
             <div class="container-login">
                 <div class="wrap-login">
                     <form class="login-form validate-form" method="post">
+                        <div class="col">
+                            <a href="/admin/" class="link1">Go to Admin</a><br>
+                        </div>
                         <img class="d-block mx-auto mb-2" src="{{ url_for('static', filename='images/nall_logo.png') }}" alt="" width="111px"
                             height="116px">
                         <p style="text-align: center ;" class="fw-bold">Network of Academic
@@ -49,7 +122,7 @@
                             
                             <!-- Forgot Password -->
                             <div class="col">
-                                <a href="/forget-password" class="link">Forgot password?</a>
+                                <a href="/forget-password" class="link1">Forgot password?</a>
                             </div>
             
                         <!-- Submit button -->
@@ -63,20 +136,63 @@
 
                        <!-- having trouble -->
                        <div class=" bottom-0 mt-5 text-center">
-                        <p style="font-size: 12px; color: black;">Having Trouble? <a href="#!" style="font-size: 12px;color: #2E052D;">Contact Us</a></p>
-                    </div>
-                    
+                        <p style="font-size: 12px; color: black;">Having Trouble? <a href="#!" class="trigger2" style="font-size: 12px;color: #2E052D;">Contact Us</a></p>
+                          <!-- The Modal -->
+                        <div class="modal2">
+                        
                     </form>
-                    
-                    
+                  
+                    <!-- Modal content -->
+                    <div class="modal2-content">
+                        <span class="close-button">&times;</span>
+                        <dl>
+                            <dd><i>Having Trouble? Please send a message to the following:</i></dd>
+                            <dd><br></dd>
+                            <dd><b>Nall FB Page:</b></dd>
+                            <dd>@nallph.org</dd>
+                            <dd><br></dd>
+                            <dd><b>Nall Email Page:</b></dd>
+                            <dd>@nallph.org</dd>
+                            <dd><br></dd>
+                            <dd><b>LEB FB Page:</b></dd>
+                            <dd>@legal.education.board</dd>
+                            <dd><br></dd>
+                            <dd><b>LEB Website:</b></dd>
+                            <dd>https://leb.gov.ph/</dd>
+                            <dd><br></dd>
+                            <dd><b>LEB Email Address:</b></dd>
+                            <dd>contact@leb.gov.ph</dd>
+                        </dl>
+                    </div>
+                </div> 
 
-                   
-
+                    
+                    </div>
                     <!-- Background Img -->
                     <div class="login-img" style="background-image: url({{ url_for('static', filename='images/signin.png') }});">
                     </div>
-                    </div>
+                </div> 
+                    
                 </div>
-        
+     
+    <script>
+        const modal2 = document.querySelector(".modal2");
+            const trigger2 = document.querySelector(".trigger2");
+            const closeButton = document.querySelector(".close-button");
+                
+            function toggleModal() {
+                modal2.classList.toggle("show-modal2");
+            }
+                
+            function windowOnClick(event) {
+                if (event.target === modal2) {
+                    toggleModal();
+                }
+            }
+             
+            trigger2.addEventListener("click", toggleModal);
+            closeButton.addEventListener("click", toggleModal);
+            window.addEventListener("click", windowOnClick);
+    </script>
 </body>
 </html>

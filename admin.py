@@ -343,7 +343,7 @@ def addArticlePage():
                 doi = request.form['doi']
                 authorEmail = request.form['authorEmail']
                 pubType = request.form['pubType']
-                adminData = session.get('adminData')
+                institution = adminData[1]['institution']
                 data = {
                     "articleTitle" : articleTitle,
                     "author" : author,
@@ -355,14 +355,15 @@ def addArticlePage():
                     "url" : url,
                     "doi" : doi,
                     "pubType" : pubType,
-                    "institution" : adminData[1]['institution']
+                    "institution" : institution
                 }
                 listOfArticles = db.child("articles").get()
-                for article in listOfArticles:
-                    articleVal = article.val()
-                    if (url == articleVal['url']) or (doi == articleVal['doi']):
-                        session['alert'] = "URL already in use."
-                        return render_template('/admin-page/addarticle.html')
+                if listOfArticles.val() is not None:
+                    for article in listOfArticles:
+                        articleVal = article.val()
+                        if (url == articleVal['url']) or (doi == articleVal['doi']):
+                            session['alert'] = "URL already in use."
+                            return render_template('/admin-page/addarticle.html')
                 db.child("articles").push(data)
                 return redirect(url_for("admin.indexPage"))
             except Exception as e:
